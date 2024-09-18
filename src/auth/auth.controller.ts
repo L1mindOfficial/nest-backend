@@ -17,6 +17,7 @@ import { User } from './decorators/user.decorator';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -46,13 +47,13 @@ export class AuthController {
     return this.authService.getProfile(userId);
   }
 
-  // @HttpCode(HttpStatus.OK)
-  // @UseGuards(JwtAuthGuard)
-  // @Post('change-password')
-  // changePassword(
-  //   @User('id') userId: string,
-  //   @Body() changePasswordDto: ChangePasswordDto
-  // ) {
-  //   return this.authService.changePassword(userId, changePasswordDto);
-  // }
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthGuard)
+  @Post('change-password')
+  changePassword(
+    @User('id') userId: string,
+    @Body() changePasswordDto: ChangePasswordDto
+  ) {
+    return this.authService.changePassword(userId, changePasswordDto);
+  }
 }

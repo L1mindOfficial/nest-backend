@@ -3,9 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'auth/auth.module';
 import { Session } from 'session/entities/session.entity';
 import { User } from './entities/user.entity';
-import { UsersSubscriber } from './subscribers/users.subscriber';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
+import { UsersSubscriber } from './subscribers/users.subscriber';
 
 @Module({
   imports: [

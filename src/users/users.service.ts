@@ -53,7 +53,6 @@ export class UsersService {
   }
 
   async findOneById(id: string) {
-    // Find user with id
     return await this.userRepository.findOneBy({ id });
   }
 

@@ -14,6 +14,7 @@ import { JwtPayload } from './../common/interfaces/jwt-payload.interface';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { HashingService } from './hashing/hashing.service';
 import { UsersService } from 'users/users.service';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +30,9 @@ export class AuthService {
   async register(registerUserDto: RegisterUserDto) {
     try {
       // Create user
-      const user = await this.usersService.create({ ...registerUserDto });
+      const user = await this.usersService.create({
+        ...registerUserDto
+      });
 
       // return it
       return user;
@@ -62,25 +65,29 @@ export class AuthService {
     return user;
   }
 
-  // async changePassword(
-  //   id: string,
-  //   { currentPassword, newPassword }: ChangePasswordDto
-  // ) {
-  //   const user = await this.usersService.findOne({ id }, ['password']);
+  async changePassword(
+    id: string,
+    { currentPassword, newPassword }: ChangePasswordDto
+  ) {
+    const user = await this.usersService.findOne({ id }, ['password']);
 
-  //   // Check valid password
-  //   const isMatch = await this.hashingService.compare(
-  //     currentPassword,
-  //     user.password
-  //   );
+    // Check valid password
+    const isMatch = await this.hashingService.compare(
+      currentPassword,
+      user.password
+    );
 
-  //   // If invalid password, handle it
-  //   if (!isMatch) throw new UnauthorizedException('invalid password');
+    // If invalid password, handle it
+    if (!isMatch) throw new UnauthorizedException('invalid password');
 
-  //   // If the new password is different from the current password
-  //   if (currentPassword !== newPassword)
-  //     await this.userRepository.update({ id }, { password: newPassword });
-  // }
+    // If the new password is different from the current password
+    if (currentPassword !== newPassword)
+      await this.usersService.update(id, {
+        password: newPassword
+      });
+
+    // remove sessions
+  }
 
   async validateLocal(email: string, password: string) {
     // Find user with email or username
