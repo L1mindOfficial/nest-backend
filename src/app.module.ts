@@ -9,7 +9,14 @@ import { UsersModule } from './users/users.module';
 import { SessionModule } from './session/session.module';
 
 @Module({
-  imports: [CommonModule, DatabaseModule, EnvModule, AuthModule, UsersModule, SessionModule],
+  imports: [
+    CommonModule,
+    DatabaseModule,
+    EnvModule,
+    AuthModule,
+    UsersModule,
+    SessionModule
+  ],
   controllers: [AppController],
   providers: [AppService]
 })
