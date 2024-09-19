@@ -1,5 +1,6 @@
 import { HashingService } from 'auth/hashing/hashing.service';
 import {
+  DataSource,
   EntitySubscriberInterface,
   EventSubscriber,
   InsertEvent,
@@ -9,7 +10,12 @@ import { User } from 'users/entities/user.entity';
 
 @EventSubscriber()
 export class UsersSubscriber implements EntitySubscriberInterface<User> {
-  constructor(private readonly hashingService: HashingService) {}
+  constructor(
+    private readonly dataSource: DataSource,
+    private readonly hashingService: HashingService
+  ) {
+    dataSource.subscribers.push(this);
+  }
 
   listenTo() {
     return User;
