@@ -8,7 +8,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { CustomAuth } from 'common/interfaces/custom-request.interface';
 import { Device } from 'common/interfaces/device.interface';
-import { SessionService } from 'session/session.service';
+import { SessionsService } from 'sessions/sessions.service';
 import { User } from 'users/entities/user.entity';
 import { JwtPayload } from './../common/interfaces/jwt-payload.interface';
 import { RegisterUserDto } from './dto/register-user.dto';
@@ -20,7 +20,7 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 export class AuthService {
   constructor(
     private readonly hashingService: HashingService,
-    private readonly sessionService: SessionService,
+    private readonly sessionsService: SessionsService,
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
 
@@ -47,7 +47,7 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
 
     // create new session
-    await this.sessionService.create(user.id, token, ip, device);
+    await this.sessionsService.create(user.id, token, ip, device);
 
     // return user data and jwt token
     return {
@@ -84,7 +84,7 @@ export class AuthService {
       });
 
     // remove sessions
-    await this.sessionService.remove(user, session.token);
+    await this.sessionsService.remove(user, session.token);
   }
 
   async validateLocal(email: string, password: string) {
@@ -114,7 +114,7 @@ export class AuthService {
     return user;
   }
 
-  async validateJwt({ id }: JwtPayload, jwtToken: string) {
+  async validateJwt({ id }: JwtPayload, jwtToken: string): Promise<CustomAuth> {
     // Find user with id
     const user = await this.usersService.findOne({ id });
 
@@ -122,13 +122,11 @@ export class AuthService {
     if (!user) throw new UnauthorizedException();
 
     // Checking that the session has not expired
-    const session = await this.sessionService.validate(user.id, jwtToken);
+    const session = await this.sessionsService.validate(user.id, jwtToken);
 
     // If it had expired, handle it
     if (!session) throw new UnauthorizedException();
 
-    // return userId and session
-    const res: CustomAuth = { user, session };
-    return res;
+    return { user, session };
   }
 }

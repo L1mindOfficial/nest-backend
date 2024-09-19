@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Session } from 'session/entities/session.entity';
+import { Session } from 'sessions/entities/session.entity';
 import { User } from 'users/entities/user.entity';
 
 export interface CustomAuth {

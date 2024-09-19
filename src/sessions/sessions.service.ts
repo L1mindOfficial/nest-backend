@@ -2,18 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CustomAuth } from 'common/interfaces/custom-request.interface';
 import { Device } from 'common/interfaces/device.interface';
-import { Session } from 'session/entities/session.entity';
+import { Session } from 'sessions/entities/session.entity';
 import { DataSource, Not, Raw, Repository } from 'typeorm';
 import { User } from 'users/entities/user.entity';
 
 @Injectable()
-export class SessionService {
+export class SessionsService {
   constructor(
     private readonly dataSource: DataSource,
     @InjectRepository(Session)
-    private readonly sessionRepository: Repository<Session>,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>
+    private readonly sessionRepository: Repository<Session>
   ) {}
 
   async create(userId: string, token: string, ip: string, device: Device) {
@@ -44,11 +42,12 @@ export class SessionService {
     return session;
   }
 
-  async sessions({ session }: CustomAuth) {
-    return await this.userRepository.findOne({
-      where: { id: session.id },
-      relations: ['session']
-    });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async sessions(_data: CustomAuth) {
+    // return await this.userRepository.findOne({
+    //   where: { id: session.id },
+    //   relations: ['session']
+    // });
   }
 
   async remove({ id }: User, token: string) {
