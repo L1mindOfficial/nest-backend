@@ -1,7 +1,7 @@
 import { RegistryDates } from 'common/embedded/registry-dates.embedded';
 import { UserRole } from 'common/enums/user-role.enum';
 import { UserStatus } from 'common/enums/user-status.enum';
-import { Session } from 'session/entities/session.entity';
+import { Session } from 'sessions/entities/session.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
