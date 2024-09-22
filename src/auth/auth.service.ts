@@ -11,7 +11,7 @@ import { Device } from 'common/interfaces/device.interface';
 import { SessionsService } from 'sessions/sessions.service';
 import { User } from 'users/entities/user.entity';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { HashingService } from './hashing/hashing.service';
+import { HashingProvider } from './providers/hashing.provider';
 import { UsersService } from 'users/users.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
@@ -19,7 +19,7 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly hashingService: HashingService,
+    private readonly hashingProvider: HashingProvider,
     private readonly sessionsService: SessionsService,
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
@@ -70,7 +70,7 @@ export class AuthService {
     { currentPassword, newPassword }: ChangePasswordDto
   ) {
     // Check valid password
-    const isMatch = await this.hashingService.compare(
+    const isMatch = await this.hashingProvider.compare(
       currentPassword,
       user.password
     );
@@ -104,7 +104,7 @@ export class AuthService {
     //   );
 
     // Check valid password
-    const isMatch = await this.hashingService.compare(password, user.password);
+    const isMatch = await this.hashingProvider.compare(password, user.password);
 
     // If invalid password, handle it
     if (!isMatch) throw new UnauthorizedException('invalid password');
