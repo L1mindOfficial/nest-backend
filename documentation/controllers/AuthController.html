@@ -221,8 +221,8 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="86"
-                                    class="link-to-prism">src/auth/auth.controller.ts:86</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/auth/auth.controller.ts:92</a></div>
                         </td>
                     </tr>
 
@@ -276,7 +276,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                                             <td>
                                                     <ul>
-<li>The DTO containing new password information.</li>
+<li>The DTO containing new password information, including the current and new password.</li>
 </ul>
 
                                             </td>
@@ -289,7 +289,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                         </div>
                             <div class="io-description">
-                                <p>Confirmation of password change.</p>
+                                <p>A confirmation message indicating successful password change.</p>
 
                             </div>
                 </td>
@@ -326,8 +326,8 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="72"
-                                    class="link-to-prism">src/auth/auth.controller.ts:72</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/auth/auth.controller.ts:78</a></div>
                         </td>
                     </tr>
 
@@ -376,7 +376,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                         </div>
                             <div class="io-description">
-                                <p>The user&#39;s profile without sensitive information.</p>
+                                <p>The user&#39;s profile with non-sensitive information, such as username, email, and other public details.</p>
 
                             </div>
                 </td>
@@ -415,8 +415,8 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">src/auth/auth.controller.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/auth/auth.controller.ts:62</a></div>
                         </td>
                     </tr>
 
@@ -501,7 +501,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                         </div>
                             <div class="io-description">
-                                <p>An object containing user information and the generated JWT token.</p>
+                                <p>An object containing user information and the generated JWT token, used for further authentication.</p>
 
                             </div>
                 </td>
@@ -538,8 +538,8 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="40"
-                                    class="link-to-prism">src/auth/auth.controller.ts:40</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/auth/auth.controller.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -588,7 +588,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                         </div>
                             <div class="io-description">
-                                <p>The created user entity.</p>
+                                <p>The created user entity with basic information.</p>
 
                             </div>
                 </td>
@@ -628,13 +628,19 @@ import { CustomAuth } from &#x27;common/interfaces/custom-request.interface&#x27
  */
 @Controller(&#x27;auth&#x27;)
 export class AuthController {
+  /**
+   * Constructor for &#x60;AuthController&#x60; class.
+   *
+   * @param authService - Injected service responsible for handling authentication-related operations.
+   * This service provides methods for user registration, login, profile retrieval, and password changes.
+   */
   constructor(private readonly authService: AuthService) {}
 
   /**
    * Registers a new user using the provided registration data.
    *
    * @param registerUserDto - The DTO containing user registration details.
-   * @returns The created user entity.
+   * @returns The created user entity with basic information.
    */
   @Public()
   @Post(&#x27;register&#x27;)
@@ -648,14 +654,14 @@ export class AuthController {
    * @param user - The authenticated user entity injected by the &#x60;LocalAuthGuard&#x60;.
    * @param ip - The user&#x27;s IP address, retrieved via the &#x60;IpAddress&#x60; decorator.
    * @param device - The device information, retrieved via the &#x60;UserAgent&#x60; decorator.
-   * @returns An object containing user information and the generated JWT token.
+   * @returns An object containing user information and the generated JWT token, used for further authentication.
    */
   @Public()
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Post(&#x27;login&#x27;)
   login(
-    @User(&#x27;user&#x27;) user: UserEntity,
+    @User() user: UserEntity,
     @IpAddress() ip: string,
     @UserAgent() device: Device
   ) {
@@ -666,7 +672,7 @@ export class AuthController {
    * Retrieves the authenticated user&#x27;s profile.
    *
    * @param user - The authenticated user entity injected by the &#x60;JwtAuthGuard&#x60;.
-   * @returns The user&#x27;s profile without sensitive information.
+   * @returns The user&#x27;s profile with non-sensitive information, such as username, email, and other public details.
    */
   @UseGuards(JwtAuthGuard)
   @Get(&#x27;profile&#x27;)
@@ -678,8 +684,8 @@ export class AuthController {
    * Changes the user&#x27;s password after validating the current password.
    *
    * @param authData - The authentication context containing user and session data.
-   * @param changePasswordDto - The DTO containing new password information.
-   * @returns Confirmation of password change.
+   * @param changePasswordDto - The DTO containing new password information, including the current and new password.
+   * @returns A confirmation message indicating successful password change.
    */
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard)

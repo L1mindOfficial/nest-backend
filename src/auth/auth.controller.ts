@@ -27,13 +27,19 @@ import { CustomAuth } from 'common/interfaces/custom-request.interface';
  */
 @Controller('auth')
 export class AuthController {
+  /**
+   * Constructor for `AuthController` class.
+   *
+   * @param authService - Injected service responsible for handling authentication-related operations.
+   * This service provides methods for user registration, login, profile retrieval, and password changes.
+   */
   constructor(private readonly authService: AuthService) {}
 
   /**
    * Registers a new user using the provided registration data.
    *
    * @param registerUserDto - The DTO containing user registration details.
-   * @returns The created user entity.
+   * @returns The created user entity with basic information.
    */
   @Public()
   @Post('register')
@@ -47,14 +53,14 @@ export class AuthController {
    * @param user - The authenticated user entity injected by the `LocalAuthGuard`.
    * @param ip - The user's IP address, retrieved via the `IpAddress` decorator.
    * @param device - The device information, retrieved via the `UserAgent` decorator.
-   * @returns An object containing user information and the generated JWT token.
+   * @returns An object containing user information and the generated JWT token, used for further authentication.
    */
   @Public()
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Post('login')
   login(
-    @User('user') user: UserEntity,
+    @User() user: UserEntity,
     @IpAddress() ip: string,
     @UserAgent() device: Device
   ) {
@@ -65,7 +71,7 @@ export class AuthController {
    * Retrieves the authenticated user's profile.
    *
    * @param user - The authenticated user entity injected by the `JwtAuthGuard`.
-   * @returns The user's profile without sensitive information.
+   * @returns The user's profile with non-sensitive information, such as username, email, and other public details.
    */
   @UseGuards(JwtAuthGuard)
   @Get('profile')
@@ -77,8 +83,8 @@ export class AuthController {
    * Changes the user's password after validating the current password.
    *
    * @param authData - The authentication context containing user and session data.
-   * @param changePasswordDto - The DTO containing new password information.
-   * @returns Confirmation of password change.
+   * @param changePasswordDto - The DTO containing new password information, including the current and new password.
+   * @returns A confirmation message indicating successful password change.
    */
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard)
