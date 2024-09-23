@@ -124,9 +124,8 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>The <code>AuthService</code> class provides authentication-related functionalities, including user registration,
-login, profile retrieval, password change, and JWT validation. It interacts with the user and session
-services to manage authentication processes and maintains security through hashing and JWT strategies.</p>
+                <p>The <code>AuthService</code> class provides services related to user authentication and session management.
+It handles user registration, login, JWT token generation/validation, password changes, and validation of user credentials.</p>
 
             </p>
 
@@ -192,12 +191,15 @@ services to manage authentication processes and maintains security through hashi
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/auth/auth.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/auth/auth.service.ts:24</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Constructs the <code>AuthService</code> by injecting necessary dependencies such as hashing provider, sessions service,
+users service, and JWT service for managing authentication and session-related logic.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -206,6 +208,7 @@ services to manage authentication processes and maintains security through hashi
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -220,6 +223,12 @@ services to manage authentication processes and maintains security through hashi
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>A service for hashing and comparing passwords.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>sessionsService</td>
@@ -232,6 +241,12 @@ services to manage authentication processes and maintains security through hashi
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>A service for handling session-related operations.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>usersService</td>
@@ -244,6 +259,12 @@ services to manage authentication processes and maintains security through hashi
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The service responsible for user management.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>jwtService</td>
@@ -256,6 +277,12 @@ services to manage authentication processes and maintains security through hashi
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The service responsible for signing and verifying JWT tokens.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -293,15 +320,15 @@ services to manage authentication processes and maintains security through hashi
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="95"
-                                    class="link-to-prism">src/auth/auth.service.ts:95</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">src/auth/auth.service.ts:113</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Changes the user&#39;s password after validating the current password.</p>
+                        <div class="io-description"><p>Changes the user&#39;s password after verifying the current password.</p>
 </div>
 
                             <div class="io-description">
@@ -374,15 +401,15 @@ services to manage authentication processes and maintains security through hashi
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="80"
-                                    class="link-to-prism">src/auth/auth.service.ts:80</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/auth/auth.service.ts:96</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retrieves the user&#39;s profile, omitting sensitive information.</p>
+                        <div class="io-description"><p>Retrieves the profile of the authenticated user, omitting sensitive information.</p>
 </div>
 
                             <div class="io-description">
@@ -424,7 +451,7 @@ services to manage authentication processes and maintains security through hashi
 
                         </div>
                             <div class="io-description">
-                                <p>The user profile without sensitive fields.</p>
+                                <p>The user&#39;s profile with sensitive fields like password and role removed.</p>
 
                             </div>
                 </td>
@@ -453,15 +480,15 @@ services to manage authentication processes and maintains security through hashi
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="61"
-                                    class="link-to-prism">src/auth/auth.service.ts:61</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/auth/auth.service.ts:74</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Authenticates a user and creates a new session with a JWT token.</p>
+                        <div class="io-description"><p>Authenticates the user and initiates a session by generating a JWT token.</p>
 </div>
 
                             <div class="io-description">
@@ -508,7 +535,7 @@ services to manage authentication processes and maintains security through hashi
 
                                             <td>
                                                     <ul>
-<li>The IP address of the user.</li>
+<li>The IP address of the user logging in.</li>
 </ul>
 
                                             </td>
@@ -526,7 +553,7 @@ services to manage authentication processes and maintains security through hashi
 
                                             <td>
                                                     <ul>
-<li>The device information from which the user is logging in.</li>
+<li>Information about the device being used to log in.</li>
 </ul>
 
                                             </td>
@@ -539,7 +566,7 @@ services to manage authentication processes and maintains security through hashi
 
                         </div>
                             <div class="io-description">
-                                <p>An object containing user information and the generated JWT token.</p>
+                                <p>An object containing the authenticated user&#39;s details along with the generated JWT token.</p>
 
                             </div>
                 </td>
@@ -568,15 +595,15 @@ services to manage authentication processes and maintains security through hashi
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="41"
-                                    class="link-to-prism">src/auth/auth.service.ts:41</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/auth/auth.service.ts:49</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Registers a new user with the provided registration data.</p>
+                        <div class="io-description"><p>Registers a new user with the provided registration details.</p>
 </div>
 
                             <div class="io-description">
@@ -605,7 +632,7 @@ services to manage authentication processes and maintains security through hashi
 
                                             <td>
                                                     <ul>
-<li>Data Transfer Object containing user registration details.</li>
+<li>Data Transfer Object containing user registration information (email, password, etc.).</li>
 </ul>
 
                                             </td>
@@ -618,7 +645,7 @@ services to manage authentication processes and maintains security through hashi
 
                         </div>
                             <div class="io-description">
-                                <p>The created user entity.</p>
+                                <p>The newly created user entity with sensitive fields removed.</p>
 
                             </div>
                 </td>
@@ -647,15 +674,15 @@ services to manage authentication processes and maintains security through hashi
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="153"
-                                    class="link-to-prism">src/auth/auth.service.ts:153</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">src/auth/auth.service.ts:173</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Validates a JWT token and retrieves the associated user and session.</p>
+                        <div class="io-description"><p>Validates a JWT token and retrieves the corresponding user and session.</p>
 </div>
 
                             <div class="io-description">
@@ -710,7 +737,7 @@ services to manage authentication processes and maintains security through hashi
 
                         </div>
                             <div class="io-description">
-                                <p>The authentication context containing user and session information.</p>
+                                <p>An object containing the authenticated user and their active session.</p>
 
                             </div>
                 </td>
@@ -739,15 +766,15 @@ services to manage authentication processes and maintains security through hashi
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="122"
-                                    class="link-to-prism">src/auth/auth.service.ts:122</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/auth/auth.service.ts:145</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Validates user credentials for local authentication.</p>
+                        <div class="io-description"><p>Validates the user&#39;s credentials for local authentication using email/username and password.</p>
 </div>
 
                             <div class="io-description">
@@ -776,7 +803,7 @@ services to manage authentication processes and maintains security through hashi
 
                                             <td>
                                                     <ul>
-<li>The user&#39;s email or username.</li>
+<li>The email or username provided by the user for login.</li>
 </ul>
 
                                             </td>
@@ -794,7 +821,7 @@ services to manage authentication processes and maintains security through hashi
 
                                             <td>
                                                     <ul>
-<li>The user&#39;s password.</li>
+<li>The password provided by the user.</li>
 </ul>
 
                                             </td>
@@ -837,15 +864,22 @@ import { HashingProvider } from &#x27;./providers/hashing.provider&#x27;;
 import { UsersService } from &#x27;users/users.service&#x27;;
 import { ChangePasswordDto } from &#x27;./dto/change-password.dto&#x27;;
 import { JwtPayload } from &#x27;./interfaces/jwt-payload.interface&#x27;;
-import { UserStatus } from &#x27;common/enums/user-status.enum&#x27;;
 
 /**
- * The &#x60;AuthService&#x60; class provides authentication-related functionalities, including user registration,
- * login, profile retrieval, password change, and JWT validation. It interacts with the user and session
- * services to manage authentication processes and maintains security through hashing and JWT strategies.
+ * The &#x60;AuthService&#x60; class provides services related to user authentication and session management.
+ * It handles user registration, login, JWT token generation/validation, password changes, and validation of user credentials.
  */
 @Injectable()
 export class AuthService {
+  /**
+   * Constructs the &#x60;AuthService&#x60; by injecting necessary dependencies such as hashing provider, sessions service,
+   * users service, and JWT service for managing authentication and session-related logic.
+   *
+   * @param hashingProvider - A service for hashing and comparing passwords.
+   * @param sessionsService - A service for handling session-related operations.
+   * @param usersService - The service responsible for user management.
+   * @param jwtService - The service responsible for signing and verifying JWT tokens.
+   */
   constructor(
     private readonly hashingProvider: HashingProvider,
     private readonly sessionsService: SessionsService,
@@ -855,16 +889,22 @@ export class AuthService {
   ) {}
 
   /**
-   * Registers a new user with the provided registration data.
+   * Registers a new user with the provided registration details.
    *
-   * @param registerUserDto - Data Transfer Object containing user registration details.
-   * @returns The created user entity.
+   * @param registerUserDto - Data Transfer Object containing user registration information (email, password, etc.).
+   * @returns The newly created user entity with sensitive fields removed.
+   * @throws Error if the user creation process fails.
    */
   async register(registerUserDto: RegisterUserDto) {
     try {
       const user &#x3D; await this.usersService.create({
         ...registerUserDto
       });
+
+      // Remove sensitive fields before returning the user
+      delete user.password;
+      delete user.role;
+      delete user.status;
 
       return user;
     } catch (error) {
@@ -873,20 +913,23 @@ export class AuthService {
   }
 
   /**
-   * Authenticates a user and creates a new session with a JWT token.
+   * Authenticates the user and initiates a session by generating a JWT token.
    *
    * @param user - The authenticated user entity.
-   * @param ip - The IP address of the user.
-   * @param device - The device information from which the user is logging in.
-   * @returns An object containing user information and the generated JWT token.
+   * @param ip - The IP address of the user logging in.
+   * @param device - Information about the device being used to log in.
+   * @returns An object containing the authenticated user&#x27;s details along with the generated JWT token.
    */
   async login(user: User, ip: string, device: Device) {
-    const payload: JwtPayload &#x3D; { id: user.id };
+    const payload: JwtPayload &#x3D; { email: user.email };
 
+    // Generate a JWT token
     const token: string &#x3D; this.jwtService.sign(payload);
 
+    // Create a session for the user
     await this.sessionsService.create(user.id, token, ip, device);
 
+    // Return the user information along with the token
     return {
       ...user,
       token
@@ -894,12 +937,13 @@ export class AuthService {
   }
 
   /**
-   * Retrieves the user&#x27;s profile, omitting sensitive information.
+   * Retrieves the profile of the authenticated user, omitting sensitive information.
    *
    * @param user - The authenticated user entity.
-   * @returns The user profile without sensitive fields.
+   * @returns The user&#x27;s profile with sensitive fields like password and role removed.
    */
   async getProfile(user: User) {
+    // Remove sensitive fields from the user object
     delete user.password;
     delete user.id;
     delete user.role;
@@ -909,78 +953,87 @@ export class AuthService {
   }
 
   /**
-   * Changes the user&#x27;s password after validating the current password.
+   * Changes the user&#x27;s password after verifying the current password.
    *
-   * @param auth - The authentication context containing user and session data.
-   * @param changePasswordDto - Data Transfer Object containing new password information.
+   * @param auth - The authentication context containing the user and session data.
+   * @param changePasswordDto - Data Transfer Object containing the current and new passwords.
+   * @throws UnauthorizedException if the current password is invalid or the new password is the same as the old one.
    */
   async changePassword(
     { user, session }: CustomAuth,
     { currentPassword, newPassword }: ChangePasswordDto
   ) {
+    // Verify that the current password matches
     const isMatch: boolean &#x3D; await this.hashingProvider.compare(
       currentPassword,
       user.password
     );
 
-    if (!isMatch) throw new UnauthorizedException(&#x27;invalid password&#x27;);
+    if (!isMatch) throw new UnauthorizedException(&#x27;Invalid current password&#x27;);
 
+    // If the passwords are different, update the user&#x27;s password
     if (currentPassword !&#x3D;&#x3D; newPassword) {
       await this.usersService.update(user.id, {
         password: newPassword
       });
 
+      // Remove the session after password change
       await this.sessionsService.remove(user, session.token);
     }
   }
 
   /**
-   * Validates user credentials for local authentication.
+   * Validates the user&#x27;s credentials for local authentication using email/username and password.
    *
-   * @param email - The user&#x27;s email or username.
-   * @param password - The user&#x27;s password.
+   * @param email - The email or username provided by the user for login.
+   * @param password - The password provided by the user.
    * @returns The authenticated user entity.
+   * @throws NotFoundException if no user is found with the provided credentials.
+   * @throws UnauthorizedException if the password does not match.
    */
   async validateLocal(email: string, password: string) {
+    // Find the user by email or username
     const user &#x3D; await this.usersService.findOne(
       [{ email }, { username: email }],
-      [&#x27;id&#x27;, &#x27;role&#x27;, &#x27;status&#x27;, &#x27;password&#x27;]
+      [&#x27;id&#x27;, &#x27;role&#x27;, &#x27;status&#x27;, &#x27;password&#x27;, &#x27;email&#x27;]
     );
 
     if (!user) throw new NotFoundException(&#x27;User not found&#x27;);
 
-    if (user.status !&#x3D;&#x3D; UserStatus.ACTIVATE)
-      throw new UnauthorizedException(
-        &#x60;Your account is ${user.status.toLowerCase()} see support for reviewing your account&#x60;
-      );
-
+    // Validate the user&#x27;s password
     const isMatch: boolean &#x3D; await this.hashingProvider.compare(
       password,
       user.password
     );
 
-    if (!isMatch) throw new UnauthorizedException(&#x27;invalid password&#x27;);
+    if (!isMatch) throw new UnauthorizedException(&#x27;Invalid password&#x27;);
 
-    delete user.password;
     return user;
   }
 
   /**
-   * Validates a JWT token and retrieves the associated user and session.
+   * Validates a JWT token and retrieves the corresponding user and session.
    *
-   * @param payload - The payload of the JWT token containing user ID.
+   * @param payload - The decoded JWT payload containing the user&#x27;s email.
    * @param jwtToken - The JWT token to validate.
-   * @returns The authentication context containing user and session information.
+   * @returns An object containing the authenticated user and their active session.
+   * @throws UnauthorizedException if the token is invalid or the session is not found.
    */
-  async validateJwt({ id }: JwtPayload, jwtToken: string): Promise&lt;CustomAuth&gt; {
-    const user &#x3D; await this.usersService.findOne({ id });
+  async validateJwt(
+    { email }: JwtPayload,
+    jwtToken: string
+  ): Promise&lt;CustomAuth&gt; {
+    // Find the user associated with the JWT email
+    const user &#x3D; await this.usersService.findOne({ email });
 
     if (!user) throw new UnauthorizedException();
 
+    // Validate the session using the user&#x27;s ID and token
     const session &#x3D; await this.sessionsService.validate(user.id, jwtToken);
 
     if (!session) throw new UnauthorizedException();
 
+    // Return the authenticated user and session
     return { user, session };
   }
 }
