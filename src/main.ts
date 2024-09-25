@@ -54,7 +54,7 @@ async function bootstrap() {
      * Add a tag for grouping API endpoints in the documentation.
      * Tags help organize the endpoints for easier navigation within the Swagger UI.
      */
-    .addTag('api')
+    .addTag('API routes')
 
     /**
      * Build the documentation configuration using the specified settings.

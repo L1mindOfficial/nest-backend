@@ -21,6 +21,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { CustomAuth } from 'common/interfaces/custom-request.interface';
+import { ApiTags } from '@nestjs/swagger';
 
 /**
  * The `AuthController` handles incoming requests related to authentication.
@@ -28,6 +29,7 @@ import { CustomAuth } from 'common/interfaces/custom-request.interface';
  * The controller utilizes guards to protect certain routes and enforces authentication where necessary.
  */
 @Controller({ path: 'auth', version: '1' })
+@ApiTags('auth')
 export class AuthController {
   /**
    * Constructor for `AuthController` class.
