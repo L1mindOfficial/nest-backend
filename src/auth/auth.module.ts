@@ -18,7 +18,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { UsersModule } from 'users/users.module';
 import { SessionsModule } from 'sessions/sessions.module';
-import { RolesGuard } from './guards/roles.gurad';
+import { RolesGuard } from './guards/roles.guard';
 
 /**
  * The `AuthModule` is responsible for managing authentication functionalities within the application.

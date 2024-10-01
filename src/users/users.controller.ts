@@ -22,8 +22,8 @@ import {
   ApiTags
 } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
-import { ErrorResponseDto } from 'common/dto/error-reponse.dto';
-import { RolesGuard } from 'auth/guards/roles.gurad';
+import { ErrorResponseDto } from 'common/dto/error-response.dto';
+import { RolesGuard } from 'auth/guards/roles.guard';
 import { UserRole } from 'common/enums/user-role.enum';
 import { Roles } from 'auth/decorators/roles.decorator';
 
