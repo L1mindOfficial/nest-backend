@@ -34,7 +34,6 @@ export class RolesGuard implements CanActivate {
 
     // If no roles are defined, grant access by default
     if (!requiredRoles) {
-      console.log('1');
       return true;
     }
 
