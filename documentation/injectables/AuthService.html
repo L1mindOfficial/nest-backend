@@ -191,7 +191,7 @@ It handles user registration, login, JWT token generation/validation, password c
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/auth/auth.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/auth/auth.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -320,8 +320,8 @@ users service, and JWT service for managing authentication and session-related l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="113"
-                                    class="link-to-prism">src/auth/auth.service.ts:113</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="100"
+                                    class="link-to-prism">src/auth/auth.service.ts:100</a></div>
                         </td>
                     </tr>
 
@@ -401,8 +401,8 @@ users service, and JWT service for managing authentication and session-related l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="96"
-                                    class="link-to-prism">src/auth/auth.service.ts:96</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="89"
+                                    class="link-to-prism">src/auth/auth.service.ts:89</a></div>
                         </td>
                     </tr>
 
@@ -480,8 +480,8 @@ users service, and JWT service for managing authentication and session-related l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="74"
-                                    class="link-to-prism">src/auth/auth.service.ts:74</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/auth/auth.service.ts:68</a></div>
                         </td>
                     </tr>
 
@@ -595,8 +595,8 @@ users service, and JWT service for managing authentication and session-related l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">src/auth/auth.service.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/auth/auth.service.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -674,8 +674,8 @@ users service, and JWT service for managing authentication and session-related l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="173"
-                                    class="link-to-prism">src/auth/auth.service.ts:173</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/auth/auth.service.ts:160</a></div>
                         </td>
                     </tr>
 
@@ -766,8 +766,8 @@ users service, and JWT service for managing authentication and session-related l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="145"
-                                    class="link-to-prism">src/auth/auth.service.ts:145</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/auth/auth.service.ts:132</a></div>
                         </td>
                     </tr>
 
@@ -848,6 +848,7 @@ users service, and JWT service for managing authentication and session-related l
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  BadRequestException,
   forwardRef,
   Inject,
   Injectable,
@@ -897,16 +898,9 @@ export class AuthService {
    */
   async register(registerUserDto: RegisterUserDto) {
     try {
-      const user &#x3D; await this.usersService.create({
+      return await this.usersService.create({
         ...registerUserDto
       });
-
-      // Remove sensitive fields before returning the user
-      delete user.password;
-      delete user.role;
-      delete user.status;
-
-      return user;
     } catch (error) {
       throw error;
     }
@@ -929,9 +923,8 @@ export class AuthService {
     // Create a session for the user
     await this.sessionsService.create(user.id, token, ip, device);
 
-    // Return the user information along with the token
+    // Return the token
     return {
-      ...user,
       token
     };
   }
@@ -943,12 +936,6 @@ export class AuthService {
    * @returns The user&#x27;s profile with sensitive fields like password and role removed.
    */
   async getProfile(user: User) {
-    // Remove sensitive fields from the user object
-    delete user.password;
-    delete user.id;
-    delete user.role;
-    delete user.status;
-
     return user;
   }
 
@@ -957,7 +944,7 @@ export class AuthService {
    *
    * @param auth - The authentication context containing the user and session data.
    * @param changePasswordDto - Data Transfer Object containing the current and new passwords.
-   * @throws UnauthorizedException if the current password is invalid or the new password is the same as the old one.
+   * @throws BadRequestException if the current password is invalid or the new password is the same as the old one.
    */
   async changePassword(
     { user, session }: CustomAuth,
@@ -969,7 +956,7 @@ export class AuthService {
       user.password
     );
 
-    if (!isMatch) throw new UnauthorizedException(&#x27;Invalid current password&#x27;);
+    if (!isMatch) throw new BadRequestException(&#x27;Invalid current password&#x27;);
 
     // If the passwords are different, update the user&#x27;s password
     if (currentPassword !&#x3D;&#x3D; newPassword) {

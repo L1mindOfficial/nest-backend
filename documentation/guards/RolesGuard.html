@@ -80,7 +80,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content guard">
                    <div class="content-data">
 
 
@@ -90,9 +90,11 @@
 
 
 
+
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >JwtStrategy</li>
+    <li class="breadcrumb-item">Guards</li>
+    <li class="breadcrumb-item" >RolesGuard</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -111,34 +113,20 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="info">
-        <p class="comment">
+        <div class="tab-pane fade active in" id="info">
+            <p class="comment">
             <h3>File</h3>
-        </p>
-        <p class="comment">
-            <code>src/auth/strategies/jwt.strategy.ts</code>
-        </p>
-
-
-            <p class="comment">
-                <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>The <code>JwtStrategy</code> class extends Passport&#39;s strategy for JWT authentication.
-It extracts the JWT from the request&#39;s authorization header and validates the token&#39;s payload.
-Upon validation, it invokes the AuthService to check the validity of the JWT and retrieve user information.</p>
-
-            </p>
-
-            <p class="comment">
-                <h3>Extends</h3>
-            </p>
-            <p class="comment">
-                        <code>PassportStrategy(Strategy)</code>
+                <code>src/auth/guards/roles.guard.ts</code>
             </p>
 
 
-            <section data-compodoc="block-index">
+
+
+
+
+                <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -152,7 +140,7 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#validate" >validate</a>
+                                <a href="#canActivate" >canActivate</a>
                             </li>
                         </ul>
                     </td>
@@ -166,24 +154,28 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
+                <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(jwtConfiguration: ConfigType<>, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
+<code>constructor(reflector: Reflector)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/auth/strategies/jwt.strategy.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/auth/guards/roles.guard.ts:6</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>The constructor initializes the JWT strategy with necessary configurations.</p>
+                            <div class="io-description"><p>Creates an instance of RolesGuard.</p>
+<p>metadata defined by decorators.</p>
+<p>The <code>private readonly</code> modifier indicates that this parameter is only
+accessible within the class and cannot be changed after initialization,
+ensuring the guard&#39;s integrity during its lifecycle.</p>
 </div>
                             <div>
                                     <b>Parameters :</b>
@@ -198,10 +190,10 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>jwtConfiguration</td>
+                                                        <td>reflector</td>
                                                   
                                                         <td>
-                                                                    <code>ConfigType&lt;&gt;</code>
+                                                                    <code>Reflector</code>
                                                         </td>
                                                   
                                                     <td>
@@ -210,26 +202,12 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
                                                     
                                                         <td>
                                                                 <ul>
-<li>The configuration settings for JWT, injected from the jwtConfig module.</li>
+<li>An instance of the Reflector service used to access
+metadata defined by decorators.</li>
 </ul>
-
-                                                        </td>
-                                                </tr>
-                                                <tr>
-                                                        <td>authService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                        <td>
-                                                                <ul>
-<li>The AuthService instance, used for validating the JWT payload and retrieving user data.</li>
-</ul>
+<p>The <code>private readonly</code> modifier indicates that this parameter is only
+accessible within the class and cannot be changed after initialization,
+ensuring the guard&#39;s integrity during its lifecycle.</p>
 
                                                         </td>
                                                 </tr>
@@ -242,7 +220,7 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
         </table>
 </section>
 
-            <section data-compodoc="block-methods">
+                <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -251,33 +229,34 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="validate"></a>
+                    <a name="canActivate"></a>
                     <span class="name">
-                        <span ><b>validate</b></span>
-                        <a href="#validate"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>canActivate</b></span>
+                        <a href="#canActivate"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>validate(req: Request, payload: <a href="../interfaces/JwtPayload.html" target="_self">JwtPayload</a>)</code>
+<code>canActivate(context: ExecutionContext)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="65"
-                                    class="link-to-prism">src/auth/strategies/jwt.strategy.ts:65</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/auth/guards/roles.guard.ts:28</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Validates the JWT payload by calling the AuthService&#39;s validateJwt method.</p>
-<p>This method is invoked after the JWT has been extracted and decoded.</p>
-</div>
+                        <div class="io-description"><p>Determines whether the current request is authorized to proceed based on user roles.
+It checks if the user has one of the roles required by the route, which are defined using
+the @Roles decorator. If no roles are specified, access is granted by default.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">           and the incoming request.</code></pre></div></div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -293,9 +272,9 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>req</td>
+                                                <td>context</td>
                                             <td>
-                                                        <code>Request</code>
+                                                        <code>ExecutionContext</code>
                                             </td>
 
                                             <td>
@@ -304,27 +283,8 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
 
 
                                             <td>
-                                                    <ul>
-<li>The incoming request object, used to retrieve the JWT.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>payload</td>
-                                            <td>
-                                                            <code><a href="../interfaces/JwtPayload.html" target="_self" >JwtPayload</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>The decoded JWT payload containing user information.</li>
-</ul>
+                                                    <p>The current execution context, providing access to the route handler
+and the incoming request.</p>
 
                                             </td>
                                         </tr>
@@ -332,11 +292,11 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                         </div>
                             <div class="io-description">
-                                <p>The result of the authentication process, including user and session data if valid.</p>
+                                <p>boolean True if the user is authorized, false otherwise.</p>
 
                             </div>
                 </td>
@@ -344,96 +304,64 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
         </tbody>
     </table>
 </section>
+        </div>
 
-    </div>
 
+        <div class="tab-pane fade  tab-source-code" id="source">
+            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, CanActivate, ExecutionContext } from &#x27;@nestjs/common&#x27;;
+import { Reflector } from &#x27;@nestjs/core&#x27;;
+import { ROLES_KEY } from &#x27;auth/decorators/roles.decorator&#x27;;
 
-    <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable } from &#x27;@nestjs/common&#x27;;
-import { ConfigType } from &#x27;@nestjs/config&#x27;;
-import { PassportStrategy } from &#x27;@nestjs/passport&#x27;;
-import { AuthService } from &#x27;auth/auth.service&#x27;;
-import jwtConfig from &#x27;auth/config/jwt.config&#x27;;
-import { JwtPayload } from &#x27;auth/interfaces/jwt-payload.interface&#x27;;
-import { Request } from &#x27;express&#x27;;
-import { ExtractJwt, Strategy } from &#x27;passport-jwt&#x27;;
-
-/**
- * The &#x60;JwtStrategy&#x60; class extends Passport&#x27;s strategy for JWT authentication.
- * It extracts the JWT from the request&#x27;s authorization header and validates the token&#x27;s payload.
- * Upon validation, it invokes the AuthService to check the validity of the JWT and retrieve user information.
- */
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class RolesGuard implements CanActivate {
   /**
-   * The constructor initializes the JWT strategy with necessary configurations.
+   * Creates an instance of RolesGuard.
    *
-   * @param jwtConfiguration - The configuration settings for JWT, injected from the jwtConfig module.
-   * @param authService - The AuthService instance, used for validating the JWT payload and retrieving user data.
+   * @param reflector - An instance of the Reflector service used to access
+   * metadata defined by decorators.
+   *
+   * The &#x60;private readonly&#x60; modifier indicates that this parameter is only
+   * accessible within the class and cannot be changed after initialization,
+   * ensuring the guard&#x27;s integrity during its lifecycle.
    */
-  constructor(
-    @Inject(jwtConfig.KEY)
-    private readonly jwtConfiguration: ConfigType&lt;typeof jwtConfig&gt;,
-    private readonly authService: AuthService
-  ) {
-    super({
-      /**
-       * Extracts the JWT from the Authorization header as a Bearer token.
-       * This allows the strategy to retrieve the token sent by the client.
-       */
-      jwtFromRequest: ExtractJwt.fromExtractors([
-        // Extract from the Authorization header
-        ExtractJwt.fromAuthHeaderAsBearerToken(),
-        // Extract from cookies
-        (req) &#x3D;&gt; {
-          return req.cookies[&#x27;access-token&#x27;] || null;
-        }
-      ]),
-
-      /**
-       * The secret key used to verify the authenticity of the JWT.
-       * This key is essential for ensuring that the token has not been tampered with.
-       */
-      secretOrKey: jwtConfiguration.secret,
-
-      /**
-       * Indicates that the request object should be passed to the validation callback.
-       * This enables access to request-specific data during validation.
-       */
-      passReqToCallback: true
-    });
-  }
+  constructor(private reflector: Reflector) {}
 
   /**
-   * Validates the JWT payload by calling the AuthService&#x27;s validateJwt method.
+   * Determines whether the current request is authorized to proceed based on user roles.
+   * It checks if the user has one of the roles required by the route, which are defined using
+   * the @Roles decorator. If no roles are specified, access is granted by default.
    *
-   * This method is invoked after the JWT has been extracted and decoded.
-   *
-   * @param req - The incoming request object, used to retrieve the JWT.
-   * @param payload - The decoded JWT payload containing user information.
-   * @returns The result of the authentication process, including user and session data if valid.
+   * @param context The current execution context, providing access to the route handler
+   *                and the incoming request.
+   * @returns boolean True if the user is authorized, false otherwise.
    */
-  validate(req: Request, payload: JwtPayload) {
-    const token &#x3D;
-      req.headers?.authorization?.replace(&#x27;bearer &#x27;, &#x27;&#x27;) ||
-      req.cookies[&#x27;access-token&#x27;];
-
-    return this.authService.validateJwt(
-      payload,
-      /**
-       * Extracts the JWT token from the authorization header by removing the &#x27;bearer &#x27; prefix.
-       * This is necessary to obtain the raw token for validation.
-       */
-      token
+  canActivate(context: ExecutionContext): boolean {
+    // Retrieve the required roles from the route metadata
+    const requiredRoles &#x3D; this.reflector.getAllAndOverride&lt;string[]&gt;(
+      ROLES_KEY,
+      [context.getHandler(), context.getClass()]
     );
+
+    // If no roles are defined, grant access by default
+    if (!requiredRoles) {
+      return true;
+    }
+
+    // Extract the user object from the request (assuming it&#x27;s populated by authentication middleware)
+    const { user: data } &#x3D; context.switchToHttp().getRequest();
+
+    // Deny access if the user object or its role property is missing
+    if (!data.user || !data.user.role) {
+      return false;
+    }
+
+    // Check if the user&#x27;s role matches any of the required roles for the route
+    return requiredRoles.includes(data.user.role);
   }
 }
 </code></pre>
-    </div>
-
+        </div>
 </div>
-
-
 
 
 
@@ -470,8 +398,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'JwtStrategy.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'guard';
+            var COMPODOC_CURRENT_PAGE_URL = 'RolesGuard.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

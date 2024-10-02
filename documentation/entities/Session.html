@@ -146,25 +146,31 @@ This entity is primarily used to track and manage user sessions for authenticati
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#device" >device</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#expiryDate" >expiryDate</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#id" >id</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#ip" >ip</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#owner" >owner</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#token" >token</a>
                             </li>
@@ -193,6 +199,7 @@ This entity is primarily used to track and manage user sessions for authenticati
                     <a name="device"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>device</b></span>
                         <a href="#device"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -209,21 +216,20 @@ This entity is primarily used to track and manage user sessions for authenticati
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column({type: &#x27;json&#x27;})<br />
+                            @ApiProperty({description: &#x27;JSON object representing the device details for this session.&#x27;, example: undefined})<br />@Column({type: &#x27;json&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/sessions/entities/session.entity.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/sessions/entities/session.entity.ts:54</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>JSON object representing the device information for this session.
-This typically includes details like the device&#39;s type, operating system,
-browser, and other relevant metadata that helps identify the user&#39;s device.</p>
+Includes details like the device&#39;s type, operating system, browser, etc.</p>
 </div>
                 </td>
             </tr>
@@ -236,6 +242,7 @@ browser, and other relevant metadata that helps identify the user&#39;s device.<
                 <td class="col-md-4">
                     <a name="expiryDate"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>expiryDate</b></span>
                         <a href="#expiryDate"><span class="icon ion-ios-link"></span></a>
@@ -253,21 +260,19 @@ browser, and other relevant metadata that helps identify the user&#39;s device.<
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column()<br />
+                            @ApiProperty({description: &#x27;The expiration date of the session.&#x27;, example: &#x27;2024-09-25T10:00:00.000Z&#x27;})<br />@Column()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/sessions/entities/session.entity.ts:53</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/sessions/entities/session.entity.ts:75</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>The expiration date of the session.
-This indicates when the session will no longer be valid.
-Typically, the session is automatically invalidated once this date is in the past.</p>
+                    <div class="io-description"><p>The expiration date of the session, after which it becomes invalid.</p>
 </div>
                 </td>
             </tr>
@@ -280,6 +285,7 @@ Typically, the session is automatically invalidated once this date is in the pas
                 <td class="col-md-4">
                     <a name="id"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>id</b></span>
                         <a href="#id"><span class="icon ion-ios-link"></span></a>
@@ -297,13 +303,13 @@ Typically, the session is automatically invalidated once this date is in the pas
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @PrimaryGeneratedColumn(&#x27;uuid&#x27;)<br />
+                            @ApiProperty({description: &#x27;The unique identifier for the session (UUID).&#x27;, example: &#x27;a1b2c3d4-e5f6-7890-1234-56789abcdef0&#x27;})<br />@PrimaryGeneratedColumn(&#x27;uuid&#x27;)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/sessions/entities/session.entity.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/sessions/entities/session.entity.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -324,6 +330,7 @@ This is automatically generated as a UUID (Universal Unique Identifier).</p>
                     <a name="ip"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>ip</b></span>
                         <a href="#ip"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -340,21 +347,20 @@ This is automatically generated as a UUID (Universal Unique Identifier).</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column()<br />
+                            @ApiProperty({description: &#x27;The IP address from which the session was initiated.&#x27;, example: &#x27;192.168.1.100&#x27;})<br />@Column()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/sessions/entities/session.entity.ts:45</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/sessions/entities/session.entity.ts:65</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>The IP address from which the session was initiated.
-This is used to track the location or network from which the user accessed the application.
-It may also be used for security purposes, such as detecting unusual login locations.</p>
+Used to track the user&#39;s access point and for security checks.</p>
 </div>
                 </td>
             </tr>
@@ -367,6 +373,7 @@ It may also be used for security purposes, such as detecting unusual login locat
                 <td class="col-md-4">
                     <a name="owner"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>owner</b></span>
                         <a href="#owner"><span class="icon ion-ios-link"></span></a>
@@ -384,21 +391,20 @@ It may also be used for security purposes, such as detecting unusual login locat
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ManyToOne(undefined, user &#x3D;&gt; user.id, {nullable: false})<br />
+                            @ApiProperty({description: &#x27;The user who owns this session.&#x27;, type: () &#x3D;&gt; User})<br />@ManyToOne(undefined, user &#x3D;&gt; user.sessions, {nullable: false})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/sessions/entities/session.entity.ts:63</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/sessions/entities/session.entity.ts:86</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>The user who owns this session.
-Represents a Many-to-One relationship with the <code>User</code> entity, meaning that one user can have multiple sessions.
-This relationship is essential for linking sessions back to the authenticated user.</p>
+This establishes a Many-to-One relationship with the <code>User</code> entity.</p>
 </div>
                 </td>
             </tr>
@@ -411,6 +417,7 @@ This relationship is essential for linking sessions back to the authenticated us
                 <td class="col-md-4">
                     <a name="token"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>token</b></span>
                         <a href="#token"><span class="icon ion-ios-link"></span></a>
@@ -428,21 +435,20 @@ This relationship is essential for linking sessions back to the authenticated us
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column({unique: true})<br />
+                            @ApiProperty({description: &#x27;The unique token for this session used for authentication.&#x27;, example: &#x27;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&#x27;})<br />@Column({unique: true})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/sessions/entities/session.entity.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/sessions/entities/session.entity.ts:37</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>The session&#39;s authentication token.
-This token is unique and used to identify the session when validating user requests.
-For security reasons, this field must remain unique for each session.</p>
+This token is unique and used to identify the session when validating user requests.</p>
 </div>
                 </td>
             </tr>
@@ -454,7 +460,8 @@ For security reasons, this field must remain unique for each session.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Device } from &#x27;common/interfaces/device.interface&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { Device } from &#x27;common/interfaces/device.interface&#x27;;
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from &#x27;typeorm&#x27;;
 import { User } from &#x27;users/entities/user.entity&#x27;;
 
@@ -473,49 +480,71 @@ export class Session {
    * The unique identifier for the session.
    * This is automatically generated as a UUID (Universal Unique Identifier).
    */
+  @ApiProperty({
+    description: &#x27;The unique identifier for the session (UUID).&#x27;,
+    example: &#x27;a1b2c3d4-e5f6-7890-1234-56789abcdef0&#x27;
+  })
   @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
   id: string;
 
   /**
    * The session&#x27;s authentication token.
    * This token is unique and used to identify the session when validating user requests.
-   * For security reasons, this field must remain unique for each session.
    */
+  @ApiProperty({
+    description: &#x27;The unique token for this session used for authentication.&#x27;,
+    example: &#x27;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&#x27;
+  })
   @Column({ unique: true })
   token: string;
 
   /**
    * JSON object representing the device information for this session.
-   * This typically includes details like the device&#x27;s type, operating system,
-   * browser, and other relevant metadata that helps identify the user&#x27;s device.
+   * Includes details like the device&#x27;s type, operating system, browser, etc.
    */
+  @ApiProperty({
+    description:
+      &#x27;JSON object representing the device details for this session.&#x27;,
+    example: {
+      deviceType: &#x27;mobile&#x27;,
+      os: &#x27;iOS&#x27;,
+      browser: &#x27;Safari&#x27;,
+      browserVersion: &#x27;14.0&#x27;
+    }
+  })
   @Column({ type: &#x27;json&#x27; })
   device: Device;
 
   /**
    * The IP address from which the session was initiated.
-   * This is used to track the location or network from which the user accessed the application.
-   * It may also be used for security purposes, such as detecting unusual login locations.
+   * Used to track the user&#x27;s access point and for security checks.
    */
+  @ApiProperty({
+    description: &#x27;The IP address from which the session was initiated.&#x27;,
+    example: &#x27;192.168.1.100&#x27;
+  })
   @Column()
   ip: string;
 
   /**
-   * The expiration date of the session.
-   * This indicates when the session will no longer be valid.
-   * Typically, the session is automatically invalidated once this date is in the past.
+   * The expiration date of the session, after which it becomes invalid.
    */
+  @ApiProperty({
+    description: &#x27;The expiration date of the session.&#x27;,
+    example: &#x27;2024-09-25T10:00:00.000Z&#x27;
+  })
   @Column()
   expiryDate: Date;
 
   /**
    * The user who owns this session.
-   * Represents a Many-to-One relationship with the &#x60;User&#x60; entity, meaning that one user can have multiple sessions.
-   * This relationship is essential for linking sessions back to the authenticated user.
+   * This establishes a Many-to-One relationship with the &#x60;User&#x60; entity.
    */
-  @ManyToOne(() &#x3D;&gt; User, (user) &#x3D;&gt; user.id, {
-    nullable: false // Ensures that a session must always be associated with a user.
+  @ApiProperty({
+    description: &#x27;The user who owns this session.&#x27;,
+    type: () &#x3D;&gt; User
   })
+  @ManyToOne(() &#x3D;&gt; User, (user) &#x3D;&gt; user.sessions, { nullable: false })
   owner: User;
 }
 </code></pre>

@@ -128,8 +128,9 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>UsersController handles HTTP requests related to user management.
-It defines endpoints for creating, retrieving, updating, and deleting users.</p>
+                <p>The <code>UsersController</code> is responsible for handling all incoming HTTP requests related to managing user entities.
+This includes creating, retrieving, updating, and deleting users. The controller is protected by the <code>RolesGuard</code>
+and is only accessible to users with the <code>ADMIN</code> role.</p>
 
             </p>
 
@@ -151,21 +152,45 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#create" >create</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#findAll" >findAll</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#findOne" >findOne</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#remove" >remove</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#update" >update</a>
                             </li>
@@ -193,6 +218,10 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                     <a name="create"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>create</b></span>
                         <a href="#create"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -209,21 +238,26 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br /></code>
+                    <code>@Post()<br />@ApiOperation({summary: &#x27;Create a new user&#x27;})<br />@ApiResponse({status: 201, description: &#x27;User successfully created&#x27;, type: User})<br />@ApiResponse({status: 422, description: &#x27;Unprocessable Entity - User already exists&#x27;, type: ErrorResponseDto})<br />@ApiResponse({status: 503, description: &#x27;Service Unavailable - Unable to create user&#x27;, type: ErrorResponseDto})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">src/users/users.controller.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">src/users/users.controller.ts:69</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Endpoint to create a new user.</p>
+                        <div class="io-description"><p>Handles the creation of a new user.</p>
+<p><strong>Decorators:</strong></p>
+<ul>
+<li><code>@Post()</code>: Marks this as a POST request to create a new user.</li>
+<li><code>@Body()</code>: Binds the incoming request body to the <code>CreateUserDto</code>.</li>
+</ul>
 </div>
 
                             <div class="io-description">
@@ -252,7 +286,7 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
 
                                             <td>
                                                     <ul>
-<li>Data Transfer Object containing user creation details.</li>
+<li>The DTO containing the new user&#39;s details.</li>
 </ul>
 
                                             </td>
@@ -265,7 +299,7 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>The created user entity.</p>
+                                <p>The newly created user entity.</p>
 
                             </div>
                 </td>
@@ -278,6 +312,9 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                 <td class="col-md-4">
                     <a name="findAll"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>findAll</b></span>
                         <a href="#findAll"><span class="icon ion-ios-link"></span></a>
@@ -295,21 +332,25 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br /></code>
+                    <code>@Get()<br />@ApiOperation({summary: &#x27;Retrieves a list of all users registered in the application&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Successfully retrieved the list of users&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal Server Error&#x27;, type: ErrorResponseDto})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="40"
-                                    class="link-to-prism">src/users/users.controller.ts:40</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/users/users.controller.ts:94</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Endpoint to retrieve all users.</p>
+                        <div class="io-description"><p>Fetches all users.</p>
+<p><strong>Decorators:</strong></p>
+<ul>
+<li><code>@Get()</code>: Marks this as a GET request to retrieve all users.</li>
+</ul>
 </div>
 
                         <div class="io-description">
@@ -317,7 +358,7 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>An array of user entities.</p>
+                                <p>An array of all user entities in the system.</p>
 
                             </div>
                 </td>
@@ -330,6 +371,10 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                 <td class="col-md-4">
                     <a name="findOne"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>findOne</b></span>
                         <a href="#findOne"><span class="icon ion-ios-link"></span></a>
@@ -347,21 +392,26 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;:id&#x27;)<br /></code>
+                    <code>@Get(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Retrieve a single user by ID&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: String, required: true, description: &#x27;The unique ID of the user to retrieve&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Successfully retrieved the user&#x27;, type: User})<br />@ApiResponse({status: 404, description: &#x27;User not found&#x27;, type: ErrorResponseDto})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">src/users/users.controller.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/users/users.controller.ts:128</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Endpoint to retrieve a single user by ID.</p>
+                        <div class="io-description"><p>Fetches a single user based on the provided ID.</p>
+<p><strong>Decorators:</strong></p>
+<ul>
+<li><code>@Get(&#39;:id&#39;)</code>: Marks this as a GET request to retrieve a user by their ID.</li>
+<li><code>@Param()</code>: Extracts the ID parameter from the request URL.</li>
+</ul>
 </div>
 
                             <div class="io-description">
@@ -395,7 +445,7 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>The found user entity.</p>
+                                <p>The found user entity, or an error if not found.</p>
 
                             </div>
                 </td>
@@ -408,6 +458,13 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                 <td class="col-md-4">
                     <a name="remove"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>remove</b></span>
                         <a href="#remove"><span class="icon ion-ios-link"></span></a>
@@ -425,21 +482,27 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete(&#x27;:id&#x27;)<br /></code>
+                    <code>@Delete(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Delete a user&#x27;, description: &#x27;Deletes a user by ID, with an option for soft delete.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: String, required: true, description: &#x27;The UUID of the user to delete.&#x27;})<br />@ApiQuery({name: &#x27;soft&#x27;, type: Boolean, required: false, description: &#x27;Set to true for a soft delete. If omitted or false, a hard delete is performed.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;User deleted successfully.&#x27;, schema: undefined})<br />@ApiResponse({status: 404, description: &#x27;User not found.&#x27;, schema: undefined})<br />@ApiResponse({status: 409, description: &#x27;User cannot be deleted due to related data.&#x27;, schema: undefined})<br />@ApiResponse({status: 500, description: &#x27;An unexpected error occurred during deletion.&#x27;, schema: undefined})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="72"
-                                    class="link-to-prism">src/users/users.controller.ts:72</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="255"
+                                    class="link-to-prism">src/users/users.controller.ts:255</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Endpoint to delete (or soft-delete) a user by ID.</p>
+                        <div class="io-description"><p>Deletes a user by ID, either permanently or via soft delete.</p>
+<p><strong>Decorators:</strong></p>
+<ul>
+<li><code>@Delete(&#39;:id&#39;)</code>: Marks this as a DELETE request to remove a user by their ID.</li>
+<li><code>@Param()</code>: Extracts the user ID from the request URL.</li>
+<li><code>@Query()</code>: Accepts a query parameter <code>soft</code> to specify if it&#39;s a soft delete.</li>
+</ul>
 </div>
 
                             <div class="io-description">
@@ -484,7 +547,7 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>The result of the delete operation.</p>
+                                <p>A message indicating success or failure.</p>
 
                             </div>
                 </td>
@@ -497,6 +560,12 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                 <td class="col-md-4">
                     <a name="update"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>update</b></span>
                         <a href="#update"><span class="icon ion-ios-link"></span></a>
@@ -514,21 +583,27 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;:id&#x27;)<br /></code>
+                    <code>@Patch(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Update a user by ID&#x27;, description: &#x27;Updates the user details for the provided ID.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: String, required: true, description: &#x27;The ID of the user to update. Must be a valid UUID.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;User updated successfully&#x27;, type: UpdateUserDto})<br />@ApiResponse({status: 404, description: &#x27;User not found&#x27;, type: ErrorResponseDto})<br />@ApiResponse({status: 422, description: &#x27;Unprocessable Entity - Duplicate data conflict&#x27;, type: ErrorResponseDto})<br />@ApiResponse({status: 500, description: &#x27;Internal server error&#x27;, type: ErrorResponseDto})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="61"
-                                    class="link-to-prism">src/users/users.controller.ts:61</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/users/users.controller.ts:175</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Endpoint to update an existing user by ID.</p>
+                        <div class="io-description"><p>Updates an existing user by ID.</p>
+<p><strong>Decorators:</strong></p>
+<ul>
+<li><code>@Patch(&#39;:id&#39;)</code>: Marks this as a PATCH request to update the user by their ID.</li>
+<li><code>@Param()</code>: Extracts the user ID from the request URL.</li>
+<li><code>@Body()</code>: Binds the incoming request body to the <code>UpdateUserDto</code>.</li>
+</ul>
 </div>
 
                             <div class="io-description">
@@ -570,7 +645,7 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
 
                                             <td>
                                                     <ul>
-<li>Data Transfer Object containing updated user details.</li>
+<li>The DTO containing the updated user details.</li>
 </ul>
 
                                             </td>
@@ -583,7 +658,7 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>The updated user entity.</p>
+                                <p>The updated user entity or appropriate error messages.</p>
 
                             </div>
                 </td>
@@ -602,69 +677,252 @@ It defines endpoints for creating, retrieving, updating, and deleting users.</p>
   Param,
   Patch,
   Post,
-  Query
+  Query,
+  UseGuards
 } from &#x27;@nestjs/common&#x27;;
 import { IdDto } from &#x27;common/dto/id.dto&#x27;;
 import { RemoveDto } from &#x27;common/dto/remove.dto&#x27;;
 import { CreateUserDto } from &#x27;./dto/create-user.dto&#x27;;
 import { UpdateUserDto } from &#x27;./dto/update-user.dto&#x27;;
 import { UsersService } from &#x27;./users.service&#x27;;
+import {
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags
+} from &#x27;@nestjs/swagger&#x27;;
+import { User } from &#x27;./entities/user.entity&#x27;;
+import { ErrorResponseDto } from &#x27;common/dto/error-response.dto&#x27;;
+import { RolesGuard } from &#x27;auth/guards/roles.guard&#x27;;
+import { UserRole } from &#x27;common/enums/user-role.enum&#x27;;
+import { Roles } from &#x27;auth/decorators/roles.decorator&#x27;;
 
 /**
- * UsersController handles HTTP requests related to user management.
- * It defines endpoints for creating, retrieving, updating, and deleting users.
+ * The &#x60;UsersController&#x60; is responsible for handling all incoming HTTP requests related to managing user entities.
+ * This includes creating, retrieving, updating, and deleting users. The controller is protected by the &#x60;RolesGuard&#x60;
+ * and is only accessible to users with the &#x60;ADMIN&#x60; role.
  */
 @Controller(&#x27;users&#x27;)
+@UseGuards(RolesGuard)
+@Roles(UserRole.ADMIN)
+@ApiTags(&#x27;users&#x27;)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   /**
-   * Endpoint to create a new user.
-   * @param createUserDto - Data Transfer Object containing user creation details.
-   * @returns The created user entity.
+   * Handles the creation of a new user.
+   *
+   * **Decorators:**
+   * - &#x60;@Post()&#x60;: Marks this as a POST request to create a new user.
+   * - &#x60;@Body()&#x60;: Binds the incoming request body to the &#x60;CreateUserDto&#x60;.
+   *
+   * @param createUserDto - The DTO containing the new user&#x27;s details.
+   * @returns The newly created user entity.
    */
   @Post()
+  @ApiOperation({ summary: &#x27;Create a new user&#x27; })
+  @ApiResponse({
+    status: 201,
+    description: &#x27;User successfully created&#x27;,
+    type: User
+  })
+  @ApiResponse({
+    status: 422,
+    description: &#x27;Unprocessable Entity - User already exists&#x27;,
+    type: ErrorResponseDto
+  })
+  @ApiResponse({
+    status: 503,
+    description: &#x27;Service Unavailable - Unable to create user&#x27;,
+    type: ErrorResponseDto
+  })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   /**
-   * Endpoint to retrieve all users.
-   * @returns An array of user entities.
+   * Fetches all users.
+   *
+   * **Decorators:**
+   * - &#x60;@Get()&#x60;: Marks this as a GET request to retrieve all users.
+   *
+   * @returns An array of all user entities in the system.
    */
   @Get()
+  @ApiOperation({
+    summary: &#x27;Retrieves a list of all users registered in the application&#x27;
+  })
+  @ApiResponse({
+    status: 200,
+    description: &#x27;Successfully retrieved the list of users&#x27;
+  })
+  @ApiResponse({
+    status: 500,
+    description: &#x27;Internal Server Error&#x27;,
+    type: ErrorResponseDto
+  })
   findAll() {
     return this.usersService.findAll();
   }
 
   /**
-   * Endpoint to retrieve a single user by ID.
-   * @param id - The ID of the user.
-   * @returns The found user entity.
+   * Fetches a single user based on the provided ID.
+   *
+   * **Decorators:**
+   * - &#x60;@Get(&#x27;:id&#x27;)&#x60;: Marks this as a GET request to retrieve a user by their ID.
+   * - &#x60;@Param()&#x60;: Extracts the ID parameter from the request URL.
+   *
+   * @param id - The unique identifier of the user to be retrieved.
+   * @returns The found user entity, or an error if not found.
    */
   @Get(&#x27;:id&#x27;)
+  @ApiOperation({
+    summary: &#x27;Retrieve a single user by ID&#x27;
+  })
+  @ApiParam({
+    name: &#x27;id&#x27;,
+    type: String,
+    required: true,
+    description: &#x27;The unique ID of the user to retrieve&#x27;
+  })
+  @ApiResponse({
+    status: 200,
+    description: &#x27;Successfully retrieved the user&#x27;,
+    type: User
+  })
+  @ApiResponse({
+    status: 404,
+    description: &#x27;User not found&#x27;,
+    type: ErrorResponseDto
+  })
   findOne(@Param(&#x27;id&#x27;) { id }: IdDto) {
     return this.usersService.findOneById(id);
   }
 
   /**
-   * Endpoint to update an existing user by ID.
-   * @param id - The ID of the user.
-   * @param updateUserDto - Data Transfer Object containing updated user details.
-   * @returns The updated user entity.
+   * Updates an existing user by ID.
+   *
+   * **Decorators:**
+   * - &#x60;@Patch(&#x27;:id&#x27;)&#x60;: Marks this as a PATCH request to update the user by their ID.
+   * - &#x60;@Param()&#x60;: Extracts the user ID from the request URL.
+   * - &#x60;@Body()&#x60;: Binds the incoming request body to the &#x60;UpdateUserDto&#x60;.
+   *
+   * @param id - The ID of the user to be updated.
+   * @param updateUserDto - The DTO containing the updated user details.
+   * @returns The updated user entity or appropriate error messages.
    */
   @Patch(&#x27;:id&#x27;)
+  @ApiOperation({
+    summary: &#x27;Update a user by ID&#x27;,
+    description: &#x27;Updates the user details for the provided ID.&#x27;
+  })
+  @ApiParam({
+    name: &#x27;id&#x27;,
+    type: String,
+    required: true,
+    description: &#x27;The ID of the user to update. Must be a valid UUID.&#x27;
+  })
+  @ApiResponse({
+    status: 200,
+    description: &#x27;User updated successfully&#x27;,
+    type: UpdateUserDto
+  })
+  @ApiResponse({
+    status: 404,
+    description: &#x27;User not found&#x27;,
+    type: ErrorResponseDto
+  })
+  @ApiResponse({
+    status: 422,
+    description: &#x27;Unprocessable Entity - Duplicate data conflict&#x27;,
+    type: ErrorResponseDto
+  })
+  @ApiResponse({
+    status: 500,
+    description: &#x27;Internal server error&#x27;,
+    type: ErrorResponseDto
+  })
   update(@Param(&#x27;id&#x27;) { id }: IdDto, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
   /**
-   * Endpoint to delete (or soft-delete) a user by ID.
-   * @param id - The ID of the user.
-   * @param soft - Flag indicating whether to soft-delete the user.
-   * @returns The result of the delete operation.
+   * Deletes a user by ID, either permanently or via soft delete.
+   *
+   * **Decorators:**
+   * - &#x60;@Delete(&#x27;:id&#x27;)&#x60;: Marks this as a DELETE request to remove a user by their ID.
+   * - &#x60;@Param()&#x60;: Extracts the user ID from the request URL.
+   * - &#x60;@Query()&#x60;: Accepts a query parameter &#x60;soft&#x60; to specify if it&#x27;s a soft delete.
+   *
+   * @param id - The ID of the user to be deleted.
+   * @param soft - If true, performs a soft delete; otherwise, a hard delete.
+   * @returns A message indicating success or failure.
    */
   @Delete(&#x27;:id&#x27;)
+  @ApiOperation({
+    summary: &#x27;Delete a user&#x27;,
+    description: &#x27;Deletes a user by ID, with an option for soft delete.&#x27;
+  })
+  @ApiParam({
+    name: &#x27;id&#x27;,
+    type: String,
+    required: true,
+    description: &#x27;The UUID of the user to delete.&#x27;
+  })
+  @ApiQuery({
+    name: &#x27;soft&#x27;,
+    type: Boolean,
+    required: false,
+    description:
+      &#x27;Set to true for a soft delete. If omitted or false, a hard delete is performed.&#x27;
+  })
+  @ApiResponse({
+    status: 200,
+    description: &#x27;User deleted successfully.&#x27;,
+    schema: {
+      example: {
+        message: &#x27;User with ID {id} deleted successfully&#x27;,
+        softDeleted: true
+      }
+    }
+  })
+  @ApiResponse({
+    status: 404,
+    description: &#x27;User not found.&#x27;,
+    schema: {
+      example: {
+        statusCode: 404,
+        message: &#x27;User with ID {id} not found&#x27;,
+        error: &#x27;Not Found&#x27;,
+        path: &#x27;/users/{id}&#x27;
+      }
+    }
+  })
+  @ApiResponse({
+    status: 409,
+    description: &#x27;User cannot be deleted due to related data.&#x27;,
+    schema: {
+      example: {
+        statusCode: 409,
+        message: &#x27;User cannot be deleted due to related data&#x27;,
+        error: &#x27;Conflict&#x27;,
+        path: &#x27;/users/{id}&#x27;
+      }
+    }
+  })
+  @ApiResponse({
+    status: 500,
+    description: &#x27;An unexpected error occurred during deletion.&#x27;,
+    schema: {
+      example: {
+        statusCode: 500,
+        message: &#x27;An unexpected error occurred during deletion&#x27;,
+        error: &#x27;Internal Server Error&#x27;,
+        path: &#x27;/users/{id}&#x27;
+      }
+    }
+  })
   remove(@Param(&#x27;id&#x27;) { id }: IdDto, @Query() { soft }: RemoveDto) {
     return this.usersService.remove(id, soft);
   }

@@ -191,7 +191,7 @@ It provides methods to create, retrieve, update, and delete user data, using a T
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/users/users.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/users/users.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -267,8 +267,8 @@ This repository provides methods for performing CRUD operations on user data.</l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="37"
-                                    class="link-to-prism">src/users/users.service.ts:37</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">src/users/users.service.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -346,8 +346,8 @@ This repository provides methods for performing CRUD operations on user data.</l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="64"
-                                    class="link-to-prism">src/users/users.service.ts:64</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/users/users.service.ts:80</a></div>
                         </td>
                     </tr>
 
@@ -391,8 +391,8 @@ This repository provides methods for performing CRUD operations on user data.</l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="75"
-                                    class="link-to-prism">src/users/users.service.ts:75</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/users/users.service.ts:91</a></div>
                         </td>
                     </tr>
 
@@ -502,8 +502,8 @@ This repository provides methods for performing CRUD operations on user data.</l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="99"
-                                    class="link-to-prism">src/users/users.service.ts:99</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/users/users.service.ts:115</a></div>
                         </td>
                     </tr>
 
@@ -581,8 +581,8 @@ This repository provides methods for performing CRUD operations on user data.</l
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="125"
-                                    class="link-to-prism">src/users/users.service.ts:125</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="201"
+                                    class="link-to-prism">src/users/users.service.ts:201</a></div>
                         </td>
                     </tr>
 
@@ -590,8 +590,9 @@ This repository provides methods for performing CRUD operations on user data.</l
             <tr>
                 <td class="col-md-4">
                         <div class="io-description"><p>Removes a user from the database.
-Supports both soft deletion and permanent deletion.</p>
-</div>
+Supports both soft deletion (user is marked as deleted but not removed) and permanent deletion (user is fully removed from the database).</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">           - Soft delete: The user is marked as deleted but remains in the database.
+           - Hard delete: The user is permanently removed from the database.</code></pre></div></div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -619,7 +620,7 @@ Supports both soft deletion and permanent deletion.</p>
 
                                             <td>
                                                     <ul>
-<li>The ID of the user to remove.</li>
+<li>The UUID of the user to remove.</li>
 </ul>
 
                                             </td>
@@ -637,7 +638,11 @@ Supports both soft deletion and permanent deletion.</p>
 
                                             <td>
                                                     <ul>
-<li>Boolean flag indicating whether to perform a soft delete (true) or a hard delete (false).</li>
+<li>Boolean flag indicating whether to perform a soft delete (true) or a hard delete (false).<ul>
+<li>Soft delete: The user is marked as deleted but remains in the database.</li>
+<li>Hard delete: The user is permanently removed from the database.</li>
+</ul>
+</li>
 </ul>
 
                                             </td>
@@ -650,7 +655,7 @@ Supports both soft deletion and permanent deletion.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>The result of the remove operation.</p>
+                                <p>An object containing a success message and a flag indicating whether the operation was a soft delete or a hard delete.</p>
 
                             </div>
                 </td>
@@ -679,8 +684,8 @@ Supports both soft deletion and permanent deletion.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="110"
-                                    class="link-to-prism">src/users/users.service.ts:110</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">src/users/users.service.ts:141</a></div>
                         </td>
                     </tr>
 
@@ -743,7 +748,7 @@ Supports both soft deletion and permanent deletion.</p>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -761,16 +766,17 @@ Supports both soft deletion and permanent deletion.</p>
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  HttpException,
+  HttpStatus,
   Injectable,
-  NotFoundException,
-  ServiceUnavailableException,
-  UnprocessableEntityException
+  NotFoundException
 } from &#x27;@nestjs/common&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { FindOptionsWhere, Repository } from &#x27;typeorm&#x27;;
 import { CreateUserDto } from &#x27;./dto/create-user.dto&#x27;;
 import { UpdateUserDto } from &#x27;./dto/update-user.dto&#x27;;
 import { User } from &#x27;./entities/user.entity&#x27;;
+import { ErrorResponseDto } from &#x27;common/dto/error-response.dto&#x27;;
 
 /**
  * The UsersService class is responsible for handling business logic related to user management.
@@ -810,12 +816,27 @@ export class UsersService {
           /Key \(|\)&#x3D;\(|\)\s*already exists\.?\s*$/
         );
 
-        throw new UnprocessableEntityException(
-          &#x60;${parts[1]} ${parts[2]} already exists&#x60;
+        throw new HttpException(
+          new ErrorResponseDto(
+            HttpStatus.UNPROCESSABLE_ENTITY,
+            &#x27;User already exists&#x27;,
+            &#x27;Unprocessable Entity&#x27;,
+            &#x27;/users&#x27;,
+            &#x60;${parts[1]} ${parts[2]} already exists&#x60;
+          ),
+          HttpStatus.UNPROCESSABLE_ENTITY
         );
       }
 
-      throw new ServiceUnavailableException();
+      throw new HttpException(
+        new ErrorResponseDto(
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          &#x27;An unexpected error occurred&#x27;,
+          &#x27;Internal Server Error&#x27;,
+          &#x27;/users&#x27;
+        ),
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
   }
 
@@ -859,7 +880,20 @@ export class UsersService {
    * @returns The found user entity.
    */
   async findOneById(id: string) {
-    return await this.userRepository.findOneBy({ id });
+    const user &#x3D; await this.userRepository.findOneBy({ id });
+
+    if (!user) {
+      throw new NotFoundException(
+        new ErrorResponseDto(
+          404,
+          &#x60;User with ID ${id} not found&#x60;,
+          &#x27;Not Found&#x27;,
+          &#x60;/users/${id}&#x60;
+        )
+      );
+    }
+
+    return user;
   }
 
   /**
@@ -867,31 +901,127 @@ export class UsersService {
    * @param id - The ID of the user to update.
    * @param updateUserDto - Data Transfer Object containing updated user details.
    * @returns The result of the update operation.
-   * @throws Any error encountered during the update operation.
+   * @throws NotFoundException if the user with the specified ID does not exist.
+   * @throws UnprocessableEntityException if there is a validation issue, such as unique constraint violations.
+   * @throws ServiceUnavailableException for any unexpected errors.
    */
   async update(id: string, updateUserDto: UpdateUserDto) {
+    // First, check if the user exists before attempting to update
+    const existingUser &#x3D; await this.userRepository.findOneBy({ id });
+
+    if (!existingUser) {
+      throw new NotFoundException(
+        new ErrorResponseDto(
+          404,
+          &#x60;User with ID ${id} not found&#x60;,
+          &#x27;Not Found&#x27;,
+          &#x60;/users/${id}&#x60;
+        )
+      );
+    }
     try {
-      return await this.userRepository.update({ id }, { ...updateUserDto });
+      await this.userRepository.update({ id }, { ...updateUserDto });
     } catch (error) {
-      throw error;
+      if (error.code &#x3D;&#x3D; 23505) {
+        // Handle unique constraint violation (e.g., duplicate email)
+        const parts &#x3D; error.detail.split(
+          /Key \(|\)&#x3D;\(|\)\s*already exists\.?\s*$/
+        );
+
+        throw new HttpException(
+          new ErrorResponseDto(
+            HttpStatus.UNPROCESSABLE_ENTITY,
+            &#x27;User already exists&#x27;,
+            &#x27;Unprocessable Entity&#x27;,
+            &#x27;/users&#x27;,
+            &#x60;${parts[1]} ${parts[2]} already exists&#x60;
+          ),
+          HttpStatus.UNPROCESSABLE_ENTITY
+        );
+      }
+
+      throw new HttpException(
+        new ErrorResponseDto(
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          &#x27;An unexpected error occurred&#x27;,
+          &#x27;Internal Server Error&#x27;,
+          &#x27;/users&#x27;
+        ),
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
   }
 
   /**
    * Removes a user from the database.
-   * Supports both soft deletion and permanent deletion.
-   * @param id - The ID of the user to remove.
+   * Supports both soft deletion (user is marked as deleted but not removed) and permanent deletion (user is fully removed from the database).
+   *
+   * @param id - The UUID of the user to remove.
    * @param soft - Boolean flag indicating whether to perform a soft delete (true) or a hard delete (false).
-   * @returns The result of the remove operation.
+   *                - Soft delete: The user is marked as deleted but remains in the database.
+   *                - Hard delete: The user is permanently removed from the database.
+   * @returns An object containing a success message and a flag indicating whether the operation was a soft delete or a hard delete.
+   * @throws NotFoundException - If the user with the specified ID is not found.
+   * @throws ConflictException - If the user cannot be deleted due to related data (e.g., foreign key constraints).
+   * @throws InternalServerErrorException - If an unexpected error occurs during the delete operation.
    */
   async remove(id: string, soft: boolean) {
+    // Check if the user exists before attempting to delete
     const user &#x3D; await this.findOneById(id);
 
-    return soft
-      ? // Soft delete (user is marked as deleted)
-        await this.userRepository.softRemove(user)
-      : // Hard delete (user is permanently removed)
+    if (!user) {
+      // User not found, throw a NotFoundException
+      throw new NotFoundException(
+        new ErrorResponseDto(
+          404,
+          &#x60;User with ID ${id} not found&#x60;,
+          &#x27;Not Found&#x27;,
+          &#x60;/users/${id}&#x60;
+        )
+      );
+    }
+
+    try {
+      // Attempt to delete the user (soft or hard based on the &#x27;soft&#x27; flag)
+      if (soft) {
+        // Soft delete (marks the user as deleted without actually removing from DB)
+        await this.userRepository.softRemove(user);
+      } else {
+        // Hard delete (permanently removes the user from DB)
         await this.userRepository.remove(user);
+      }
+
+      // Return a success message or the deleted entity
+      return {
+        message: &#x60;User with ID ${id} deleted successfully&#x60;,
+        softDeleted: soft
+      };
+    } catch (error) {
+      // Check for specific database errors (e.g., foreign key violations)
+      if (error.code &#x3D;&#x3D;&#x3D; &#x27;23503&#x27;) {
+        // Handle foreign key constraint violation (e.g., related entities depend on this user)
+        throw new HttpException(
+          new ErrorResponseDto(
+            HttpStatus.CONFLICT,
+            &#x27;User cannot be deleted due to related data&#x27;,
+            &#x27;Conflict&#x27;,
+            &#x60;/users/${id}&#x60;
+          ),
+          HttpStatus.CONFLICT
+        );
+      }
+
+      // Handle other unexpected errors during the delete operation
+      throw new HttpException(
+        new ErrorResponseDto(
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          &#x27;An unexpected error occurred during deletion&#x27;,
+          &#x27;Internal Server Error&#x27;,
+          &#x60;/users/${id}&#x60;
+        ),
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
   }
 }
 </code></pre>
