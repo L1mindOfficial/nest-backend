@@ -162,10 +162,12 @@ strong password for authentication.</li>
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#email" >email</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#password" >password</a>
@@ -197,6 +199,7 @@ strong password for authentication.</li>
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>email</b></span>
                         <a href="#email"><span class="icon ion-ios-link"></span></a>
@@ -214,13 +217,13 @@ strong password for authentication.</li>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />@IsString()<br />
+                            @ApiProperty({description: &#x27;The email address or username of the user, must be a non-empty string.&#x27;, example: &#x27;user@example.com&#x27;})<br />@IsNotEmpty()<br />@IsString()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/auth/dto/login-user.dto.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/auth/dto/login-user.dto.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -243,6 +246,7 @@ in how users access their accounts.</p>
                     <a name="password"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>password</b></span>
                         <a href="#password"><span class="icon ion-ios-link"></span></a>
@@ -260,13 +264,13 @@ in how users access their accounts.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsPassword()<br />
+                            @ApiProperty({description: &#x27;The password must meet security standards enforced by the application.&#x27;, example: &#x27;SecurePassword@1234&#x27;})<br />@IsPassword()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/auth/dto/login-user.dto.ts:39</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/auth/dto/login-user.dto.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -294,7 +298,8 @@ to protect the user&#39;s account from unauthorized access.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsNotEmpty, IsString } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { IsNotEmpty, IsString } from &#x27;class-validator&#x27;;
 import { IsPassword } from &#x27;common/decorators/validators/is-password.decorator&#x27;;
 
 /**
@@ -320,6 +325,11 @@ export class LoginUserDto {
    * to log in using either their email or username, providing flexibility
    * in how users access their accounts.
    */
+  @ApiProperty({
+    description:
+      &#x27;The email address or username of the user, must be a non-empty string.&#x27;,
+    example: &#x27;user@example.com&#x27;
+  })
   @IsNotEmpty()
   @IsString()
   readonly email: string;
@@ -331,6 +341,11 @@ export class LoginUserDto {
    * &#x60;IsPassword&#x60; decorator. It ensures that the password is strong enough
    * to protect the user&#x27;s account from unauthorized access.
    */
+  @ApiProperty({
+    description:
+      &#x27;The password must meet security standards enforced by the application.&#x27;,
+    example: &#x27;SecurePassword@1234&#x27;
+  })
   @IsPassword()
   readonly password: string;
 }

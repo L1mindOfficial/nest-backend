@@ -116,12 +116,6 @@
             <code>src/auth/auth.controller.ts</code>
         </p>
 
-            <p class="comment">
-                <h3>Prefix</h3>
-            </p>
-            <p class="comment">
-                <code>auth</code>
-            </p>
 
 
             <p class="comment">
@@ -154,9 +148,17 @@ The controller utilizes guards to protect certain routes and enforces authentica
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#changePassword" >changePassword</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#getProfile" >getProfile</a>
@@ -166,9 +168,18 @@ The controller utilizes guards to protect certain routes and enforces authentica
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
                                 <a href="#login" >login</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#register" >register</a>
@@ -199,6 +210,11 @@ The controller utilizes guards to protect certain routes and enforces authentica
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>changePassword</b></span>
                         <a href="#changePassword"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -215,21 +231,30 @@ The controller utilizes guards to protect certain routes and enforces authentica
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@HttpCode(HttpStatus.OK)<br />@UseGuards(JwtAuthGuard)<br />@Post(&#x27;change-password&#x27;)<br /></code>
+                    <code>@HttpCode(HttpStatus.NO_CONTENT)<br />@UseGuards(JwtAuthGuard)<br />@Post(&#x27;change-password&#x27;)<br />@ApiOperation({summary: &#x27;Change user password&#x27;, description: &#x27;This endpoint allows the user to change their password. The current password must be provided for validation.&#x27;})<br />@ApiResponse({status: 204, description: &#x27;Password changed successfully&#x27;})<br />@ApiBadRequestResponse({description: &#x27;Invalid input data, including an incorrect current password or other validation errors&#x27;})<br />@ApiUnauthorizedResponse({description: &#x27;Unauthorized: User must be authenticated to change the password&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="92"
-                                    class="link-to-prism">src/auth/auth.controller.ts:92</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">src/auth/auth.controller.ts:200</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Changes the user&#39;s password after validating the current password.</p>
+                        <div class="io-description"><p>Changes the user&#39;s password after validating the current password.
+Protected by the <code>JwtAuthGuard</code>, ensuring only authenticated users can perform this action.</p>
+<p><strong>Decorators:</strong></p>
+<ul>
+<li><code>@HttpCode(HttpStatus.OK)</code>: Ensures that the response will have a 200 (OK) status code after a successful password change.</li>
+<li><code>@UseGuards(JwtAuthGuard)</code>: Protects the route, requiring a valid JWT token for access.</li>
+<li><code>@Post(&#39;change-password&#39;)</code>: Defines this as a POST request to the <code>/auth/change-password</code> route.</li>
+<li><code>@User()</code>: Injects the authenticated user&#39;s data, including custom authentication context, into the method.</li>
+<li><code>@Body()</code>: Extracts the request body and maps it to the <code>ChangePasswordDto</code>.</li>
+</ul>
 </div>
 
                             <div class="io-description">
@@ -276,7 +301,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                                             <td>
                                                     <ul>
-<li>The DTO containing new password information, including the current and new password.</li>
+<li>The DTO containing current and new password details.</li>
 </ul>
 
                                             </td>
@@ -304,6 +329,9 @@ The controller utilizes guards to protect certain routes and enforces authentica
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>getProfile</b></span>
                         <a href="#getProfile"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -320,21 +348,29 @@ The controller utilizes guards to protect certain routes and enforces authentica
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@UseGuards(JwtAuthGuard)<br />@Get(&#x27;profile&#x27;)<br /></code>
+                    <code>@UseGuards(JwtAuthGuard)<br />@Get(&#x27;profile&#x27;)<br />@UseInterceptors(ClassSerializerInterceptor)<br />@ApiOperation({summary: &#x27;Get user profile&#x27;})<br />@ApiResponse({status: 200, description: &#x27;User profile retrieved successfully&#x27;, type: UserEntity})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="78"
-                                    class="link-to-prism">src/auth/auth.controller.ts:78</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">src/auth/auth.controller.ts:157</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retrieves the authenticated user&#39;s profile.</p>
+                        <div class="io-description"><p>Retrieves the authenticated user&#39;s profile information.
+Protected by the <code>JwtAuthGuard</code>, which ensures that only authenticated users can access this route.</p>
+<p><strong>Decorators:</strong></p>
+<ul>
+<li><code>@UseGuards(JwtAuthGuard)</code>: Requires the user to be authenticated with a valid JWT token before accessing this route.</li>
+<li><code>@Get(&#39;profile&#39;)</code>: Defines this as a GET request to the <code>/auth/profile</code> route.</li>
+<li><code>@UseInterceptors(ClassSerializerInterceptor)</code>: Automatically serializes the user entity to hide sensitive fields.</li>
+<li><code>@User(&#39;user&#39;)</code>: Injects the authenticated user entity into the method using a custom decorator.</li>
+</ul>
 </div>
 
                             <div class="io-description">
@@ -363,7 +399,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                                             <td>
                                                     <ul>
-<li>The authenticated user entity injected by the <code>JwtAuthGuard</code>.</li>
+<li>The authenticated user entity.</li>
 </ul>
 
                                             </td>
@@ -376,7 +412,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                         </div>
                             <div class="io-description">
-                                <p>The user&#39;s profile with non-sensitive information, such as username, email, and other public details.</p>
+                                <p>The user&#39;s profile with non-sensitive information.</p>
 
                             </div>
                 </td>
@@ -393,6 +429,10 @@ The controller utilizes guards to protect certain routes and enforces authentica
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
                         <span ><b>login</b></span>
                         <a href="#login"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -401,7 +441,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>login(user: <a href="../entitys/User.html" target="_self">UserEntity</a>, ip: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, device: <a href="../interfaces/Device.html" target="_self">Device</a>)</code>
+                    <code>login(user: <a href="../entitys/User.html" target="_self">UserEntity</a>, ip: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, device: <a href="../interfaces/Device.html" target="_self">Device</a>, res: Response)</code>
                 </td>
             </tr>
 
@@ -409,21 +449,32 @@ The controller utilizes guards to protect certain routes and enforces authentica
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Public()<br />@HttpCode(HttpStatus.OK)<br />@UseGuards(LocalAuthGuard)<br />@Post(&#x27;login&#x27;)<br /></code>
+                    <code>@Public()<br />@HttpCode(HttpStatus.OK)<br />@UseGuards(LocalAuthGuard)<br />@Post(&#x27;login&#x27;)<br />@ApiOperation({summary: &#x27;User login&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Successfully logged in&#x27;, type: LoginResponseDto})<br />@ApiBadRequestResponse({description: &#x27;Invalid credentials&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="62"
-                                    class="link-to-prism">src/auth/auth.controller.ts:62</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/auth/auth.controller.ts:115</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Logs in a user, creating a session and returning a JWT token.</p>
+                        <div class="io-description"><p>Authenticates a user using the local strategy and returns a JWT token for future requests.
+Public endpoint, but uses the <code>LocalAuthGuard</code> to validate user credentials before proceeding.</p>
+<p><strong>Decorators:</strong></p>
+<ul>
+<li><code>@Public()</code>: Marks this route as public, meaning it doesn&#39;t require JWT-based authentication.</li>
+<li><code>@HttpCode(HttpStatus.OK)</code>: Forces the response to use HTTP status code 200 (OK) for successful login.</li>
+<li><code>@UseGuards(LocalAuthGuard)</code>: Uses the <code>LocalAuthGuard</code> to validate the user credentials (e.g., username and password).</li>
+<li><code>@UseInterceptors(ClassSerializerInterceptor)</code>: Serializes the user entity, removing sensitive fields like passwords.</li>
+<li><code>@User()</code>: Injects the authenticated user entity (from the local strategy) into the method.</li>
+<li><code>@IpAddress()</code>: Injects the user&#39;s IP address using a custom decorator.</li>
+<li><code>@UserAgent()</code>: Injects the user&#39;s device information (like browser or OS) using a custom decorator.</li>
+</ul>
 </div>
 
                             <div class="io-description">
@@ -452,7 +503,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                                             <td>
                                                     <ul>
-<li>The authenticated user entity injected by the <code>LocalAuthGuard</code>.</li>
+<li>The authenticated user entity.</li>
 </ul>
 
                                             </td>
@@ -470,7 +521,7 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                                             <td>
                                                     <ul>
-<li>The user&#39;s IP address, retrieved via the <code>IpAddress</code> decorator.</li>
+<li>The IP address of the user.</li>
 </ul>
 
                                             </td>
@@ -488,20 +539,34 @@ The controller utilizes guards to protect certain routes and enforces authentica
 
                                             <td>
                                                     <ul>
-<li>The device information, retrieved via the <code>UserAgent</code> decorator.</li>
+<li>The user&#39;s device information.</li>
 </ul>
 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>res</td>
+                                            <td>
+                                                        <code>Response</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>Returns : </b>    <code>unknown</code>
 
                         </div>
                             <div class="io-description">
-                                <p>An object containing user information and the generated JWT token, used for further authentication.</p>
+                                <p>The user object and a JWT token for authentication.</p>
 
                             </div>
                 </td>
@@ -514,6 +579,11 @@ The controller utilizes guards to protect certain routes and enforces authentica
                 <td class="col-md-4">
                     <a name="register"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>register</b></span>
@@ -532,21 +602,29 @@ The controller utilizes guards to protect certain routes and enforces authentica
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Public()<br />@Post(&#x27;register&#x27;)<br /></code>
+                    <code>@Public()<br />@Post(&#x27;register&#x27;)<br />@UseInterceptors(ClassSerializerInterceptor)<br />@ApiOperation({summary: &#x27;Register a new user&#x27;})<br />@ApiResponse({status: 201, description: &#x27;User successfully registered&#x27;, type: RegisterUserDto})<br />@ApiBadRequestResponse({description: &#x27;Invalid input data&#x27;})<br />@ApiInternalServerErrorResponse({description: &#x27;Unexpected error occurred&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="46"
-                                    class="link-to-prism">src/auth/auth.controller.ts:46</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/auth/auth.controller.ts:80</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Registers a new user using the provided registration data.</p>
+                        <div class="io-description"><p>Handles user registration by accepting a registration DTO and passing it to the <code>AuthService</code>.
+Public endpoint, no authentication required.</p>
+<p><strong>Decorators:</strong></p>
+<ul>
+<li><code>@Public()</code>: Marks this route as accessible without authentication.</li>
+<li><code>@Post(&#39;register&#39;)</code>: Defines this as a POST request to the <code>/auth/register</code> route.</li>
+<li><code>@UseInterceptors(ClassSerializerInterceptor)</code>: Automatically serializes the response to remove sensitive fields.</li>
+<li><code>@Body()</code>: Extracts the incoming request body and maps it to the <code>RegisterUserDto</code>.</li>
+</ul>
 </div>
 
                             <div class="io-description">
@@ -601,32 +679,46 @@ The controller utilizes guards to protect certain routes and enforces authentica
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   HttpCode,
   HttpStatus,
   Post,
-  UseGuards
+  Res,
+  UseGuards,
+  UseInterceptors
 } from &#x27;@nestjs/common&#x27;;
 import { Device } from &#x27;common/interfaces/device.interface&#x27;;
 import { User as UserEntity } from &#x27;users/entities/user.entity&#x27;;
 import { AuthService } from &#x27;./auth.service&#x27;;
 import { IpAddress } from &#x27;./decorators/ipAddress.decorator&#x27;;
 import { Public } from &#x27;./decorators/public.decorator&#x27;;
-import { UserAgent } from &#x27;./decorators/user-agent.decorator&#x27;;
+import { UserAgent } from &#x27;./decorators/userAgent.decorator&#x27;;
 import { User } from &#x27;./decorators/user.decorator&#x27;;
 import { RegisterUserDto } from &#x27;./dto/register-user.dto&#x27;;
 import { JwtAuthGuard } from &#x27;./guards/jwt-auth.guard&#x27;;
 import { LocalAuthGuard } from &#x27;./guards/local-auth.guard&#x27;;
 import { ChangePasswordDto } from &#x27;./dto/change-password.dto&#x27;;
 import { CustomAuth } from &#x27;common/interfaces/custom-request.interface&#x27;;
+import {
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiUnauthorizedResponse
+} from &#x27;@nestjs/swagger&#x27;;
+import { LoginResponseDto } from &#x27;./dto/login-response.dto&#x27;;
+import { Response } from &#x27;express&#x27;;
 
 /**
  * The &#x60;AuthController&#x60; handles incoming requests related to authentication.
  * It provides endpoints for user registration, login, profile retrieval, and password changes.
  * The controller utilizes guards to protect certain routes and enforces authentication where necessary.
  */
-@Controller(&#x27;auth&#x27;)
+@Controller({ path: &#x27;auth&#x27;, version: &#x27;1&#x27; })
+@ApiTags(&#x27;auth&#x27;)
 export class AuthController {
   /**
    * Constructor for &#x60;AuthController&#x60; class.
@@ -637,59 +729,153 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   /**
-   * Registers a new user using the provided registration data.
+   * Handles user registration by accepting a registration DTO and passing it to the &#x60;AuthService&#x60;.
+   * Public endpoint, no authentication required.
+   *
+   * **Decorators:**
+   * - &#x60;@Public()&#x60;: Marks this route as accessible without authentication.
+   * - &#x60;@Post(&#x27;register&#x27;)&#x60;: Defines this as a POST request to the &#x60;/auth/register&#x60; route.
+   * - &#x60;@UseInterceptors(ClassSerializerInterceptor)&#x60;: Automatically serializes the response to remove sensitive fields.
+   * - &#x60;@Body()&#x60;: Extracts the incoming request body and maps it to the &#x60;RegisterUserDto&#x60;.
    *
    * @param registerUserDto - The DTO containing user registration details.
    * @returns The created user entity with basic information.
    */
   @Public()
   @Post(&#x27;register&#x27;)
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiOperation({ summary: &#x27;Register a new user&#x27; })
+  @ApiResponse({
+    status: 201,
+    description: &#x27;User successfully registered&#x27;,
+    type: RegisterUserDto // Adjust to your response DTO
+  })
+  @ApiBadRequestResponse({
+    description: &#x27;Invalid input data&#x27;
+  })
+  @ApiInternalServerErrorResponse({
+    description: &#x27;Unexpected error occurred&#x27;
+  })
   register(@Body() registerUserDto: RegisterUserDto) {
     return this.authService.register(registerUserDto);
   }
 
   /**
-   * Logs in a user, creating a session and returning a JWT token.
+   * Authenticates a user using the local strategy and returns a JWT token for future requests.
+   * Public endpoint, but uses the &#x60;LocalAuthGuard&#x60; to validate user credentials before proceeding.
    *
-   * @param user - The authenticated user entity injected by the &#x60;LocalAuthGuard&#x60;.
-   * @param ip - The user&#x27;s IP address, retrieved via the &#x60;IpAddress&#x60; decorator.
-   * @param device - The device information, retrieved via the &#x60;UserAgent&#x60; decorator.
-   * @returns An object containing user information and the generated JWT token, used for further authentication.
+   * **Decorators:**
+   * - &#x60;@Public()&#x60;: Marks this route as public, meaning it doesn&#x27;t require JWT-based authentication.
+   * - &#x60;@HttpCode(HttpStatus.OK)&#x60;: Forces the response to use HTTP status code 200 (OK) for successful login.
+   * - &#x60;@UseGuards(LocalAuthGuard)&#x60;: Uses the &#x60;LocalAuthGuard&#x60; to validate the user credentials (e.g., username and password).
+   * - &#x60;@UseInterceptors(ClassSerializerInterceptor)&#x60;: Serializes the user entity, removing sensitive fields like passwords.
+   * - &#x60;@User()&#x60;: Injects the authenticated user entity (from the local strategy) into the method.
+   * - &#x60;@IpAddress()&#x60;: Injects the user&#x27;s IP address using a custom decorator.
+   * - &#x60;@UserAgent()&#x60;: Injects the user&#x27;s device information (like browser or OS) using a custom decorator.
+   *
+   * @param user - The authenticated user entity.
+   * @param ip - The IP address of the user.
+   * @param device - The user&#x27;s device information.
+   * @returns The user object and a JWT token for authentication.
    */
   @Public()
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Post(&#x27;login&#x27;)
-  login(
+  @ApiOperation({ summary: &#x27;User login&#x27; })
+  @ApiResponse({
+    status: 200,
+    description: &#x27;Successfully logged in&#x27;,
+    type: LoginResponseDto
+  })
+  @ApiBadRequestResponse({
+    description: &#x27;Invalid credentials&#x27;
+  })
+  async login(
     @User() user: UserEntity,
     @IpAddress() ip: string,
-    @UserAgent() device: Device
+    @UserAgent() device: Device,
+    @Res() res: Response
   ) {
-    return this.authService.login(user, ip, device);
+    const data &#x3D; await this.authService.login(user, ip, device);
+
+    res.cookie(&#x27;jwt&#x27;, data.token, {
+      httpOnly: true, // Prevent JavaScript access
+      secure: true, // Use HTTPS in production
+      sameSite: &#x27;strict&#x27;, // Helps prevent CSRF
+      maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days in milliseconds
+    });
+
+    console.log(&#x27;data&#x27;, data);
+    return res.status(200).end();
+    // return data;
   }
 
   /**
-   * Retrieves the authenticated user&#x27;s profile.
+   * Retrieves the authenticated user&#x27;s profile information.
+   * Protected by the &#x60;JwtAuthGuard&#x60;, which ensures that only authenticated users can access this route.
    *
-   * @param user - The authenticated user entity injected by the &#x60;JwtAuthGuard&#x60;.
-   * @returns The user&#x27;s profile with non-sensitive information, such as username, email, and other public details.
+   * **Decorators:**
+   * - &#x60;@UseGuards(JwtAuthGuard)&#x60;: Requires the user to be authenticated with a valid JWT token before accessing this route.
+   * - &#x60;@Get(&#x27;profile&#x27;)&#x60;: Defines this as a GET request to the &#x60;/auth/profile&#x60; route.
+   * - &#x60;@UseInterceptors(ClassSerializerInterceptor)&#x60;: Automatically serializes the user entity to hide sensitive fields.
+   * - &#x60;@User(&#x27;user&#x27;)&#x60;: Injects the authenticated user entity into the method using a custom decorator.
+   *
+   * @param user - The authenticated user entity.
+   * @returns The user&#x27;s profile with non-sensitive information.
    */
   @UseGuards(JwtAuthGuard)
   @Get(&#x27;profile&#x27;)
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiOperation({ summary: &#x27;Get user profile&#x27; })
+  @ApiResponse({
+    status: 200,
+    description: &#x27;User profile retrieved successfully&#x27;,
+    type: UserEntity
+  })
   getProfile(@User(&#x27;user&#x27;) user: UserEntity) {
     return this.authService.getProfile(user);
   }
 
   /**
    * Changes the user&#x27;s password after validating the current password.
+   * Protected by the &#x60;JwtAuthGuard&#x60;, ensuring only authenticated users can perform this action.
+   *
+   * **Decorators:**
+   * - &#x60;@HttpCode(HttpStatus.OK)&#x60;: Ensures that the response will have a 200 (OK) status code after a successful password change.
+   * - &#x60;@UseGuards(JwtAuthGuard)&#x60;: Protects the route, requiring a valid JWT token for access.
+   * - &#x60;@Post(&#x27;change-password&#x27;)&#x60;: Defines this as a POST request to the &#x60;/auth/change-password&#x60; route.
+   * - &#x60;@User()&#x60;: Injects the authenticated user&#x27;s data, including custom authentication context, into the method.
+   * - &#x60;@Body()&#x60;: Extracts the request body and maps it to the &#x60;ChangePasswordDto&#x60;.
    *
    * @param authData - The authentication context containing user and session data.
-   * @param changePasswordDto - The DTO containing new password information, including the current and new password.
+   * @param changePasswordDto - The DTO containing current and new password details.
    * @returns A confirmation message indicating successful password change.
    */
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(JwtAuthGuard)
   @Post(&#x27;change-password&#x27;)
+  @ApiOperation({
+    summary: &#x27;Change user password&#x27;,
+    description:
+      &#x27;This endpoint allows the user to change their password. The current password must be provided for validation.&#x27;
+  })
+  @ApiResponse({
+    status: 204,
+    description: &#x27;Password changed successfully&#x27;
+  })
+  @ApiBadRequestResponse({
+    description:
+      &#x27;Invalid input data, including an incorrect current password or other validation errors&#x27;
+  })
+  @ApiUnauthorizedResponse({
+    description:
+      &#x27;Unauthorized: User must be authenticated to change the password&#x27;
+  })
+  @ApiResponse({
+    status: 500,
+    description: &#x27;Internal server error&#x27;
+  })
   changePassword(
     @User() authData: CustomAuth,
     @Body() changePasswordDto: ChangePasswordDto

@@ -217,9 +217,10 @@ across the entire application.</p>
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Module, ValidationPipe } from &#x27;@nestjs/common&#x27;;
-import { APP_PIPE } from &#x27;@nestjs/core&#x27;;
+import { APP_INTERCEPTOR, APP_PIPE } from &#x27;@nestjs/core&#x27;;
 import { VALIDATION_PIPE_OPTIONS } from &#x27;./util/common.constants&#x27;;
 import { EnvModule } from &#x27;./env/env.module&#x27;;
+import { DataResponseInterceptor } from &#x27;./interceptors/data-response/data-response.interceptor&#x27;;
 
 /**
  * The &#x60;CommonModule&#x60; provides shared functionality across the application.
@@ -239,14 +240,22 @@ import { EnvModule } from &#x27;./env/env.module&#x27;;
   imports: [EnvModule],
 
   /**
-   * The &#x60;providers&#x60; array sets up the global validation pipe.
+   * The &#x60;providers&#x60; array sets up the global validation pipe and response interceptor.
    * - &#x60;APP_PIPE&#x60; is a special NestJS token used to apply the validation pipe globally.
    * - &#x60;useValue&#x60; is used to instantiate the &#x60;ValidationPipe&#x60; with predefined options from &#x60;VALIDATION_PIPE_OPTIONS&#x60;.
+   * - &#x60;APP_INTERCEPTOR&#x60; is used to apply the &#x60;DataResponseInterceptor&#x60; globally, modifying all outgoing responses.
    */
   providers: [
+    /* Setting the ValidationPipe globally with custom validation options */
     {
       provide: APP_PIPE,
       useValue: new ValidationPipe(VALIDATION_PIPE_OPTIONS)
+    },
+
+    /* Setting the DataResponseInterceptor globally to format outgoing responses */
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: DataResponseInterceptor
     }
   ]
 })

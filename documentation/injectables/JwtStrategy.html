@@ -267,8 +267,8 @@ Upon validation, it invokes the AuthService to check the validity of the JWT and
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="58"
-                                    class="link-to-prism">src/auth/strategies/jwt.strategy.ts:58</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/auth/strategies/jwt.strategy.ts:65</a></div>
                         </td>
                     </tr>
 
@@ -381,7 +381,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
        * Extracts the JWT from the Authorization header as a Bearer token.
        * This allows the strategy to retrieve the token sent by the client.
        */
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        // Extract from the Authorization header
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+        // Extract from cookies
+        (req) &#x3D;&gt; {
+          return req.cookies[&#x27;access-token&#x27;] || null;
+        }
+      ]),
 
       /**
        * The secret key used to verify the authenticity of the JWT.
@@ -407,13 +414,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @returns The result of the authentication process, including user and session data if valid.
    */
   validate(req: Request, payload: JwtPayload) {
+    const token &#x3D;
+      req.headers?.authorization?.replace(&#x27;bearer &#x27;, &#x27;&#x27;) ||
+      req.cookies[&#x27;access-token&#x27;];
+
     return this.authService.validateJwt(
       payload,
       /**
        * Extracts the JWT token from the authorization header by removing the &#x27;bearer &#x27; prefix.
        * This is necessary to obtain the raw token for validation.
        */
-      req.headers?.authorization.replace(&#x27;bearer &#x27;, &#x27;&#x27;)
+      token
     );
   }
 }

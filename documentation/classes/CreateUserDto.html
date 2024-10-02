@@ -150,10 +150,12 @@ It ensures that the data provided during user creation meets the necessary requi
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#email" >email</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
@@ -162,10 +164,12 @@ It ensures that the data provided during user creation meets the necessary requi
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#password" >password</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
@@ -173,6 +177,7 @@ It ensures that the data provided during user creation meets the necessary requi
                                 <a href="#status" >status</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#username" >username</a>
@@ -203,6 +208,7 @@ It ensures that the data provided during user creation meets the necessary requi
                     <a name="email"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>email</b></span>
                         <a href="#email"><span class="icon ion-ios-link"></span></a>
@@ -220,20 +226,20 @@ It ensures that the data provided during user creation meets the necessary requi
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsEmail()<br />
+                            @ApiProperty({description: &#x27;A valid email address for the user&#x27;, example: &#x27;test@gmail.com&#x27;})<br />@IsEmail()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/users/dto/create-user.dto.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/users/dto/create-user.dto.ts:22</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>The email of the user, which must be a valid email format</p>
-</div>
+                    <div class="io-description"><p>The email address of the user. This is a required property that must be a valid email format.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
                 </td>
             </tr>
 
@@ -245,6 +251,7 @@ It ensures that the data provided during user creation meets the necessary requi
                 <td class="col-md-4">
                     <a name="name"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
@@ -265,20 +272,20 @@ It ensures that the data provided during user creation meets the necessary requi
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsOptional()<br />@Length(0, 30)<br />
+                            @ApiPropertyOptional({description: &#x27;User name, limited to a maximum of 30 characters&#x27;, example: &#x27;mohmadreza mosalli&#x27;})<br />@IsOptional()<br />@Length(0, 30)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/users/dto/create-user.dto.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/users/dto/create-user.dto.ts:85</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>The name of the user, optional, and limited to a maximum of 30 characters</p>
-</div>
+                    <div class="io-description"><p>Optional name property for the user, limited to a maximum length of 30 characters.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
                 </td>
             </tr>
 
@@ -290,6 +297,7 @@ It ensures that the data provided during user creation meets the necessary requi
                 <td class="col-md-4">
                     <a name="password"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>password</b></span>
@@ -308,20 +316,22 @@ It ensures that the data provided during user creation meets the necessary requi
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsPassword()<br />
+                            @ApiProperty({description: &#x27;Password must include numbers, letters, special characters (@#$%^!&amp;*(_+)&#x3D;), and must be between 8 and 20 characters long&#x27;, example: &#x27;test@1234&#x27;})<br />@IsPassword()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/users/dto/create-user.dto.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/users/dto/create-user.dto.ts:54</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>The user&#39;s password, validated by a custom decorator to ensure it meets password strength criteria</p>
-</div>
+                    <div class="io-description"><p>The password for the user account. This is a required property with specific content and length requirements.</p>
+<p>The password must include numbers, letters, special characters (@#$%^!&amp;*(_+)=)
+and must be between 8 and 20 characters in length.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
                 </td>
             </tr>
 
@@ -333,6 +343,7 @@ It ensures that the data provided during user creation meets the necessary requi
                 <td class="col-md-4">
                     <a name="status"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
@@ -353,20 +364,22 @@ It ensures that the data provided during user creation meets the necessary requi
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsOptional()<br />@IsEnum(UserStatus)<br />
+                            @ApiPropertyOptional({enum: UserStatus, description: &#x27;User&#x27;s current status, possible values: &#x27;ACTIVATE&#x27;, &#x27;DEACTIVATE&#x27;, or &#x27;SUSPEND&#x27;&#x27;, example: &#x27;ACTIVATE&#x27;})<br />@IsOptional()<br />@IsEnum(UserStatus)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/users/dto/create-user.dto.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/users/dto/create-user.dto.ts:72</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>The status of the user, optional, and must be a valid enum value from the UserStatus enum</p>
-</div>
+                    <div class="io-description"><p>Optional status property indicating the user&#39;s current status.
+It can take one of the specific enum values defined in UserStatus.</p>
+<p>Possible values are: &#39;ACTIVATE&#39;, &#39;DEACTIVATE&#39;, and &#39;SUSPEND&#39;.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
                 </td>
             </tr>
 
@@ -378,6 +391,7 @@ It ensures that the data provided during user creation meets the necessary requi
                 <td class="col-md-4">
                     <a name="username"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>username</b></span>
@@ -396,20 +410,22 @@ It ensures that the data provided during user creation meets the necessary requi
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsUsername()<br />
+                            @ApiProperty({description: &#x27;Username consisting of lowercase characters, numbers, &amp; special characters (_), with a length between 3 and 30 characters&#x27;, example: &#x27;test_122&#x27;})<br />@IsUsername()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/users/dto/create-user.dto.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/users/dto/create-user.dto.ts:38</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>The username of the user, validated by a custom decorator to ensure it meets username requirements</p>
-</div>
+                    <div class="io-description"><p>The username for the user. This is a required property and must adhere to specific formatting and length constraints.</p>
+<p>Allowed characters include lowercase letters, numbers, and special characters (_).
+The length must be between 3 and 30 characters.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
                 </td>
             </tr>
 
@@ -427,7 +443,8 @@ It ensures that the data provided during user creation meets the necessary requi
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsEmail, IsEnum, IsOptional, Length } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty, ApiPropertyOptional } from &#x27;@nestjs/swagger&#x27;;
+import { IsEmail, IsEnum, IsOptional, Length } from &#x27;class-validator&#x27;;
 import { IsPassword } from &#x27;common/decorators/validators/is-password.decorator&#x27;;
 import { IsUsername } from &#x27;common/decorators/validators/is-username.decorator&#x27;;
 import { UserStatus } from &#x27;common/enums/user-status.enum&#x27;;
@@ -437,24 +454,77 @@ import { UserStatus } from &#x27;common/enums/user-status.enum&#x27;;
  * It ensures that the data provided during user creation meets the necessary requirements.
  */
 export class CreateUserDto {
-  /** The email of the user, which must be a valid email format */
+  /**
+   * The email address of the user. This is a required property that must be a valid email format.
+   *
+   * @example &#x27;test@gmail.com&#x27;
+   */
+  @ApiProperty({
+    description: &#x27;A valid email address for the user&#x27;,
+    example: &#x27;test@gmail.com&#x27;
+  })
   @IsEmail()
   readonly email: string;
 
-  /** The username of the user, validated by a custom decorator to ensure it meets username requirements */
+  /**
+   * The username for the user. This is a required property and must adhere to specific formatting and length constraints.
+   *
+   * Allowed characters include lowercase letters, numbers, and special characters (_).
+   * The length must be between 3 and 30 characters.
+   *
+   * @example &#x27;test_122&#x27;
+   */
+  @ApiProperty({
+    description:
+      &#x27;Username consisting of lowercase characters, numbers, &amp; special characters (_), with a length between 3 and 30 characters&#x27;,
+    example: &#x27;test_122&#x27;
+  })
   @IsUsername()
   readonly username: string;
 
-  /** The user&#x27;s password, validated by a custom decorator to ensure it meets password strength criteria */
+  /**
+   * The password for the user account. This is a required property with specific content and length requirements.
+   *
+   * The password must include numbers, letters, special characters (@#$%^!&amp;*(_+)&#x3D;)
+   * and must be between 8 and 20 characters in length.
+   *
+   * @example &#x27;test@1234&#x27;
+   */
+  @ApiProperty({
+    description:
+      &#x27;Password must include numbers, letters, special characters (@#$%^!&amp;*(_+)&#x3D;), and must be between 8 and 20 characters long&#x27;,
+    example: &#x27;test@1234&#x27;
+  })
   @IsPassword()
   readonly password: string;
 
-  /** The status of the user, optional, and must be a valid enum value from the UserStatus enum */
+  /**
+   * Optional status property indicating the user&#x27;s current status.
+   * It can take one of the specific enum values defined in UserStatus.
+   *
+   * Possible values are: &#x27;ACTIVATE&#x27;, &#x27;DEACTIVATE&#x27;, and &#x27;SUSPEND&#x27;.
+   *
+   * @example &#x27;ACTIVATE&#x27;
+   */
+  @ApiPropertyOptional({
+    enum: UserStatus,
+    description:
+      &quot;User&#x27;s current status, possible values: &#x27;ACTIVATE&#x27;, &#x27;DEACTIVATE&#x27;, or &#x27;SUSPEND&#x27;&quot;,
+    example: &#x27;ACTIVATE&#x27;
+  })
   @IsOptional()
   @IsEnum(UserStatus)
   readonly status?: UserStatus;
 
-  /** The name of the user, optional, and limited to a maximum of 30 characters */
+  /**
+   * Optional name property for the user, limited to a maximum length of 30 characters.
+   *
+   * @example &#x27;mohmadreza test&#x27;
+   */
+  @ApiPropertyOptional({
+    description: &#x27;User name, limited to a maximum of 30 characters&#x27;,
+    example: &#x27;mohmadreza mosalli&#x27;
+  })
   @IsOptional()
   @Length(0, 30)
   readonly name?: string;

@@ -171,15 +171,18 @@ values are intended to be immutable after instantiation of the class.</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#email" >email</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#password" >password</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#username" >username</a>
@@ -210,6 +213,7 @@ values are intended to be immutable after instantiation of the class.</p>
                     <a name="email"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>email</b></span>
                         <a href="#email"><span class="icon ion-ios-link"></span></a>
@@ -227,13 +231,13 @@ values are intended to be immutable after instantiation of the class.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsEmail()<br />
+                            @ApiProperty({description: &#x27;A valid email address used for account verification and communication.&#x27;, example: &#x27;user@example.com&#x27;})<br />@IsEmail()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/auth/dto/register-user.dto.ts:40</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/auth/dto/register-user.dto.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -257,6 +261,7 @@ library.</p>
                     <a name="password"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>password</b></span>
                         <a href="#password"><span class="icon ion-ios-link"></span></a>
@@ -274,13 +279,13 @@ library.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsPassword()<br />
+                            @ApiProperty({description: &#x27;The password must meet the required security standards.&#x27;, example: &#x27;SecurePassword@1234&#x27;})<br />@IsPassword()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/auth/dto/register-user.dto.ts:60</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/auth/dto/register-user.dto.ts:75</a></div>
                         </td>
                     </tr>
 
@@ -303,6 +308,7 @@ to protect the user account from unauthorized access and security threats.</p>
                     <a name="username"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>username</b></span>
                         <a href="#username"><span class="icon ion-ios-link"></span></a>
@@ -320,13 +326,13 @@ to protect the user account from unauthorized access and security threats.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsUsername()<br />
+                            @ApiProperty({description: &#x27;The username for the new account, adhering to specified format criteria.&#x27;, example: &#x27;new_user123&#x27;})<br />@IsUsername()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/auth/dto/register-user.dto.ts:50</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/auth/dto/register-user.dto.ts:61</a></div>
                         </td>
                     </tr>
 
@@ -354,7 +360,8 @@ invalid characters to ensure a valid and user-friendly username.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsEmail } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { IsEmail } from &#x27;class-validator&#x27;;
 import { IsPassword } from &#x27;common/decorators/validators/is-password.decorator&#x27;;
 import { IsUsername } from &#x27;common/decorators/validators/is-username.decorator&#x27;;
 
@@ -392,6 +399,11 @@ export class RegisterUserDto {
    * is enforced by the &#x60;@IsEmail()&#x60; decorator from the &#x60;class-validator&#x60;
    * library.
    */
+  @ApiProperty({
+    description:
+      &#x27;A valid email address used for account verification and communication.&#x27;,
+    example: &#x27;user@example.com&#x27;
+  })
   @IsEmail()
   readonly email: string;
 
@@ -402,6 +414,11 @@ export class RegisterUserDto {
    * decorator. This typically includes length restrictions and rules against
    * invalid characters to ensure a valid and user-friendly username.
    */
+  @ApiProperty({
+    description:
+      &#x27;The username for the new account, adhering to specified format criteria.&#x27;,
+    example: &#x27;new_user123&#x27;
+  })
   @IsUsername()
   readonly username: string;
 
@@ -412,6 +429,10 @@ export class RegisterUserDto {
    * &#x60;IsPassword&#x60; decorator. It ensures that the password is sufficiently strong
    * to protect the user account from unauthorized access and security threats.
    */
+  @ApiProperty({
+    description: &#x27;The password must meet the required security standards.&#x27;,
+    example: &#x27;SecurePassword@1234&#x27;
+  })
   @IsPassword()
   readonly password: string;
 }

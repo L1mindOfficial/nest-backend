@@ -158,6 +158,7 @@ and hard deletion (completely removing the entity from the database).</p>
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#soft" >soft</a>
                             </li>
@@ -188,6 +189,7 @@ and hard deletion (completely removing the entity from the database).</p>
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>soft</b></span>
                         <a href="#soft"><span class="icon ion-ios-link"></span></a>
@@ -205,23 +207,20 @@ and hard deletion (completely removing the entity from the database).</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsOptional()<br />@IsBoolean()<br />
+                            @ApiPropertyOptional({description: &#x27;The &quot;soft&quot; property is optional and indicates whether to perform a soft delete.&#x27;})<br />@IsOptional()<br />@IsBoolean()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/common/dto/remove.dto.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/common/dto/remove.dto.ts:48</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>The <code>soft</code> field determines if the deletion should be a soft delete.</p>
-<ul>
-<li><code>@IsOptional()</code>: The field is optional and does not need to be provided in the request.</li>
-<li><code>@IsBoolean()</code>: Validates that, if provided, the value is a boolean (either <code>true</code> or <code>false</code>).</li>
-</ul>
+                    <div class="io-description"><p>The &#39;soft&#39; property indicates whether the delete operation should
+be a soft delete. This property is optional and should be of type boolean.</p>
 </div>
                 </td>
             </tr>
@@ -240,7 +239,8 @@ and hard deletion (completely removing the entity from the database).</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsOptional } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiPropertyOptional } from &#x27;@nestjs/swagger&#x27;;
+import { IsOptional } from &#x27;class-validator&#x27;;
 import { IsBoolean } from &#x27;common/decorators/validators/is-boolean.decorator&#x27;;
 
 /**
@@ -257,12 +257,35 @@ import { IsBoolean } from &#x27;common/decorators/validators/is-boolean.decorato
  */
 export class RemoveDto {
   /**
-   * The &#x60;soft&#x60; field determines if the deletion should be a soft delete.
-   * - &#x60;@IsOptional()&#x60;: The field is optional and does not need to be provided in the request.
-   * - &#x60;@IsBoolean()&#x60;: Validates that, if provided, the value is a boolean (either &#x60;true&#x60; or &#x60;false&#x60;).
+   * The &#x27;soft&#x27; property indicates whether the delete operation should
+   * be a soft delete. This property is optional and should be of type boolean.
+   */
+  @ApiPropertyOptional({
+    /**
+     * Description of the &#x27;soft&#x27; property, clarifying that it is optional
+     * and defines the behavior of the delete operation.
+     */
+    description:
+      &#x27;The &quot;soft&quot; property is optional and indicates whether to perform a soft delete.&#x27;
+  })
+
+  /**
+   * Indicates that the &#x27;soft&#x27; property is optional in the request.
+   * If not provided, the default delete behavior will apply.
    */
   @IsOptional()
+
+  /**
+   * Validates that the &#x27;soft&#x27; property, if provided, must be a boolean value.
+   * This ensures that the input meets the expected data type requirements.
+   */
   @IsBoolean()
+
+  /**
+   * Declares the property as read-only, meaning it cannot be modified
+   * after the instance of this DTO is created. This is a common practice
+   * for request DTOs to maintain data integrity.
+   */
   readonly soft: boolean;
 }
 </code></pre>

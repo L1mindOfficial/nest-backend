@@ -297,8 +297,8 @@ This module handles user registration, login, JWT management, and session contro
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="57"
-                                    class="link-to-prism">src/auth/auth.module.ts:57</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/auth/auth.module.ts:62</a></div>
                         </td>
                     </tr>
 
@@ -379,6 +379,7 @@ import { JwtStrategy } from &#x27;./strategies/jwt.strategy&#x27;;
 import { LocalStrategy } from &#x27;./strategies/local.strategy&#x27;;
 import { UsersModule } from &#x27;users/users.module&#x27;;
 import { SessionsModule } from &#x27;sessions/sessions.module&#x27;;
+import { RolesGuard } from &#x27;./guards/roles.guard&#x27;;
 
 /**
  * The &#x60;AuthModule&#x60; is responsible for managing authentication functionalities within the application.
@@ -404,6 +405,10 @@ import { SessionsModule } from &#x27;sessions/sessions.module&#x27;;
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard
     }
   ],
   exports: [HashingProvider]
