@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import compression from 'compression';
 import { VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 
 /**
  * Define an asynchronous function to bootstrap the application
@@ -94,6 +95,9 @@ async function bootstrap() {
   app.enableVersioning({
     type: VersioningType.URI
   });
+
+  // Enable cookie-parser
+  app.use(cookieParser());
 
   /**
    * Start listening for incoming requests on port 8080

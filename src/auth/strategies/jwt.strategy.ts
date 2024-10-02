@@ -30,7 +30,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
        * Extracts the JWT from the Authorization header as a Bearer token.
        * This allows the strategy to retrieve the token sent by the client.
        */
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        // Extract from the Authorization header
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+        // Extract from cookies
+        (req) => {
+          return req.cookies['access-token'] || null;
+        }
+      ]),
 
       /**
        * The secret key used to verify the authenticity of the JWT.
@@ -56,13 +63,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @returns The result of the authentication process, including user and session data if valid.
    */
   validate(req: Request, payload: JwtPayload) {
+    const token =
+      req.headers?.authorization?.replace('bearer ', '') ||
+      req.cookies['access-token'];
+
     return this.authService.validateJwt(
       payload,
       /**
        * Extracts the JWT token from the authorization header by removing the 'bearer ' prefix.
        * This is necessary to obtain the raw token for validation.
        */
-      req.headers?.authorization.replace('bearer ', '')
+      token
     );
   }
 }

@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Res,
   UseGuards,
   UseInterceptors
 } from '@nestjs/common';
@@ -14,7 +15,7 @@ import { User as UserEntity } from 'users/entities/user.entity';
 import { AuthService } from './auth.service';
 import { IpAddress } from './decorators/ipAddress.decorator';
 import { Public } from './decorators/public.decorator';
-import { UserAgent } from './decorators/user-agent.decorator';
+import { UserAgent } from './decorators/userAgent.decorator';
 import { User } from './decorators/user.decorator';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -30,6 +31,7 @@ import {
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
 import { LoginResponseDto } from './dto/login-response.dto';
+import { Response } from 'express';
 
 /**
  * The `AuthController` handles incoming requests related to authentication.
@@ -101,7 +103,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  @UseInterceptors(ClassSerializerInterceptor)
   @ApiOperation({ summary: 'User login' })
   @ApiResponse({
     status: 200,
@@ -111,12 +112,24 @@ export class AuthController {
   @ApiBadRequestResponse({
     description: 'Invalid credentials'
   })
-  login(
+  async login(
     @User() user: UserEntity,
     @IpAddress() ip: string,
-    @UserAgent() device: Device
+    @UserAgent() device: Device,
+    @Res() res: Response
   ) {
-    return this.authService.login(user, ip, device);
+    const data = await this.authService.login(user, ip, device);
+
+    res.cookie('jwt', data.token, {
+      httpOnly: true, // Prevent JavaScript access
+      secure: true, // Use HTTPS in production
+      sameSite: 'strict', // Helps prevent CSRF
+      maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days in milliseconds
+    });
+
+    console.log('data', data);
+    return res.status(200).end();
+    // return data;
   }
 
   /**
