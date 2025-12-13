@@ -5,7 +5,7 @@ import { Device } from 'common/interfaces/device.interface';
 import { Session } from 'sessions/entities/session.entity';
 import { DataSource, Not, Raw, Repository } from 'typeorm';
 import { User } from 'users/entities/user.entity';
-import { SessionWithCurrent } from './interfaces/session-wtih-current.interface';
+import { SessionWithCurrent } from './interfaces/session-with-current.interface';
 
 /**
  * SessionsService is responsible for managing user sessions.
