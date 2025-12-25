@@ -1,7 +1,39 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { Session } from 'features/sessions/entities/session.entity';
+import { RegistryDatesOrm } from 'infrastructure/database/embedded/registry-dates.embedded';
 import { ErrorResponseDto } from 'infrastructure/http/dto/error-response.dto';
 import { User } from './entities/user.entity';
+import { UserRole } from './enums/user-role.enum';
+import { UserStatus } from './enums/user-status.enum';
+
+export const SwaggerUserProperties = {
+  id: { description: 'UUID of the user', example: 'uuid', readOnly: true },
+  name: { description: 'Name of the user', example: 'John Doe', maxLength: 50 },
+  email: {
+    description: 'User email',
+    example: 'user@example.com',
+    uniqueItems: true
+  },
+  username: {
+    description: 'Username',
+    example: 'john_doe',
+    maxLength: 30,
+    uniqueItems: true
+  },
+  password: {
+    description: 'User password',
+    example: 'P@ssw0rd!',
+    writeOnly: true
+  },
+  status: { description: 'User status', enum: UserStatus, example: 'ACTIVATE' },
+  role: { description: 'User role', enum: UserRole, example: 'USER' },
+  registryDates: {
+    description: 'Registry dates',
+    type: () => RegistryDatesOrm
+  },
+  sessions: { description: 'User sessions', type: () => [Session] }
+};
 
 /** Create User Swagger */
 export const ApiCreateUser = () =>
