@@ -10,16 +10,6 @@ import {
   UseGuards,
   UseInterceptors
 } from '@nestjs/common';
-import { User as UserEntity } from 'features/users/entities/user.entity';
-import { AuthService } from './auth.service';
-import { IpAddress } from './decorators/ipAddress.decorator';
-import { Public } from './decorators/public.decorator';
-import { UserAgent } from './decorators/userAgent.decorator';
-import { User } from './decorators/user.decorator';
-import { RegisterUserDto } from './dto/register-user.dto';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { LocalAuthGuard } from './guards/local-auth.guard';
-import { ChangePasswordDto } from './dto/change-password.dto';
 import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
@@ -28,10 +18,20 @@ import {
   ApiTags,
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
-import { LoginResponseDto } from './dto/login-response.dto';
 import { Response } from 'express';
-import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
 import { Device } from 'features/sessions/interfaces/device.interface';
+import { User as UserEntity } from 'features/users/entities/user.entity';
+import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
+import { ChangePasswordDto } from '../users/dto/change-password.dto';
+import { AuthService } from './auth.service';
+import { IpAddress } from './decorators/ipAddress.decorator';
+import { Public } from './decorators/public.decorator';
+import { User } from './decorators/user.decorator';
+import { UserAgent } from './decorators/userAgent.decorator';
+import { LoginResponseDto } from './dto/login-response.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 
 /**
  * The `AuthController` handles incoming requests related to authentication.
