@@ -9,7 +9,7 @@ import { FindOptionsWhere, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { ErrorResponseDto } from 'core/common/dto/error-response.dto';
+import { ErrorResponseDto } from 'infrastructure/http/dto/error-response.dto';
 
 /**
  * The UsersService class is responsible for handling business logic related to user management.

@@ -9,8 +9,6 @@ import {
   Query,
   UseGuards
 } from '@nestjs/common';
-import { IdDto } from 'core/common/dto/id.dto';
-import { RemoveDto } from 'core/common/dto/remove.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
@@ -22,10 +20,12 @@ import {
   ApiTags
 } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
-import { ErrorResponseDto } from 'core/common/dto/error-response.dto';
 import { RolesGuard } from 'features/auth/guards/roles.guard';
 import { UserRole } from 'core/common/enums/user-role.enum';
 import { Roles } from 'features/auth/decorators/roles.decorator';
+import { ErrorResponseDto } from 'infrastructure/http/dto/error-response.dto';
+import { IdDto } from 'infrastructure/http/dto/id.dto';
+import { RemoveDto } from 'infrastructure/http/dto/remove.dto';
 
 /**
  * The `UsersController` is responsible for handling all incoming HTTP requests related to managing user entities.

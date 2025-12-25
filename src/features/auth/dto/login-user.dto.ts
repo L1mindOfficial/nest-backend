@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { IsPassword } from 'core/common/decorators/validators/is-password.decorator';
+import { IsPassword } from 'core/validators/decorators/is-password.decorator';
 
 /**
  * The `LoginUserDto` class defines the data transfer object

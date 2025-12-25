@@ -4,13 +4,7 @@ import {
   ValidateBy,
   ValidationOptions
 } from 'class-validator';
-
-/**
- * The `IsUsername` decorator validates that a given value conforms to specific username rules.
- * Usernames must be 4 to 30 characters long, cannot start or end with a dot, and must not contain
- * consecutive dots. This validation helps ensure that usernames are user-friendly and secure.
- */
-const usernameRegex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{3,30}$/;
+import { USERNAME_REGEX } from '../rules/username.rules';
 
 /**
  * The `IS_USERNAME_KEY` constant serves as a unique identifier for the `IsUsername` validation decorator.
@@ -24,7 +18,7 @@ const IS_USERNAME_KEY = 'isUsername';
 /**
  * The `isUsername` function checks if the value matches the defined username regex.
  */
-const isUsername = (value: string): boolean => matches(value, usernameRegex);
+const isUsername = (value: string): boolean => matches(value, USERNAME_REGEX);
 
 /**
  * The `IsUsername` function creates a custom validator that uses the `isUsername` function to validate the input.
@@ -40,7 +34,7 @@ export const IsUsername = (
     validator: {
       validate: (value): boolean => isUsername(value),
       defaultMessage: buildMessage(
-        (eachPrefix) => eachPrefix + '$property must be valid',
+        (eachPrefix) => `${eachPrefix} $property must be a valid username`,
         validationOptions
       )
     }

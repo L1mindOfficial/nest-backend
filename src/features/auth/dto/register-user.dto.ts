@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail } from 'class-validator';
-import { IsPassword } from 'core/common/decorators/validators/is-password.decorator';
-import { IsUsername } from 'core/common/decorators/validators/is-username.decorator';
+import { IsPassword } from 'core/validators/decorators/is-password.decorator';
+import { IsUsername } from 'core/validators/decorators/is-username.decorator';
 
 /**
  * The `RegisterUserDto` class is used to represent the data transfer object

@@ -4,22 +4,7 @@ import {
   ValidateBy,
   ValidationOptions
 } from 'class-validator';
-
-/**
- * The `IsPassword` decorator validates that a given value meets specific password complexity requirements.
- *
- * Password Requirements:
- * - Length: Must be between 8 to 20 characters.
- * - Must include at least:
- *   - One lowercase letter (a-z).
- *   - One uppercase letter (A-Z).
- *   - One special character (e.g., @$!%*?&).
- *
- * This validation helps enforce security policies regarding password strength within the application,
- * ensuring that users create robust passwords that enhance overall security.
- */
-const passwordRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,20}$/;
+import { PASSWORD_REGEX } from '../rules/password.rules';
 
 /**
  * The `IS_PASSWORD_KEY` constant is a unique identifier used for the `IsPassword` validation decorator.
@@ -36,7 +21,7 @@ const IS_PASSWORD_KEY = 'isPassword';
  * @param value - The string value to validate as a password.
  * @returns A boolean indicating whether the value meets the password requirements.
  */
-const isPassword = (value: string): boolean => matches(value, passwordRegex);
+const isPassword = (value: string): boolean => matches(value, PASSWORD_REGEX);
 
 /**
  * The `IsPassword` function creates a custom validator that uses the `isPassword` function to validate the input.
