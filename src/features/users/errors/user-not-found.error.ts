@@ -7,6 +7,6 @@ export class UserNotFoundError extends DomainError {
     public readonly field: 'id' | 'email' | 'username',
     public readonly value: string
   ) {
-    super(`User with ${field} "${value}" not found`);
+    super(`User with ${field} ${value} not found`);
   }
 }

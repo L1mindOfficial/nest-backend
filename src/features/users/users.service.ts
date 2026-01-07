@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { plainToInstance } from 'class-transformer';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -19,7 +20,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     try {
       const user = this.userRepository.create(createUserDto);
-      return await this.userRepository.save(user);
+      return plainToInstance(User, await this.userRepository.save(user));
     } catch (error: any) {
       this.handleUniqueConstraintError(error, createUserDto);
     }
@@ -94,11 +95,13 @@ export class UsersService {
     dto: Partial<{ email: string; username: string }>
   ) {
     if (error.code === '23505') {
-      switch (error.constraint) {
-        case 'users_email_unique':
-          throw new UserAlreadyExistsError('email', dto.email!);
-        case 'users_username_unique':
-          throw new UserAlreadyExistsError('username', dto.username!);
+      const detail: string = error.detail ?? '';
+
+      if (detail.includes('email')) {
+        throw new UserAlreadyExistsError('email', dto.email!);
+      }
+      if (detail.includes('username')) {
+        throw new UserAlreadyExistsError('username', dto.username!);
       }
     }
     throw error;

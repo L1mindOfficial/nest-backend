@@ -7,6 +7,7 @@ export class UserAlreadyExistsError extends DomainError {
     public readonly field: 'email' | 'username',
     public readonly value: string
   ) {
-    super(`User with ${field} "${value}" already exists`);
+    console.log('value', value);
+    super(`User with ${field} ${value} already exists`);
   }
 }
