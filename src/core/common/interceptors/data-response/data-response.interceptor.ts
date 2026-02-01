@@ -31,21 +31,17 @@ export class DataResponseInterceptor implements NestInterceptor {
    * @returns Observable that wraps the modified response.
    */
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    /* Extracting the HTTP request object from the execution context */
-    const request = context.switchToHttp().getRequest();
-
-    /* Retrieving the API version from the request, defaulting to '1' if not provided */
-    const apiVersion = request.version || '1';
-
     /**
      * Passing the request to the next handler in the pipeline.
      * The map operator is used to transform the response data by adding an `apiVersion` field.
      */
     return next.handle().pipe(
-      map((data) => ({
-        apiVersion,
-        data
-      }))
+      map((data) => {
+        if (data)
+          return {
+            data
+          };
+      })
     );
   }
 }

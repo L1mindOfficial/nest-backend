@@ -1,4 +1,4 @@
-import { ValidationPipeOptions } from '@nestjs/common';
+import { BadRequestException, ValidationPipeOptions } from '@nestjs/common';
 
 /**
  * `VALIDATION_PIPE_OPTIONS` defines the configuration options for the global `ValidationPipe`.
@@ -16,5 +16,12 @@ export const VALIDATION_PIPE_OPTIONS: ValidationPipeOptions = {
   transform: true,
   transformOptions: {
     enableImplicitConversion: true
+  },
+  exceptionFactory: (errors) => {
+    const firstError = errors[0];
+    const firstConstraint = firstError?.constraints
+      ? Object.values(firstError.constraints)[0]
+      : 'Validation error';
+    return new BadRequestException(firstConstraint);
   }
 };
