@@ -1,34 +1,32 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { plainToInstance } from 'class-transformer';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException
+} from '@nestjs/common';
+import { DataSource, FindOptionsWhere } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { UserAlreadyExistsError } from './errors/user-already-exists.error';
-import { UserDeletionConflictError } from './errors/user-deletion-conflict-error';
-import { UserNotFoundError } from './errors/user-not-found.error';
+import { IUsersService } from './interfaces/users.interface';
 
 @Injectable()
-export class UsersService {
-  constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>
-  ) {}
+export class UsersService implements IUsersService {
+  constructor(private readonly dataSource: DataSource) {}
 
   // ---------------- CREATE ----------------
   async create(createUserDto: CreateUserDto) {
     try {
-      const user = this.userRepository.create(createUserDto);
-      return plainToInstance(User, await this.userRepository.save(user));
+      const user = this.dataSource.getRepository(User).create(createUserDto);
+      await this.dataSource.getRepository(User).save(user);
     } catch (error: any) {
-      this.handleUniqueConstraintError(error, createUserDto);
+      this.handleUniqueConstraintError(error);
     }
   }
 
   // ---------------- FIND ALL ----------------
   async findAll() {
-    return this.userRepository.find();
+    return this.dataSource.getRepository(User).find();
   }
 
   // ---------------- FIND ONE ----------------
@@ -44,20 +42,17 @@ export class UsersService {
       'status'
     ]
   ) {
-    const user = await this.userRepository.findOne({ where, select });
-    if (!user) {
-      const firstCondition = Array.isArray(where) ? where[0] : where;
-      const field = Object.keys(firstCondition)[0] as 'email' | 'username';
-      const value = Object.values(firstCondition)[0];
-      throw new UserNotFoundError(field, value?.toString() || '');
-    }
+    const user = await this.dataSource
+      .getRepository(User)
+      .findOne({ where, select });
+    if (!user) throw new NotFoundException();
     return user;
   }
 
   // ---------------- FIND BY ID ----------------
   async findOneById(id: string) {
-    const user = await this.userRepository.findOneBy({ id });
-    if (!user) throw new UserNotFoundError('id', id);
+    const user = await this.dataSource.getRepository(User).findOneBy({ id });
+    if (!user) throw new NotFoundException();
     return user;
   }
 
@@ -65,10 +60,10 @@ export class UsersService {
   async update(id: string, updateUserDto: UpdateUserDto) {
     const existingUser = await this.findOneById(id);
     try {
-      await this.userRepository.update({ id }, updateUserDto);
-      return { ...existingUser, ...updateUserDto };
+      if (existingUser)
+        await this.dataSource.getRepository(User).update({ id }, updateUserDto);
     } catch (error: any) {
-      this.handleUniqueConstraintError(error, updateUserDto);
+      this.handleUniqueConstraintError(error);
     }
   }
 
@@ -76,34 +71,26 @@ export class UsersService {
   async remove(id: string, soft: boolean) {
     const user = await this.findOneById(id);
     try {
-      if (soft) await this.userRepository.softRemove(user);
-      else await this.userRepository.remove(user);
-
-      return {
-        message: `User with ID ${id} deleted successfully`,
-        softDeleted: soft
-      };
+      if (soft) await this.dataSource.getRepository(User).softRemove(user);
+      else await this.dataSource.getRepository(User).remove(user);
     } catch (error: any) {
-      if (error.code === '23503') throw new UserDeletionConflictError(id);
+      if (error.code === '23503') throw new ConflictException();
       throw error;
     }
   }
 
   // ---------------- PRIVATE HELPERS ----------------
-  private handleUniqueConstraintError(
-    error: any,
-    dto: Partial<{ email: string; username: string }>
-  ) {
+  private handleUniqueConstraintError(error: any) {
     if (error.code === '23505') {
       const detail: string = error.detail ?? '';
 
-      if (detail.includes('email')) {
-        throw new UserAlreadyExistsError('email', dto.email!);
-      }
-      if (detail.includes('username')) {
-        throw new UserAlreadyExistsError('username', dto.username!);
-      }
+      if (detail.includes('email'))
+        throw new UnprocessableEntityException('email already exists');
+
+      if (detail.includes('username'))
+        throw new UnprocessableEntityException('username already exists');
     }
+
     throw error;
   }
 }

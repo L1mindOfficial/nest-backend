@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -10,6 +12,7 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { Public } from 'features/auth/decorators/public.decorator';
 import { Roles } from 'features/auth/decorators/roles.decorator';
 import { RolesGuard } from 'features/auth/guards/roles.guard';
 import { IdDto } from 'infrastructure/http/dto/id.dto';
@@ -31,7 +34,11 @@ import {
  * This includes creating, retrieving, updating, and deleting users. The controller is protected by the `RolesGuard`
  * and is only accessible to users with the `ADMIN` role.
  */
-@Controller('users')
+@Controller({
+  path: 'users',
+  version: '1'
+})
+@Public()
 @UseGuards(RolesGuard)
 @Roles(UserRole.ADMIN)
 @ApiTags('users')
@@ -49,6 +56,7 @@ export class UsersController {
    * @returns The newly created user entity.
    */
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   @ApiCreateUser()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
@@ -64,8 +72,9 @@ export class UsersController {
    */
   @Get()
   @ApiGetAllUsers()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll() {
+    const users = await this.usersService.findAll();
+    return users;
   }
 
   /**
@@ -80,7 +89,10 @@ export class UsersController {
    */
   @Get(':id')
   @ApiGetUser()
-  findOne(@Param('id') { id }: IdDto) {
+  findOne(
+    @Param()
+    { id }: IdDto
+  ) {
     return this.usersService.findOneById(id);
   }
 
@@ -97,8 +109,9 @@ export class UsersController {
    * @returns The updated user entity or appropriate error messages.
    */
   @Patch(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiUpdateUser()
-  update(@Param('id') { id }: IdDto, @Body() updateUserDto: UpdateUserDto) {
+  update(@Param() { id }: IdDto, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
@@ -115,8 +128,9 @@ export class UsersController {
    * @returns A message indicating success or failure.
    */
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiDeleteUser()
-  remove(@Param('id') { id }: IdDto, @Query() { soft }: RemoveDto) {
+  remove(@Param() { id }: IdDto, @Query() { soft }: RemoveDto) {
     return this.usersService.remove(id, soft);
   }
 }

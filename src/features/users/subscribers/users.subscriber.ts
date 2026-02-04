@@ -1,4 +1,5 @@
 import { HashingProvider } from 'features/auth/providers/hashing.provider';
+import { User } from 'features/users/entities/user.entity';
 import {
   DataSource,
   EntitySubscriberInterface,
@@ -6,7 +7,6 @@ import {
   InsertEvent,
   UpdateEvent
 } from 'typeorm';
-import { User } from 'features/users/entities/user.entity';
 
 /**
  * The `UsersSubscriber` class listens to user-related events in the database,
@@ -50,6 +50,10 @@ export class UsersSubscriber implements EntitySubscriberInterface<User> {
    * @param entity - The User entity being updated.
    */
   async beforeUpdate({ entity }: UpdateEvent<User>) {
-    entity.password = await this.hashingProvider.hash(entity.password);
+    if (!entity) return;
+
+    if (typeof entity.password === 'string' && entity.password.length > 0) {
+      entity.password = await this.hashingProvider.hash(entity.password);
+    }
   }
 }
