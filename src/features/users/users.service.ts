@@ -4,7 +4,7 @@ import {
   NotFoundException,
   UnprocessableEntityException
 } from '@nestjs/common';
-import { DataSource, FindOptionsWhere } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -14,72 +14,71 @@ import { IUsersService } from './interfaces/users.interface';
 export class UsersService implements IUsersService {
   constructor(private readonly dataSource: DataSource) {}
 
-  // ---------------- CREATE ----------------
-  async create(createUserDto: CreateUserDto) {
+  private get userRepo(): Repository<User> {
+    return this.dataSource.getRepository(User);
+  }
+
+  async findByIdentifierForAuth(identifier: string): Promise<User | null> {
+    return this.userRepo.findOne({
+      where: [{ email: identifier }, { username: identifier }],
+      select: ['id', 'email', 'name', 'username', 'password', 'role', 'status']
+    });
+  }
+
+  async setPassword(userid: string, hashPassword: string): Promise<void> {
+    await this.userRepo.update({ id: userid }, { password: hashPassword });
+  }
+
+  async register(createUserDto: CreateUserDto) {
     try {
-      const user = this.dataSource.getRepository(User).create(createUserDto);
-      await this.dataSource.getRepository(User).save(user);
+      const user = this.userRepo.create(createUserDto);
+      await this.userRepo.save(user);
     } catch (error: any) {
       this.handleUniqueConstraintError(error);
     }
   }
 
-  // ---------------- FIND ALL ----------------
-  async findAll() {
-    return this.dataSource.getRepository(User).find();
+  async list() {
+    return this.userRepo.find();
   }
 
-  // ---------------- FIND ONE ----------------
-  async findOne(
-    where: FindOptionsWhere<User> | FindOptionsWhere<User>[],
-    select: (keyof User)[] = [
-      'id',
-      'email',
-      'name',
-      'username',
-      'password',
-      'role',
-      'status'
-    ]
-  ) {
-    const user = await this.dataSource
-      .getRepository(User)
-      .findOne({ where, select });
+  async findById(id: string) {
+    const user = await this.userRepo.findOneBy({ id });
     if (!user) throw new NotFoundException();
     return user;
   }
 
-  // ---------------- FIND BY ID ----------------
-  async findOneById(id: string) {
-    const user = await this.dataSource.getRepository(User).findOneBy({ id });
-    if (!user) throw new NotFoundException();
-    return user;
-  }
-
-  // ---------------- UPDATE ----------------
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    const existingUser = await this.findOneById(id);
+  async updateProfile(id: string, updateUserDto: UpdateUserDto) {
+    const existingUser = await this.findById(id);
     try {
-      if (existingUser)
-        await this.dataSource.getRepository(User).update({ id }, updateUserDto);
+      if (existingUser) await this.userRepo.update({ id }, updateUserDto);
     } catch (error: any) {
       this.handleUniqueConstraintError(error);
     }
   }
 
-  // ---------------- REMOVE ----------------
-  async remove(id: string, soft: boolean) {
-    const user = await this.findOneById(id);
+  async hardDelete(userId: string): Promise<void> {
     try {
-      if (soft) await this.dataSource.getRepository(User).softRemove(user);
-      else await this.dataSource.getRepository(User).remove(user);
+      const user = await this.findById(userId);
+      await this.userRepo.remove(user);
     } catch (error: any) {
-      if (error.code === '23503') throw new ConflictException();
+      if (error.code === '23503')
+        throw new ConflictException('user is referenced elsewhere');
       throw error;
     }
   }
 
-  // ---------------- PRIVATE HELPERS ----------------
+  async softDelete(userId: string): Promise<void> {
+    try {
+      const user = await this.findById(userId);
+      await this.userRepo.softRemove(user);
+    } catch (error: any) {
+      if (error.code === '23503')
+        throw new ConflictException('user is referenced elsewhere');
+      throw error;
+    }
+  }
+
   private handleUniqueConstraintError(error: any) {
     if (error.code === '23505') {
       const detail: string = error.detail ?? '';

@@ -1,8 +1,8 @@
 import { applyDecorators } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { Session } from 'features/sessions/entities/session.entity';
+import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { RegistryDatesOrm } from 'infrastructure/database/embedded/registry-dates.embedded';
 import { ErrorResponseDto } from 'infrastructure/http/dto/error-response.dto';
+import { Session } from './../sessions/entities/session.entity';
 import { User } from './entities/user.entity';
 import { UserRole } from './enums/user-role.enum';
 import { UserStatus } from './enums/user-status.enum';
@@ -32,34 +32,96 @@ export const SwaggerUserProperties = {
     description: 'Registry dates',
     type: () => RegistryDatesOrm
   },
-  sessions: { description: 'User sessions', type: () => [Session] }
+  sessions: { description: 'User sessions', type: () => [Session] },
+  isDeleted: {
+    description:
+      'Determines if the user has been soft-deleted by checking the deletion timestamp.',
+    example: true
+  }
 };
 
-/** Create User Swagger */
-export const ApiCreateUser = () =>
+/** Get User Profile Swagger */
+export const ApiGetProfile = () =>
   applyDecorators(
-    ApiOperation({ summary: 'Create a new user' }),
+    ApiOperation({ summary: 'Get user profile' }),
     ApiResponse({
-      status: 201,
-      description: 'User successfully created',
+      status: 200,
+      description: 'User profile retrieved successfully',
       type: User
     }),
     ApiResponse({
-      status: 422,
-      description: 'Unprocessable Entity',
+      status: 404,
+      description: 'User not found',
       type: ErrorResponseDto
     }),
     ApiResponse({
-      status: 503,
-      description: 'Service Unavailable',
+      status: 500,
+      description: 'Internal server error',
       type: ErrorResponseDto
     })
   );
 
-/** Get All Users Swagger */
-export const ApiGetAllUsers = () =>
+/** Change User Profile Swagger */
+export const ApiChangeProfile = () =>
   applyDecorators(
-    ApiOperation({ summary: 'Get all users' }),
+    ApiOperation({ summary: 'Update user profile' }),
+    ApiResponse({
+      status: 204,
+      description: 'User profile updated successfully (no content)'
+    }),
+    ApiResponse({
+      status: 422,
+      description: 'Duplicate data conflict',
+      type: ErrorResponseDto
+    }),
+    ApiResponse({
+      status: 404,
+      description: 'User not found',
+      type: ErrorResponseDto
+    }),
+    ApiResponse({
+      status: 500,
+      description: 'Internal server error',
+      type: ErrorResponseDto
+    })
+  );
+
+/** Delete User Account Swagger */
+export const ApiDeleteAccount = () =>
+  applyDecorators(
+    ApiOperation({ summary: 'Delete user account (soft delete)' }),
+    ApiResponse({
+      status: 204,
+      description: 'User account deleted successfully (no content)'
+    }),
+    ApiResponse({
+      status: 404,
+      description: 'User not found',
+      type: ErrorResponseDto
+    }),
+    ApiResponse({
+      status: 409,
+      description: 'User cannot be deleted due to related data',
+      schema: {
+        example: {
+          statusCode: 409,
+          message: 'user is referenced elsewhere',
+          error: 'Conflict',
+          path: '/user'
+        }
+      }
+    }),
+    ApiResponse({
+      status: 500,
+      description: 'Internal server error',
+      type: ErrorResponseDto
+    })
+  );
+
+/** Admin - Get All Users Swagger */
+export const ApiAdminGetAllUsers = () =>
+  applyDecorators(
+    ApiOperation({ summary: '[Admin] Get all users' }),
     ApiResponse({
       status: 200,
       description: 'Successfully retrieved users',
@@ -72,28 +134,10 @@ export const ApiGetAllUsers = () =>
     })
   );
 
-/** Get Single User Swagger */
-export const ApiGetUser = () =>
+/** Admin - Get Single User Swagger */
+export const ApiAdminGetUser = () =>
   applyDecorators(
-    ApiOperation({ summary: 'Retrieve a single user by ID' }),
-    ApiParam({
-      name: 'id',
-      type: String,
-      required: true,
-      description: 'User ID'
-    }),
-    ApiResponse({ status: 200, description: 'User found', type: User }),
-    ApiResponse({
-      status: 404,
-      description: 'User not found',
-      type: ErrorResponseDto
-    })
-  );
-
-/** Update User Swagger */
-export const ApiUpdateUser = () =>
-  applyDecorators(
-    ApiOperation({ summary: 'Update a user by ID' }),
+    ApiOperation({ summary: '[Admin] Retrieve a single user by ID' }),
     ApiParam({
       name: 'id',
       type: String,
@@ -102,7 +146,7 @@ export const ApiUpdateUser = () =>
     }),
     ApiResponse({
       status: 200,
-      description: 'User updated successfully',
+      description: 'User found',
       type: User
     }),
     ApiResponse({
@@ -111,71 +155,8 @@ export const ApiUpdateUser = () =>
       type: ErrorResponseDto
     }),
     ApiResponse({
-      status: 422,
-      description: 'Duplicate data conflict',
-      type: ErrorResponseDto
-    }),
-    ApiResponse({
       status: 500,
-      description: 'Internal server error',
+      description: 'Internal Server Error',
       type: ErrorResponseDto
-    })
-  );
-
-/** Delete User Swagger */
-export const ApiDeleteUser = () =>
-  applyDecorators(
-    ApiOperation({ summary: 'Delete a user' }),
-    ApiParam({
-      name: 'id',
-      type: String,
-      required: true,
-      description: 'User ID'
-    }),
-    ApiQuery({
-      name: 'soft',
-      type: Boolean,
-      required: false,
-      description: 'Soft delete if true'
-    }),
-    ApiResponse({
-      status: 200,
-      description: 'User deleted successfully',
-      schema: {
-        example: { message: 'User deleted successfully', softDeleted: true }
-      }
-    }),
-    ApiResponse({
-      status: 404,
-      description: 'User not found',
-      schema: {
-        example: {
-          statusCode: 404,
-          message: 'User not found',
-          error: 'Not Found'
-        }
-      }
-    }),
-    ApiResponse({
-      status: 409,
-      description: 'User cannot be deleted due to related data',
-      schema: {
-        example: {
-          statusCode: 409,
-          message: 'User cannot be deleted due to related data',
-          error: 'Conflict'
-        }
-      }
-    }),
-    ApiResponse({
-      status: 500,
-      description: 'Internal server error',
-      schema: {
-        example: {
-          statusCode: 500,
-          message: 'Internal server error',
-          error: 'Internal Server Error'
-        }
-      }
     })
   );
