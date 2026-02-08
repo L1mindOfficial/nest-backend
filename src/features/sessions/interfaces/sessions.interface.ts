@@ -1,13 +1,18 @@
 import { User } from 'features/users/entities/user.entity';
 import { Session } from '../entities/session.entity';
+import { IDevice } from './device.interface';
+import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
+import { ISessionWithCurrent } from './session-with-current.interface';
 
 export interface ISessionsService {
-  validate(userId: string, token: string): Promise<Session | null>;
-  create(
+  getActive(userId: string, token: string): Promise<Session | null>;
+  issue(
     userId: string,
     token: string,
     ip: string,
-    device: any
+    device: IDevice
   ): Promise<Session>;
-  remove(user: User, token: string): Promise<void>;
+  list(customAuth: CustomAuth): Promise<ISessionWithCurrent[]>;
+  revoke(user: User, token: string): Promise<void>;
+  terminateOthers(user: User, token: string): Promise<void>;
 }
