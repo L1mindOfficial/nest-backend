@@ -1,175 +1,103 @@
 import {
   BadRequestException,
-  forwardRef,
   Inject,
   Injectable,
-  NotFoundException,
   UnauthorizedException
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Device } from 'features/sessions/interfaces/device.interface';
-import { SessionsService } from 'features/sessions/sessions.service';
-import { User } from 'features/users/entities/user.entity';
-import { UsersService } from 'features/users/users.service';
+import { IDevice } from 'features/sessions/interfaces/device.interface';
+import { ISessionsService } from 'features/sessions/interfaces/sessions.interface';
+import { IUsersService } from 'features/users/interfaces/users.interface';
+import { SESSIONS_SERVICE, USERS_SERVICE } from 'infrastructure/di/tokens';
 import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
 import { ChangePasswordDto } from '../users/dto/change-password.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { IAuthService } from './interfaces/auth.interface';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { HashingProvider } from './providers/hashing.provider';
 
-/**
- * The `AuthService` class provides services related to user authentication and session management.
- * It handles user registration, login, JWT token generation/validation, password changes, and validation of user credentials.
- */
 @Injectable()
-export class AuthService {
-  /**
-   * Constructs the `AuthService` by injecting necessary dependencies such as hashing provider, sessions service,
-   * users service, and JWT service for managing authentication and session-related logic.
-   *
-   * @param hashingProvider - A service for hashing and comparing passwords.
-   * @param sessionsService - A service for handling session-related operations.
-   * @param usersService - The service responsible for user management.
-   * @param jwtService - The service responsible for signing and verifying JWT tokens.
-   */
+export class AuthService implements IAuthService {
   constructor(
     private readonly hashingProvider: HashingProvider,
-    private readonly sessionsService: SessionsService,
-    @Inject(forwardRef(() => UsersService))
-    private readonly usersService: UsersService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    @Inject(SESSIONS_SERVICE)
+    private readonly sessionsService: ISessionsService,
+    @Inject(USERS_SERVICE)
+    private readonly usersService: IUsersService
   ) {}
 
-  /**
-   * Registers a new user with the provided registration details.
-   *
-   * @param registerUserDto - Data Transfer Object containing user registration information (email, password, etc.).
-   * @returns The newly created user entity with sensitive fields removed.
-   * @throws Error if the user creation process fails.
-   */
-  async register(registerUserDto: RegisterUserDto) {
-    try {
-      return await this.usersService.create({
-        ...registerUserDto
-      });
-    } catch (error) {
-      throw error;
-    }
+  async registerUser(registerUserDto: RegisterUserDto): Promise<void> {
+    const password = await this.hashingProvider.hash(registerUserDto.password);
+
+    return this.usersService.register({
+      ...registerUserDto,
+      password
+    });
   }
 
-  /**
-   * Authenticates the user and initiates a session by generating a JWT token.
-   *
-   * @param user - The authenticated user entity.
-   * @param ip - The IP address of the user logging in.
-   * @param device - Information about the device being used to log in.
-   * @returns An object containing the authenticated user's details along with the generated JWT token.
-   */
-  async login(user: User, ip: string, device: Device) {
-    const payload: JwtPayload = { email: user.email };
+  async loginUser(
+    { email, password }: LoginUserDto,
+    ip: string,
+    device: IDevice
+  ): Promise<string> {
+    // Find the user by email or username
+    const user = await this.usersService.findByIdentifierForAuth(email);
+
+    if (!user) throw new UnauthorizedException('invalid credentials');
+
+    const isMatch = await this.hashingProvider.compare(password, user.password);
+
+    if (!isMatch) throw new UnauthorizedException('invalid credentials');
+
+    const payload: JwtPayload = { email };
 
     // Generate a JWT token
     const token: string = this.jwtService.sign(payload);
 
     // Create a session for the user
-    await this.sessionsService.create(user.id, token, ip, device);
+    await this.sessionsService.issue(user.id, token, ip, device);
 
     // Return the token
-    return {
-      token
-    };
+    return token;
   }
 
-  /**
-   * Retrieves the profile of the authenticated user, omitting sensitive information.
-   *
-   * @param user - The authenticated user entity.
-   * @returns The user's profile with sensitive fields like password and role removed.
-   */
-  async getProfile(user: User) {
-    return user;
-  }
-
-  /**
-   * Changes the user's password after verifying the current password.
-   *
-   * @param auth - The authentication context containing the user and session data.
-   * @param changePasswordDto - Data Transfer Object containing the current and new passwords.
-   * @throws BadRequestException if the current password is invalid or the new password is the same as the old one.
-   */
-  async changePassword(
+  async changeUserPassword(
     { user, session }: CustomAuth,
     { currentPassword, newPassword }: ChangePasswordDto
-  ) {
+  ): Promise<void> {
     // Verify that the current password matches
-    const isMatch: boolean = await this.hashingProvider.compare(
+    const isMatch = await this.hashingProvider.compare(
       currentPassword,
       user.password
     );
 
-    if (!isMatch) throw new BadRequestException('Invalid current password');
+    if (!isMatch) throw new BadRequestException('invalid current password');
 
     // If the passwords are different, update the user's password
     if (currentPassword !== newPassword) {
-      await this.usersService.update(user.id, {
-        password: newPassword
-      });
+      // Hashing password
+      const password = await this.hashingProvider.hash(newPassword);
+
+      // Set new password
+      await this.usersService.setPassword(user.id, password);
 
       // Remove the session after password change
-      await this.sessionsService.remove(user, session.token);
+      await this.sessionsService.terminateOthers(user, session.token);
     }
   }
 
-  /**
-   * Validates the user's credentials for local authentication using email/username and password.
-   *
-   * @param email - The email or username provided by the user for login.
-   * @param password - The password provided by the user.
-   * @returns The authenticated user entity.
-   * @throws NotFoundException if no user is found with the provided credentials.
-   * @throws UnauthorizedException if the password does not match.
-   */
-  async validateLocal(email: string, password: string) {
-    // Find the user by email or username
-    const user = await this.usersService.findOne(
-      [{ email }, { username: email }],
-      ['id', 'role', 'status', 'password', 'email']
-    );
-
-    if (!user) throw new NotFoundException('User not found');
-
-    // Validate the user's password
-    const isMatch: boolean = await this.hashingProvider.compare(
-      password,
-      user.password
-    );
-
-    if (!isMatch) throw new UnauthorizedException('Invalid password');
-
-    return user;
-  }
-
-  /**
-   * Validates a JWT token and retrieves the corresponding user and session.
-   *
-   * @param payload - The decoded JWT payload containing the user's email.
-   * @param jwtToken - The JWT token to validate.
-   * @returns An object containing the authenticated user and their active session.
-   * @throws UnauthorizedException if the token is invalid or the session is not found.
-   */
-  async validateJwt(
-    { email }: JwtPayload,
-    jwtToken: string
-  ): Promise<CustomAuth> {
+  async validateUserJwt(email: string, token: string): Promise<CustomAuth> {
     // Find the user associated with the JWT email
-    const user = await this.usersService.findOne({ email });
+    const user = await this.usersService.findByIdentifierForAuth(email);
 
-    if (!user) throw new UnauthorizedException();
+    if (!user) throw new UnauthorizedException('invalid token');
 
     // Validate the session using the user's ID and token
-    const session = await this.sessionsService.validate(user.id, jwtToken);
+    const session = await this.sessionsService.getActive(user.id, token);
 
-    if (!session) throw new UnauthorizedException();
+    if (!session) throw new UnauthorizedException('session expired');
 
     // Return the authenticated user and session
     return { user, session };

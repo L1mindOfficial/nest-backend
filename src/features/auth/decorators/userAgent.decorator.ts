@@ -1,27 +1,13 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { Device } from 'features/sessions/interfaces/device.interface';
+import { IDevice } from 'features/sessions/interfaces/device.interface';
 
-/**
- * Custom decorator to extract the user's device information from the request.
- *
- * This decorator analyzes the 'user-agent' header of the incoming request
- * to determine the device type and version. It supports various operating
- * systems, including iOS, Android, macOS, Windows, and Linux.
- *
- * If the user-agent string doesn't match any known patterns, the device
- * is set to 'unknown'. This information can be valuable for analytics,
- * user experience improvements, and security checks.
- *
- * Usage: `@UserAgent()` can be used in route handlers to get the device
- * information of the client.
- */
 export const UserAgent = createParamDecorator(
-  (data: unknown, ctx: ExecutionContext): Device => {
+  (data: unknown, ctx: ExecutionContext): IDevice => {
     const request = ctx.switchToHttp().getRequest();
     const userAgent = request.headers['user-agent'];
 
     // Default device initialization
-    const defaultDevice: Device = {
+    const defaultDevice: IDevice = {
       name: 'unknown'
     };
 
