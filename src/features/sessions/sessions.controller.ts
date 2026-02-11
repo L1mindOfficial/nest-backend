@@ -1,6 +1,6 @@
 import { Controller, Delete, Get, HttpCode, HttpStatus } from '@nestjs/common';
-import { User } from 'features/auth/decorators/user.decorator';
-import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
+import { User } from '@features/auth/decorators/user.decorator';
+import { CustomAuth } from '@infrastructure/http/interfaces/custom-request.interface';
 import { SessionsService } from './sessions.service';
 
 @Controller({

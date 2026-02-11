@@ -1,7 +1,7 @@
-import { User } from 'features/users/entities/user.entity';
+import { User } from '@features/users/entities/user.entity';
 import { Session } from '../entities/session.entity';
 import { IDevice } from './device.interface';
-import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
+import { CustomAuth } from '@infrastructure/http/interfaces/custom-request.interface';
 import { ISessionWithCurrent } from './session-with-current.interface';
 
 export interface ISessionsService {

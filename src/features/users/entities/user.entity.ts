@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { Session } from 'features/sessions/entities/session.entity';
-import { RegistryDatesOrm } from 'infrastructure/database/embedded/registry-dates.embedded';
+import { Session } from '@features/sessions/entities/session.entity';
+import { RegistryDatesOrm } from '@infrastructure/database/embedded/registry-dates.embedded';
 import {
   Column,
   Entity,

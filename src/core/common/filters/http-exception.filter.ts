@@ -1,3 +1,4 @@
+import { ErrorResponseDto } from '@infrastructure/http/dto/error-response.dto';
 import {
   ArgumentsHost,
   Catch,
@@ -6,7 +7,6 @@ import {
   HttpStatus
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { ErrorResponseDto } from 'infrastructure/http/dto/error-response.dto';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {

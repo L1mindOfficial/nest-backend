@@ -1,6 +1,6 @@
-import { IDevice } from 'features/sessions/interfaces/device.interface';
-import { ChangePasswordDto } from 'features/users/dto/change-password.dto';
-import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
+import { IDevice } from '@features/sessions/interfaces/device.interface';
+import { ChangePasswordDto } from '@features/users/dto/change-password.dto';
+import { CustomAuth } from '@infrastructure/http/interfaces/custom-request.interface';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { RegisterUserDto } from '../dto/register-user.dto';
 

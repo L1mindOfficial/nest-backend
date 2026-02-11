@@ -10,8 +10,8 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { User } from 'features/auth/decorators/user.decorator';
-import { User as UserEntity } from 'features/users/entities/user.entity';
+import { User } from '@features/auth/decorators/user.decorator';
+import { User as UserEntity } from '@features/users/entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 import {

@@ -1,7 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
-import { RegistryDatesOrm } from 'infrastructure/database/embedded/registry-dates.embedded';
-import { ErrorResponseDto } from 'infrastructure/http/dto/error-response.dto';
+import { RegistryDatesOrm } from '@infrastructure/database/embedded/registry-dates.embedded';
+import { ErrorResponseDto } from '@infrastructure/http/dto/error-response.dto';
 import { Session } from './../sessions/entities/session.entity';
 import { User } from './entities/user.entity';
 import { UserRole } from './enums/user-role.enum';

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsPassword } from 'core/validators/decorators/is-password.decorator';
+import { IsPassword } from '@core/validators/decorators/is-password.decorator';
 
 export class ChangePasswordDto {
   @ApiProperty({

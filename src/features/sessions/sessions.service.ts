@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Session } from 'features/sessions/entities/session.entity';
-import { User } from 'features/users/entities/user.entity';
-import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
+import { Session } from '@features/sessions/entities/session.entity';
+import { User } from '@features/users/entities/user.entity';
+import { CustomAuth } from '@infrastructure/http/interfaces/custom-request.interface';
 import { DataSource, Not, Raw, Repository } from 'typeorm';
 import { IDevice } from './interfaces/device.interface';
 import { ISessionWithCurrent } from './interfaces/session-with-current.interface';

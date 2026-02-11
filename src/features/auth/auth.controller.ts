@@ -7,8 +7,8 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { IDevice } from 'features/sessions/interfaces/device.interface';
-import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
+import { IDevice } from '@features/sessions/interfaces/device.interface';
+import { CustomAuth } from '@infrastructure/http/interfaces/custom-request.interface';
 import { ChangePasswordDto } from '../users/dto/change-password.dto';
 import { AuthService } from './auth.service';
 import {

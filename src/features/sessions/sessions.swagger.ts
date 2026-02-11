@@ -1,7 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { User } from 'features/users/entities/user.entity';
-import { ErrorResponseDto } from 'infrastructure/http/dto/error-response.dto';
+import { User } from '@features/users/entities/user.entity';
+import { ErrorResponseDto } from '@infrastructure/http/dto/error-response.dto';
 import { SessionsDto } from './dto/sessions.dto';
 
 export const SwaggerSessionProperties = {

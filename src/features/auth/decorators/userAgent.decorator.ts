@@ -1,12 +1,11 @@
+import { IDevice } from '@features/sessions/interfaces/device.interface';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { IDevice } from 'features/sessions/interfaces/device.interface';
 
 export const UserAgent = createParamDecorator(
   (data: unknown, ctx: ExecutionContext): IDevice => {
     const request = ctx.switchToHttp().getRequest();
     const userAgent = request.headers['user-agent'];
 
-    // Default device initialization
     const defaultDevice: IDevice = {
       name: 'unknown'
     };
@@ -15,7 +14,6 @@ export const UserAgent = createParamDecorator(
       return defaultDevice;
     }
 
-    // Define device patterns
     const devicePatterns = [
       {
         name: 'iOS',
@@ -40,11 +38,10 @@ export const UserAgent = createParamDecorator(
       {
         name: 'Linux',
         regex: /Linux/i,
-        versionRegex: null // No version regex for Linux
+        versionRegex: null
       }
     ];
 
-    // Check against patterns
     for (const { name, regex, versionRegex } of devicePatterns) {
       if (regex.test(userAgent)) {
         return {

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from 'features/users/entities/user.entity';
+import { User } from '@features/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IDevice } from '../interfaces/device.interface';
 import { SwaggerSessionProperties as SessionProps } from '../sessions.swagger';

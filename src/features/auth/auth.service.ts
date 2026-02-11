@@ -5,11 +5,11 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { IDevice } from 'features/sessions/interfaces/device.interface';
-import { ISessionsService } from 'features/sessions/interfaces/sessions.interface';
-import { IUsersService } from 'features/users/interfaces/users.interface';
-import { SESSIONS_SERVICE, USERS_SERVICE } from 'infrastructure/di/tokens';
-import { CustomAuth } from 'infrastructure/http/interfaces/custom-request.interface';
+import { IDevice } from '@features/sessions/interfaces/device.interface';
+import { ISessionsService } from '@features/sessions/interfaces/sessions.interface';
+import { IUsersService } from '@features/users/interfaces/users.interface';
+import { SESSIONS_SERVICE, USERS_SERVICE } from '@infrastructure/di/tokens';
+import { CustomAuth } from '@infrastructure/http/interfaces/custom-request.interface';
 import { ChangePasswordDto } from '../users/dto/change-password.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
