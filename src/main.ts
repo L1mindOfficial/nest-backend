@@ -26,7 +26,7 @@ async function bootstrap() {
      * Set the title of the API documentation.
      * This will be displayed prominently on the Swagger UI.
      */
-    .setTitle('The Mintegs API description - BackEnd')
+    .setTitle('The NestjsBackend API description')
 
     /**
      * Provide a short description for the API.

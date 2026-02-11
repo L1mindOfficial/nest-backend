@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content interface">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -123,7 +141,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/common/interfaces/custom-request.interface.ts</code>
+            <code>src/infrastructure/http/interfaces/custom-request.interface.ts</code>
         </p>
 
 
@@ -220,8 +238,8 @@ This property allows for type-safe access to the user&#39;s authentication conte
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Request } from &#x27;express&#x27;;
-import { Session } from &#x27;sessions/entities/session.entity&#x27;;
-import { User } from &#x27;users/entities/user.entity&#x27;;
+import { Session } from &#x27;features/sessions/entities/session.entity&#x27;;
+import { User } from &#x27;features/users/entities/user.entity&#x27;;
 
 /**
  * The &#x60;CustomAuth&#x60; interface represents the authentication context of a request.
@@ -322,7 +340,6 @@ export interface CustomRequest extends Request {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

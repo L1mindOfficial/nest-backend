@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content class">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -120,25 +138,10 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/common/dto/remove.dto.ts</code>
+            <code>src/infrastructure/http/dto/remove.dto.ts</code>
         </p>
 
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>The <code>RemoveDto</code> class is a Data Transfer Object (DTO) used to handle the removal of an entity.
-It supports both soft deletion (marking an entity as deleted without removing it from the database)
-and hard deletion (completely removing the entity from the database).</p>
-<p>The <code>soft</code> field is optional and allows the client to specify whether to perform a soft delete.</p>
-<p>Fields:</p>
-<ul>
-<li><code>soft</code>: A boolean flag indicating whether the deletion should be soft (optional).</li>
-</ul>
-<p>Decorators from <code>class-validator</code> ensure that the <code>soft</code> field is valid if provided.</p>
-
-            </p>
 
 
 
@@ -156,6 +159,7 @@ and hard deletion (completely removing the entity from the database).</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -190,6 +194,7 @@ and hard deletion (completely removing the entity from the database).</p>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Readonly</span>
                         <span ><b>soft</b></span>
                         <a href="#soft"><span class="icon ion-ios-link"></span></a>
@@ -207,23 +212,16 @@ and hard deletion (completely removing the entity from the database).</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiPropertyOptional({description: &#x27;The &quot;soft&quot; property is optional and indicates whether to perform a soft delete.&#x27;})<br />@IsOptional()<br />@IsBoolean()<br />
+                            @ApiPropertyOptional({description: &#x27;The &quot;soft&quot; property is optional and indicates whether to perform a soft delete.&#x27;})<br />@IsOptional()<br />@ToBoolean()<br />@IsBoolean()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/common/dto/remove.dto.ts:48</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/infrastructure/http/dto/remove.dto.ts:13</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The &#39;soft&#39; property indicates whether the delete operation should
-be a soft delete. This property is optional and should be of type boolean.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -240,52 +238,17 @@ be a soft delete. This property is optional and should be of type boolean.</p>
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiPropertyOptional } from &#x27;@nestjs/swagger&#x27;;
-import { IsOptional } from &#x27;class-validator&#x27;;
-import { IsBoolean } from &#x27;common/decorators/validators/is-boolean.decorator&#x27;;
+import { IsBoolean, IsOptional } from &#x27;class-validator&#x27;;
+import { ToBoolean } from &#x27;core/transforms/decorators/to-boolean.decorator&#x27;;
 
-/**
- * The &#x60;RemoveDto&#x60; class is a Data Transfer Object (DTO) used to handle the removal of an entity.
- * It supports both soft deletion (marking an entity as deleted without removing it from the database)
- * and hard deletion (completely removing the entity from the database).
- *
- * The &#x60;soft&#x60; field is optional and allows the client to specify whether to perform a soft delete.
- *
- * Fields:
- * - &#x60;soft&#x60;: A boolean flag indicating whether the deletion should be soft (optional).
- *
- * Decorators from &#x60;class-validator&#x60; ensure that the &#x60;soft&#x60; field is valid if provided.
- */
 export class RemoveDto {
-  /**
-   * The &#x27;soft&#x27; property indicates whether the delete operation should
-   * be a soft delete. This property is optional and should be of type boolean.
-   */
   @ApiPropertyOptional({
-    /**
-     * Description of the &#x27;soft&#x27; property, clarifying that it is optional
-     * and defines the behavior of the delete operation.
-     */
     description:
       &#x27;The &quot;soft&quot; property is optional and indicates whether to perform a soft delete.&#x27;
   })
-
-  /**
-   * Indicates that the &#x27;soft&#x27; property is optional in the request.
-   * If not provided, the default delete behavior will apply.
-   */
   @IsOptional()
-
-  /**
-   * Validates that the &#x27;soft&#x27; property, if provided, must be a boolean value.
-   * This ensures that the input meets the expected data type requirements.
-   */
+  @ToBoolean()
   @IsBoolean()
-
-  /**
-   * Declares the property as read-only, meaning it cannot be modified
-   * after the instance of this DTO is created. This is a common practice
-   * for request DTOs to maintain data integrity.
-   */
   readonly soft: boolean;
 }
 </code></pre>
@@ -354,7 +317,6 @@ export class RemoveDto {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

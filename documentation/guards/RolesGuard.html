@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content guard">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -115,10 +133,10 @@
 <div class="tab-content">
         <div class="tab-pane fade active in" id="info">
             <p class="comment">
-            <h3>File</h3>
+                <h3>File</h3>
             </p>
             <p class="comment">
-                <code>src/auth/guards/roles.guard.ts</code>
+                <code>src/features/auth/guards/roles.guard.ts</code>
             </p>
 
 
@@ -165,7 +183,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/auth/guards/roles.guard.ts:6</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/features/auth/guards/roles.guard.ts:6</a></div>
                             </td>
                         </tr>
 
@@ -246,7 +264,7 @@ ensuring the guard&#39;s integrity during its lifecycle.</p>
                     <tr>
                         <td class="col-md-4">
                             <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/auth/guards/roles.guard.ts:28</a></div>
+                                    class="link-to-prism">src/features/auth/guards/roles.guard.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -310,7 +328,7 @@ and the incoming request.</p>
         <div class="tab-pane fade  tab-source-code" id="source">
             <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, CanActivate, ExecutionContext } from &#x27;@nestjs/common&#x27;;
 import { Reflector } from &#x27;@nestjs/core&#x27;;
-import { ROLES_KEY } from &#x27;auth/decorators/roles.decorator&#x27;;
+import { ROLES_KEY } from &#x27;features/auth/decorators/roles.decorator&#x27;;
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -427,7 +445,6 @@ export class RolesGuard implements CanActivate {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

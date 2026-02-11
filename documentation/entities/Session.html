@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content entity">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -114,22 +132,10 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/sessions/entities/session.entity.ts</code>
+            <code>src/features/sessions/entities/session.entity.ts</code>
         </p>
 
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>The <code>Session</code> entity represents a user session in the system.
-It stores information about a user&#39;s session, including the session&#39;s unique token,
-the device used to initiate the session, the user&#39;s IP address, and the session&#39;s expiration date.</p>
-<p>The <code>Session</code> entity is linked to a <code>User</code> entity via a Many-to-One relationship,
-indicating that a user can have multiple sessions, but each session belongs to one user.
-This entity is primarily used to track and manage user sessions for authentication purposes.</p>
-
-            </p>
 
 
             <section data-compodoc="block-index">
@@ -207,7 +213,7 @@ This entity is primarily used to track and manage user sessions for authenticati
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/Device.html" target="_self" >Device</a></code>
+                        <i>Type : </i>        <code><a href="../interfaces/IDevice.html" target="_self" >IDevice</a></code>
 
                     </td>
                 </tr>
@@ -216,13 +222,13 @@ This entity is primarily used to track and manage user sessions for authenticati
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;JSON object representing the device details for this session.&#x27;, example: undefined})<br />@Column({type: &#x27;json&#x27;})<br />
+                            @ApiProperty(SessionProps.device)<br />@Column({type: &#x27;json&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/sessions/entities/session.entity.ts:54</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/features/sessions/entities/session.entity.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -260,13 +266,13 @@ Includes details like the device&#39;s type, operating system, browser, etc.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The expiration date of the session.&#x27;, example: &#x27;2024-09-25T10:00:00.000Z&#x27;})<br />@Column()<br />
+                            @ApiProperty(SessionProps.expiryDate)<br />@Column()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/sessions/entities/session.entity.ts:75</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/features/sessions/entities/session.entity.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -303,13 +309,13 @@ Includes details like the device&#39;s type, operating system, browser, etc.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The unique identifier for the session (UUID).&#x27;, example: &#x27;a1b2c3d4-e5f6-7890-1234-56789abcdef0&#x27;})<br />@PrimaryGeneratedColumn(&#x27;uuid&#x27;)<br />
+                            @ApiProperty(SessionProps.id)<br />@PrimaryGeneratedColumn(&#x27;uuid&#x27;)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/sessions/entities/session.entity.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/features/sessions/entities/session.entity.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -347,13 +353,13 @@ This is automatically generated as a UUID (Universal Unique Identifier).</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The IP address from which the session was initiated.&#x27;, example: &#x27;192.168.1.100&#x27;})<br />@Column()<br />
+                            @ApiProperty(SessionProps.ip)<br />@Column()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/sessions/entities/session.entity.ts:65</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/features/sessions/entities/session.entity.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -382,7 +388,7 @@ Used to track the user&#39;s access point and for security checks.</p>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../entitys/User.html" target="_self" >User</a></code>
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
 
                     </td>
                 </tr>
@@ -391,13 +397,13 @@ Used to track the user&#39;s access point and for security checks.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The user who owns this session.&#x27;, type: () &#x3D;&gt; User})<br />@ManyToOne(undefined, user &#x3D;&gt; user.sessions, {nullable: false})<br />
+                            @ApiProperty(SessionProps.user)<br />@ManyToOne(undefined, user &#x3D;&gt; user.sessions, {nullable: false})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/sessions/entities/session.entity.ts:86</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/features/sessions/entities/session.entity.ts:54</a></div>
                         </td>
                     </tr>
 
@@ -435,13 +441,13 @@ This establishes a Many-to-One relationship with the <code>User</code> entity.</
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The unique token for this session used for authentication.&#x27;, example: &#x27;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&#x27;})<br />@Column({unique: true})<br />
+                            @ApiProperty(SessionProps.token)<br />@Column({unique: true})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/sessions/entities/session.entity.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/features/sessions/entities/session.entity.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -461,29 +467,18 @@ This token is unique and used to identify the session when validating user reque
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { Device } from &#x27;common/interfaces/device.interface&#x27;;
+import { User } from &#x27;features/users/entities/user.entity&#x27;;
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from &#x27;typeorm&#x27;;
-import { User } from &#x27;users/entities/user.entity&#x27;;
+import { IDevice } from &#x27;../interfaces/device.interface&#x27;;
+import { SwaggerSessionProperties as SessionProps } from &#x27;../sessions.swagger&#x27;;
 
-/**
- * The &#x60;Session&#x60; entity represents a user session in the system.
- * It stores information about a user&#x27;s session, including the session&#x27;s unique token,
- * the device used to initiate the session, the user&#x27;s IP address, and the session&#x27;s expiration date.
- *
- * The &#x60;Session&#x60; entity is linked to a &#x60;User&#x60; entity via a Many-to-One relationship,
- * indicating that a user can have multiple sessions, but each session belongs to one user.
- * This entity is primarily used to track and manage user sessions for authentication purposes.
- */
 @Entity()
 export class Session {
   /**
    * The unique identifier for the session.
    * This is automatically generated as a UUID (Universal Unique Identifier).
    */
-  @ApiProperty({
-    description: &#x27;The unique identifier for the session (UUID).&#x27;,
-    example: &#x27;a1b2c3d4-e5f6-7890-1234-56789abcdef0&#x27;
-  })
+  @ApiProperty(SessionProps.id)
   @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
   id: string;
 
@@ -491,10 +486,7 @@ export class Session {
    * The session&#x27;s authentication token.
    * This token is unique and used to identify the session when validating user requests.
    */
-  @ApiProperty({
-    description: &#x27;The unique token for this session used for authentication.&#x27;,
-    example: &#x27;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&#x27;
-  })
+  @ApiProperty(SessionProps.token)
   @Column({ unique: true })
   token: string;
 
@@ -502,37 +494,22 @@ export class Session {
    * JSON object representing the device information for this session.
    * Includes details like the device&#x27;s type, operating system, browser, etc.
    */
-  @ApiProperty({
-    description:
-      &#x27;JSON object representing the device details for this session.&#x27;,
-    example: {
-      deviceType: &#x27;mobile&#x27;,
-      os: &#x27;iOS&#x27;,
-      browser: &#x27;Safari&#x27;,
-      browserVersion: &#x27;14.0&#x27;
-    }
-  })
+  @ApiProperty(SessionProps.device)
   @Column({ type: &#x27;json&#x27; })
-  device: Device;
+  device: IDevice;
 
   /**
    * The IP address from which the session was initiated.
    * Used to track the user&#x27;s access point and for security checks.
    */
-  @ApiProperty({
-    description: &#x27;The IP address from which the session was initiated.&#x27;,
-    example: &#x27;192.168.1.100&#x27;
-  })
+  @ApiProperty(SessionProps.ip)
   @Column()
   ip: string;
 
   /**
    * The expiration date of the session, after which it becomes invalid.
    */
-  @ApiProperty({
-    description: &#x27;The expiration date of the session.&#x27;,
-    example: &#x27;2024-09-25T10:00:00.000Z&#x27;
-  })
+  @ApiProperty(SessionProps.expiryDate)
   @Column()
   expiryDate: Date;
 
@@ -540,10 +517,7 @@ export class Session {
    * The user who owns this session.
    * This establishes a Many-to-One relationship with the &#x60;User&#x60; entity.
    */
-  @ApiProperty({
-    description: &#x27;The user who owns this session.&#x27;,
-    type: () &#x3D;&gt; User
-  })
+  @ApiProperty(SessionProps.user)
   @ManyToOne(() &#x3D;&gt; User, (user) &#x3D;&gt; user.sessions, { nullable: false })
   owner: User;
 }
@@ -619,7 +593,6 @@ export class Session {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

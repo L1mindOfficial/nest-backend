@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content class">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -120,24 +138,16 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/users/dto/update-user.dto.ts</code>
+            <code>src/features/users/dto/update-user.dto.ts</code>
         </p>
 
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>UpdateUserDto is a subclass of CreateUserDto but allows partial updates to user properties.
-It uses PartialType from @nestjs/mapped-types to make all fields optional.</p>
-
-            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
             </p>
             <p class="comment">
-                            <code><a href="../classes/CreateUserDto.html" target="_self" >PartialType(CreateUserDto)</a></code>
+                            <code><a href="../entitys/User.html" target="_self" >PartialType(CreateUserDto)</a></code>
             </p>
 
 
@@ -158,10 +168,6 @@ It uses PartialType from @nestjs/mapped-types to make all fields optional.</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { PartialType } from &#x27;@nestjs/swagger&#x27;;
 import { CreateUserDto } from &#x27;./create-user.dto&#x27;;
 
-/**
- * UpdateUserDto is a subclass of CreateUserDto but allows partial updates to user properties.
- * It uses PartialType from @nestjs/mapped-types to make all fields optional.
- */
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
 </code></pre>
     </div>
@@ -229,7 +235,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {}
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

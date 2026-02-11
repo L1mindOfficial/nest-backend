@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content class">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -120,7 +138,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/common/dto/error-response.dto.ts</code>
+            <code>src/infrastructure/http/dto/error-response.dto.ts</code>
         </p>
 
 
@@ -202,7 +220,7 @@ processing of errors.</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/common/dto/error-response.dto.ts:87</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/infrastructure/http/dto/error-response.dto.ts:87</a></div>
                             </td>
                         </tr>
 
@@ -357,7 +375,7 @@ values and auto-generates the <code>timestamp</code> field to reflect the time o
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/common/dto/error-response.dto.ts:87</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/infrastructure/http/dto/error-response.dto.ts:87</a></div>
                         </td>
                     </tr>
 
@@ -401,7 +419,7 @@ the main error message or type.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/common/dto/error-response.dto.ts:48</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/infrastructure/http/dto/error-response.dto.ts:48</a></div>
                         </td>
                     </tr>
 
@@ -444,7 +462,7 @@ error types like &quot;BadRequest&quot;, &quot;ValidationError&quot;, etc.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/common/dto/error-response.dto.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/infrastructure/http/dto/error-response.dto.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -487,7 +505,7 @@ This message is intended to give users a clear explanation of what went wrong.</
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/common/dto/error-response.dto.ts:72</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/infrastructure/http/dto/error-response.dto.ts:72</a></div>
                         </td>
                     </tr>
 
@@ -530,7 +548,7 @@ which endpoint or resource was involved in causing the error.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/common/dto/error-response.dto.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/infrastructure/http/dto/error-response.dto.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -573,7 +591,7 @@ Common status codes include 400 (Bad Request), 404 (Not Found), and 500 (Interna
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/common/dto/error-response.dto.ts:60</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/infrastructure/http/dto/error-response.dto.ts:60</a></div>
                         </td>
                     </tr>
 
@@ -778,7 +796,6 @@ export class ErrorResponseDto {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

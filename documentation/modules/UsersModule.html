@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content module">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -192,20 +210,11 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/users/users.module.ts</code>
+            <code>src/features/users/users.module.ts</code>
         </p>
 
 
 
-        <p class="comment">
-            <h3>Description</h3>
-        </p>
-        <p class="comment">
-            <p>UsersModule is responsible for managing the user-related functionality
-in the application. It integrates the User entity, controller, service, and
-any subscribers for user-related events.</p>
-
-        </p>
 
 
         <div class="container-fluid module">
@@ -247,34 +256,16 @@ any subscribers for user-related events.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { forwardRef, Module } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Module } from &#x27;@nestjs/common&#x27;;
 import { TypeOrmModule } from &#x27;@nestjs/typeorm&#x27;;
-import { AuthModule } from &#x27;auth/auth.module&#x27;;
 import { User } from &#x27;./entities/user.entity&#x27;;
 import { UsersController } from &#x27;./users.controller&#x27;;
 import { UsersService } from &#x27;./users.service&#x27;;
-import { UsersSubscriber } from &#x27;./subscribers/users.subscriber&#x27;;
 
-/**
- * UsersModule is responsible for managing the user-related functionality
- * in the application. It integrates the User entity, controller, service, and
- * any subscribers for user-related events.
- */
 @Module({
-  imports: [
-    // Register the User entity for database interaction
-    TypeOrmModule.forFeature([User]),
-
-    // Use forwardRef to handle circular dependency with AuthModule
-    forwardRef(() &#x3D;&gt; AuthModule)
-  ],
-  // Define the UsersController to handle incoming HTTP requests
+  imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
-
-  // Provide UsersService and UsersSubscriber for dependency injection
-  providers: [UsersService, UsersSubscriber],
-
-  // Export UsersService so it can be used by other modules
+  providers: [UsersService],
   exports: [UsersService]
 })
 export class UsersModule {}
@@ -352,7 +343,6 @@ export class UsersModule {}
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

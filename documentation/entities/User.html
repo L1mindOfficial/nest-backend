@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content entity">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -114,19 +132,10 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/users/entities/user.entity.ts</code>
+            <code>src/features/users/entities/user.entity.ts</code>
         </p>
 
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>The <code>User</code> entity represents a user within the system. It contains key properties
-like ID, email, username, password, role, status, and relationships to other entities such as sessions.
-Many fields are excluded from serialization for security reasons, utilizing the <code>@Exclude()</code> decorator.</p>
-
-            </p>
 
 
             <section data-compodoc="block-index">
@@ -233,23 +242,16 @@ Many fields are excluded from serialization for security reasons, utilizing the 
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The user&#x27;s email address, which must be unique.&#x27;, example: &#x27;user@example.com&#x27;, uniqueItems: true})<br />@Column({unique: true})<br />
+                            @ApiProperty(UserProps.email)<br />@Column({unique: true})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/users/entities/user.entity.ts:53</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/features/users/entities/user.entity.ts:31</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The user&#39;s email address, which must be unique across the system.
-It serves as a primary identifier alongside the username.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -278,23 +280,16 @@ It serves as a primary identifier alongside the username.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The unique identifier for the user, auto-generated as a UUID.&#x27;, example: &#x27;d290f1ee-6c54-4b01-90e6-d701748f0851&#x27;, readOnly: true})<br />@PrimaryGeneratedColumn(&#x27;uuid&#x27;)<br />@Exclude()<br />
+                            @ApiProperty(UserProps.id)<br />@PrimaryGeneratedColumn(&#x27;uuid&#x27;)<br />@Exclude()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/users/entities/user.entity.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/features/users/entities/user.entity.ts:23</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The unique identifier for the user, auto-generated as a UUID.
-This field is excluded from responses using <code>@Exclude()</code> for privacy.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -322,23 +317,16 @@ This field is excluded from responses using <code>@Exclude()</code> for privacy.
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiPropertyOptional({description: &#x27;The name of the user, which is optional and limited to 50 characters.&#x27;, example: &#x27;John Doe&#x27;, maxLength: 50})<br />@Column({length: 50, nullable: true, select: false})<br />
+                            @ApiPropertyOptional(UserProps.name)<br />@Column({length: 50, nullable: true, select: false})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/users/entities/user.entity.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/features/users/entities/user.entity.ts:27</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The user&#39;s name, which is optional.
-This field is not included in select queries by default, meaning it must be explicitly requested.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -367,23 +355,16 @@ This field is not included in select queries by default, meaning it must be expl
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The user&#x27;s password, which is not returned in responses for security reasons.&#x27;, example: &#x27;P@ssw0rd!&#x27;, writeOnly: true})<br />@Column({select: false})<br />@Exclude()<br />
+                            @ApiProperty(UserProps.password)<br />@Column({select: false})<br />@Exclude()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/users/entities/user.entity.ts:81</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/features/users/entities/user.entity.ts:40</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The user&#39;s password, which is excluded from selection queries by default to ensure security.
-The <code>@Exclude()</code> decorator ensures that it will not be exposed in serialized responses.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -403,7 +384,7 @@ The <code>@Exclude()</code> decorator ensures that it will not be exposed in ser
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/RegistryDates.html" target="_self" >RegistryDates</a></code>
+                        <i>Type : </i>        <code><a href="../classes/RegistryDatesOrm.html" target="_self" >RegistryDatesOrm</a></code>
 
                     </td>
                 </tr>
@@ -412,23 +393,16 @@ The <code>@Exclude()</code> decorator ensures that it will not be exposed in ser
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;Embedded registry dates, including creation, update, and deletion timestamps.&#x27;, type: () &#x3D;&gt; RegistryDates, readOnly: true})<br />@Column(undefined, {prefix: false})<br />@Exclude()<br />
+                            @ApiProperty(UserProps.registryDates)<br />@Column(undefined, {prefix: false})<br />@Exclude()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="127" class="link-to-prism">src/users/entities/user.entity.ts:127</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/features/users/entities/user.entity.ts:55</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Embedded column that tracks important registry dates such as creation and deletion timestamps.
-This field is also excluded from serialized responses using <code>@Exclude()</code>.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -457,24 +431,16 @@ This field is also excluded from serialized responses using <code>@Exclude()</co
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiPropertyOptional({description: &#x27;The role of the user, such as &#x60;USER&#x60;, &#x60;ADMIN&#x60;, or &#x60;SUPERADMIN&#x60;.&#x27;, enum: UserRole, default: undefined, example: &#x27;USER&#x27;})<br />@Column({type: &#x27;enum&#x27;, enum: UserRole, default: undefined})<br />@Exclude()<br />
+                            @ApiPropertyOptional(UserProps.role)<br />@Column({type: &#x27;enum&#x27;, enum: UserRole, default: undefined})<br />@Exclude()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">src/users/entities/user.entity.ts:113</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/features/users/entities/user.entity.ts:50</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The role of the user, represented by an enum value (<code>UserRole</code>).
-By default, the user role is set to <code>USER</code>.
-This field is excluded from serialized responses using <code>@Exclude()</code>.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -502,26 +468,16 @@ This field is excluded from serialized responses using <code>@Exclude()</code>.<
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The sessions related to this user.&#x27;, type: () &#x3D;&gt; , readOnly: true})<br />@OneToMany(undefined, session &#x3D;&gt; session.owner, {cascade: undefined})<br />
+                            @ApiProperty(UserProps.sessions)<br />@OneToMany(undefined, session &#x3D;&gt; session.owner, {cascade: undefined})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">src/users/entities/user.entity.ts:142</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/features/users/entities/user.entity.ts:61</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Defines a one-to-many relationship with the <code>Session</code> entity.
-This allows for the soft removal and recovery of sessions tied to the user.</p>
-<ul>
-<li><code>cascade: [&#39;soft-remove&#39;, &#39;recover&#39;]</code>: Automatically cascades soft removal and recovery operations.</li>
-</ul>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -550,24 +506,16 @@ This allows for the soft removal and recovery of sessions tied to the user.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiPropertyOptional({description: &#x27;The current status of the user, such as &#x60;ACTIVATE&#x60;, &#x60;DEACTIVATE&#x60;, or &#x60;SUSPEND&#x60;.&#x27;, enum: UserStatus, default: undefined, example: &#x27;ACTIVATE&#x27;})<br />@Column({type: &#x27;enum&#x27;, enum: UserStatus, default: undefined})<br />@Exclude()<br />
+                            @ApiPropertyOptional(UserProps.status)<br />@Column({type: &#x27;enum&#x27;, enum: UserStatus, default: undefined})<br />@Exclude()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">src/users/entities/user.entity.ts:97</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/features/users/entities/user.entity.ts:45</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The current status of the user, represented by an enum value (<code>UserStatus</code>).
-By default, the user status is set to <code>DEACTIVATE</code>.
-This field is excluded from serialized responses using <code>@Exclude()</code>.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -595,23 +543,16 @@ This field is excluded from serialized responses using <code>@Exclude()</code>.<
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;The unique username for the user, with a maximum length of 30 characters.&#x27;, example: &#x27;john_doe_123&#x27;, maxLength: 30, uniqueItems: true})<br />@Column({unique: true, length: 30})<br />
+                            @ApiProperty(UserProps.username)<br />@Column({unique: true, length: 30})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/users/entities/user.entity.ts:67</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/features/users/entities/user.entity.ts:35</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The user&#39;s unique username, which can be up to 30 characters long.
-This is a required field and must be unique across all users.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -622,158 +563,67 @@ This is a required field and must be unique across all users.</p>
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty, ApiPropertyOptional } from &#x27;@nestjs/swagger&#x27;;
 import { Exclude } from &#x27;class-transformer&#x27;;
-import { RegistryDates } from &#x27;common/embedded/registry-dates.embedded&#x27;;
-import { UserRole } from &#x27;common/enums/user-role.enum&#x27;;
-import { UserStatus } from &#x27;common/enums/user-status.enum&#x27;;
-import { Session } from &#x27;sessions/entities/session.entity&#x27;;
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from &#x27;typeorm&#x27;;
+import { Session } from &#x27;features/sessions/entities/session.entity&#x27;;
+import { RegistryDatesOrm } from &#x27;infrastructure/database/embedded/registry-dates.embedded&#x27;;
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Unique
+} from &#x27;typeorm&#x27;;
+import { UserRole } from &#x27;../enums/user-role.enum&#x27;;
+import { UserStatus } from &#x27;../enums/user-status.enum&#x27;;
+import { SwaggerUserProperties as UserProps } from &#x27;../users.swagger&#x27;;
 
-/**
- * The &#x60;User&#x60; entity represents a user within the system. It contains key properties
- * like ID, email, username, password, role, status, and relationships to other entities such as sessions.
- * Many fields are excluded from serialization for security reasons, utilizing the &#x60;@Exclude()&#x60; decorator.
- */
 @Entity()
+@Unique(&#x27;users_email_unique&#x27;, [&#x27;email&#x27;])
+@Unique(&#x27;users_username_unique&#x27;, [&#x27;username&#x27;])
 export class User {
-  /**
-   * The unique identifier for the user, auto-generated as a UUID.
-   * This field is excluded from responses using &#x60;@Exclude()&#x60; for privacy.
-   */
-  @ApiProperty({
-    description:
-      &#x27;The unique identifier for the user, auto-generated as a UUID.&#x27;,
-    example: &#x27;d290f1ee-6c54-4b01-90e6-d701748f0851&#x27;,
-    readOnly: true
-  })
+  @ApiProperty(UserProps.id)
   @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
   @Exclude()
   id: string;
 
-  /**
-   * The user&#x27;s name, which is optional.
-   * This field is not included in select queries by default, meaning it must be explicitly requested.
-   */
-  @ApiPropertyOptional({
-    description:
-      &#x27;The name of the user, which is optional and limited to 50 characters.&#x27;,
-    example: &#x27;John Doe&#x27;,
-    maxLength: 50
-  })
+  @ApiPropertyOptional(UserProps.name)
   @Column({ length: 50, nullable: true, select: false })
   name: string;
 
-  /**
-   * The user&#x27;s email address, which must be unique across the system.
-   * It serves as a primary identifier alongside the username.
-   */
-  @ApiProperty({
-    description: &quot;The user&#x27;s email address, which must be unique.&quot;,
-    example: &#x27;user@example.com&#x27;,
-    uniqueItems: true
-  })
+  @ApiProperty(UserProps.email)
   @Column({ unique: true })
   email: string;
 
-  /**
-   * The user&#x27;s unique username, which can be up to 30 characters long.
-   * This is a required field and must be unique across all users.
-   */
-  @ApiProperty({
-    description:
-      &#x27;The unique username for the user, with a maximum length of 30 characters.&#x27;,
-    example: &#x27;john_doe_123&#x27;,
-    maxLength: 30,
-    uniqueItems: true
-  })
+  @ApiProperty(UserProps.username)
   @Column({ unique: true, length: 30 })
   username: string;
 
-  /**
-   * The user&#x27;s password, which is excluded from selection queries by default to ensure security.
-   * The &#x60;@Exclude()&#x60; decorator ensures that it will not be exposed in serialized responses.
-   */
-  @ApiProperty({
-    description:
-      &quot;The user&#x27;s password, which is not returned in responses for security reasons.&quot;,
-    example: &#x27;P@ssw0rd!&#x27;,
-    writeOnly: true
-  })
+  @ApiProperty(UserProps.password)
   @Column({ select: false })
   @Exclude()
   password: string;
 
-  /**
-   * The current status of the user, represented by an enum value (&#x60;UserStatus&#x60;).
-   * By default, the user status is set to &#x60;DEACTIVATE&#x60;.
-   * This field is excluded from serialized responses using &#x60;@Exclude()&#x60;.
-   */
-  @ApiPropertyOptional({
-    description:
-      &#x27;The current status of the user, such as &#x60;ACTIVATE&#x60;, &#x60;DEACTIVATE&#x60;, or &#x60;SUSPEND&#x60;.&#x27;,
-    enum: UserStatus,
-    default: UserStatus.DEACTIVATE,
-    example: &#x27;ACTIVATE&#x27;
-  })
+  @ApiPropertyOptional(UserProps.status)
   @Column({ type: &#x27;enum&#x27;, enum: UserStatus, default: UserStatus.DEACTIVATE })
   @Exclude()
   status: UserStatus;
 
-  /**
-   * The role of the user, represented by an enum value (&#x60;UserRole&#x60;).
-   * By default, the user role is set to &#x60;USER&#x60;.
-   * This field is excluded from serialized responses using &#x60;@Exclude()&#x60;.
-   */
-  @ApiPropertyOptional({
-    description:
-      &#x27;The role of the user, such as &#x60;USER&#x60;, &#x60;ADMIN&#x60;, or &#x60;SUPERADMIN&#x60;.&#x27;,
-    enum: UserRole,
-    default: UserRole.USER,
-    example: &#x27;USER&#x27;
-  })
+  @ApiPropertyOptional(UserProps.role)
   @Column({ type: &#x27;enum&#x27;, enum: UserRole, default: UserRole.USER })
   @Exclude()
   role: UserRole;
 
-  /**
-   * Embedded column that tracks important registry dates such as creation and deletion timestamps.
-   * This field is also excluded from serialized responses using &#x60;@Exclude()&#x60;.
-   */
-  @ApiProperty({
-    description:
-      &#x27;Embedded registry dates, including creation, update, and deletion timestamps.&#x27;,
-    type: () &#x3D;&gt; RegistryDates,
-    readOnly: true
-  })
-  @Column(() &#x3D;&gt; RegistryDates, { prefix: false })
+  @ApiProperty(UserProps.registryDates)
+  @Column(() &#x3D;&gt; RegistryDatesOrm, { prefix: false })
   @Exclude()
-  registryDates: RegistryDates;
+  registryDates: RegistryDatesOrm;
 
-  /**
-   * Defines a one-to-many relationship with the &#x60;Session&#x60; entity.
-   * This allows for the soft removal and recovery of sessions tied to the user.
-   * - &#x60;cascade: [&#x27;soft-remove&#x27;, &#x27;recover&#x27;]&#x60;: Automatically cascades soft removal and recovery operations.
-   */
-  @ApiProperty({
-    description: &#x27;The sessions related to this user.&#x27;,
-    type: () &#x3D;&gt; [Session],
-    readOnly: true
-  })
+  @ApiProperty(UserProps.sessions)
   @OneToMany(() &#x3D;&gt; Session, (session) &#x3D;&gt; session.owner, {
     cascade: [&#x27;soft-remove&#x27;, &#x27;recover&#x27;]
   })
   sessions: Session[];
 
-  /**
-   * Checks if the user has been soft-deleted by examining the &#x60;deleteAt&#x60; timestamp.
-   * If the timestamp exists, the user is considered soft-deleted.
-   *
-   * @returns &#x60;true&#x60; if the user is soft-deleted, &#x60;false&#x60; otherwise.
-   */
-  @ApiProperty({
-    description:
-      &#x27;Determines if the user has been soft-deleted by checking the deletion timestamp.&#x27;,
-    example: true
-  })
+  @ApiProperty(UserProps.isDeleted)
   get isDeleted() {
     return !!this.registryDates.deleteAt;
   }
@@ -850,7 +700,6 @@ export class User {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

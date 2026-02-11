@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="./" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="./" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -97,48 +111,52 @@
 
 
 
+
+
+
+
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Dependencies</li>
     </ol>
     <ul class="dependencies-list">
         <li>
-            <b>@nestjs/common</b> : ^10.4.4</li>
+            <b>@nestjs/common</b> : ^11.1.9</li>
         <li>
-            <b>@nestjs/config</b> : ^3.2.2</li>
+            <b>@nestjs/config</b> : ^4.0.2</li>
         <li>
-            <b>@nestjs/core</b> : ^10.4.4</li>
+            <b>@nestjs/core</b> : ^11.1.9</li>
         <li>
-            <b>@nestjs/jwt</b> : ^10.2.0</li>
+            <b>@nestjs/jwt</b> : ^11.0.2</li>
         <li>
             <b>@nestjs/mapped-types</b> : *</li>
         <li>
-            <b>@nestjs/passport</b> : ^10.0.3</li>
+            <b>@nestjs/passport</b> : ^11.0.5</li>
         <li>
-            <b>@nestjs/platform-express</b> : ^10.4.4</li>
+            <b>@nestjs/platform-express</b> : ^11.1.9</li>
         <li>
-            <b>@nestjs/swagger</b> : ^7.4.2</li>
+            <b>@nestjs/swagger</b> : ^11.2.3</li>
         <li>
-            <b>@nestjs/typeorm</b> : ^10.0.2</li>
+            <b>@nestjs/typeorm</b> : ^11.0.0</li>
         <li>
-            <b>@types/bcrypt</b> : ^5.0.2</li>
+            <b>@types/bcrypt</b> : ^6.0.0</li>
         <li>
-            <b>@types/passport</b> : ^1.0.16</li>
+            <b>@types/passport</b> : ^1.0.17</li>
         <li>
             <b>@types/passport-jwt</b> : ^4.0.1</li>
         <li>
-            <b>bcrypt</b> : ^5.1.1</li>
+            <b>bcrypt</b> : ^6.0.0</li>
         <li>
             <b>chalk</b> : 4</li>
         <li>
             <b>class-transformer</b> : ^0.5.1</li>
         <li>
-            <b>class-validator</b> : ^0.14.1</li>
+            <b>class-validator</b> : ^0.14.3</li>
         <li>
-            <b>compression</b> : ^1.7.4</li>
+            <b>compression</b> : ^1.8.1</li>
         <li>
-            <b>cookie-parser</b> : ^1.4.6</li>
+            <b>cookie-parser</b> : ^1.4.7</li>
         <li>
-            <b>joi</b> : ^17.13.3</li>
+            <b>joi</b> : ^18.0.2</li>
         <li>
             <b>passport</b> : ^0.7.0</li>
         <li>
@@ -146,13 +164,13 @@
         <li>
             <b>passport-local</b> : ^1.0.0</li>
         <li>
-            <b>pg</b> : ^8.12.0</li>
+            <b>pg</b> : ^8.16.3</li>
         <li>
-            <b>reflect-metadata</b> : ^0.2.0</li>
+            <b>reflect-metadata</b> : ^0.2.2</li>
         <li>
-            <b>rxjs</b> : ^7.8.1</li>
+            <b>rxjs</b> : ^7.8.2</li>
         <li>
-            <b>typeorm</b> : ^0.3.20</li>
+            <b>typeorm</b> : ^0.3.28</li>
     </ul>
 
 
@@ -215,7 +233,6 @@
        <script src="./js/libs/es6-shim.min.js"></script>
        <script src="./js/libs/EventDispatcher.js"></script>
        <script src="./js/libs/promise.min.js"></script>
-       <script src="./js/libs/zepto.min.js"></script>
 
        <script src="./js/compodoc.js"></script>
 

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -94,9 +108,13 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >CreateUserEntity1719238220284</li>
+  <li class="breadcrumb-item" >RegistryDatesOrm</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -120,18 +138,18 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/database/migrations/1719238220284-create-user-entity.ts</code>
+            <code>src/infrastructure/database/embedded/registry-dates.embedded.ts</code>
         </p>
 
 
 
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../classes/RegistryDates.html" target="_self" >RegistryDates</a></code>
+            </p>
 
-            <p class="comment">
-                <h3>Implements</h3>
-            </p>
-            <p class="comment">
-                        <code>MigrationInterface</code>
-            </p>
 
 
             <section data-compodoc="block-index">
@@ -147,33 +165,21 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#name" >name</a>
+                                    <span class="modifier"></span>
+                                <a href="#createdAt" >createdAt</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#deleteAt" >deleteAt</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#updatedAt" >updatedAt</a>
                             </li>
                         </ul>
                     </td>
                 </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#down" >down</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#up" >up</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
 
 
@@ -193,27 +199,125 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="name"></a>
+                    <a name="createdAt"></a>
                     <span class="name">
-                        <span ><b>name</b></span>
-                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                        <span ><b>createdAt</b></span>
+                        <a href="#createdAt"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
 
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;CreateUserEntity1719238220284&#x27;</code>
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @CreateDateColumn()<br />
+                        </code>
                     </td>
                 </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/RegistryDates.html" target="_self" >RegistryDates</a></code>
+</div>
+                            </td>
+                        </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/database/migrations/1719238220284-create-user-entity.ts:4</a></div>
+                                <div class="io-line">Defined in         <code><a href="../classes/RegistryDates.html#source" target="_self" >RegistryDates:6</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteAt"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>deleteAt</b></span>
+                        <a href="#deleteAt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @DeleteDateColumn()<br />
+                        </code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/RegistryDates.html" target="_self" >RegistryDates</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/RegistryDates.html#source" target="_self" >RegistryDates:12</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updatedAt"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>updatedAt</b></span>
+                        <a href="#updatedAt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @UpdateDateColumn()<br />
+                        </code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../classes/RegistryDates.html" target="_self" >RegistryDates</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/RegistryDates.html#source" target="_self" >RegistryDates:9</a></code>
+</div>
                         </td>
                     </tr>
 
@@ -222,152 +326,7 @@
     </table>
 </section>
 
-            <section data-compodoc="block-methods">
-    
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="down"></a>
-                    <span class="name">
-                            <span class="modifier">Public</span>
-                            <span class="modifier">Async</span>
-                        <span ><b>down</b></span>
-                        <a href="#down"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>down(queryRunner: QueryRunner)</code>
-                </td>
-            </tr>
 
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="25"
-                                    class="link-to-prism">src/database/migrations/1719238220284-create-user-entity.ts:25</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>queryRunner</td>
-                                            <td>
-                                                        <code>QueryRunner</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="up"></a>
-                    <span class="name">
-                            <span class="modifier">Public</span>
-                            <span class="modifier">Async</span>
-                        <span ><b>up</b></span>
-                        <a href="#up"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>up(queryRunner: QueryRunner)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="6"
-                                    class="link-to-prism">src/database/migrations/1719238220284-create-user-entity.ts:6</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>queryRunner</td>
-                                            <td>
-                                                        <code>QueryRunner</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
 
 
 
@@ -377,35 +336,18 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { MigrationInterface, QueryRunner } from &#x27;typeorm&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { RegistryDates } from &#x27;core/common/embedded/registry-dates&#x27;;
+import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from &#x27;typeorm&#x27;;
 
-export class CreateUserEntity1719238220284 implements MigrationInterface {
-  name &#x3D; &#x27;CreateUserEntity1719238220284&#x27;;
+export class RegistryDatesOrm extends RegistryDates {
+  @CreateDateColumn()
+  createdAt: Date;
 
-  public async up(queryRunner: QueryRunner): Promise&lt;void&gt; {
-    await queryRunner.query(&#x60;
-            CREATE TABLE &quot;user&quot; (
-                &quot;id&quot; uuid NOT NULL DEFAULT uuid_generate_v4(),
-                &quot;name&quot; character varying(50),
-                &quot;email&quot; character varying NOT NULL,
-                &quot;username&quot; character varying(30) NOT NULL,
-                &quot;password&quot; character varying NOT NULL,
-                &quot;status&quot; &quot;public&quot;.&quot;user_status_enum&quot; NOT NULL DEFAULT &#x27;DEACTIVATE&#x27;,
-                &quot;createdAt&quot; TIMESTAMP NOT NULL DEFAULT now(),
-                &quot;updatedAt&quot; TIMESTAMP NOT NULL DEFAULT now(),
-                &quot;deleteAt&quot; TIMESTAMP,
-                CONSTRAINT &quot;UQ_e12875dfb3b1d92d7d7c5377e22&quot; UNIQUE (&quot;email&quot;),
-                CONSTRAINT &quot;UQ_78a916df40e02a9deb1c4b75edb&quot; UNIQUE (&quot;username&quot;),
-                CONSTRAINT &quot;PK_cace4a159ff9f2512dd42373760&quot; PRIMARY KEY (&quot;id&quot;)
-            )
-        &#x60;);
-  }
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-  public async down(queryRunner: QueryRunner): Promise&lt;void&gt; {
-    await queryRunner.query(&#x60;
-            DROP TABLE &quot;user&quot;
-        &#x60;);
-  }
+  @DeleteDateColumn()
+  deleteAt: Date;
 }
 </code></pre>
     </div>
@@ -445,7 +387,7 @@ export class CreateUserEntity1719238220284 implements MigrationInterface {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'CreateUserEntity1719238220284.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'RegistryDatesOrm.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
@@ -473,7 +415,6 @@ export class CreateUserEntity1719238220284 implements MigrationInterface {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -94,9 +108,13 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >AddRoleToUser1719388025258</li>
+  <li class="breadcrumb-item" >CreateUserAndSessionTable1767562475194</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -120,7 +138,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/database/migrations/1719388025258-add-role-to-user.ts</code>
+            <code>src/infrastructure/database/migrations/1767562475194-create-user-and-session-table.ts</code>
         </p>
 
 
@@ -208,12 +226,12 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;AddRoleToUser1719388025258&#x27;</code>
+                        <i>Default value : </i><code>&#x27;CreateUserAndSessionTable1767562475194&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/database/migrations/1719388025258-add-role-to-user.ts:4</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/infrastructure/database/migrations/1767562475194-create-user-and-session-table.ts:4</a></div>
                         </td>
                     </tr>
 
@@ -250,8 +268,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="16"
-                                    class="link-to-prism">src/database/migrations/1719388025258-add-role-to-user.ts:16</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/infrastructure/database/migrations/1767562475194-create-user-and-session-table.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -321,7 +339,7 @@
                     <tr>
                         <td class="col-md-4">
                             <div class="io-line">Defined in <a href="" data-line="6"
-                                    class="link-to-prism">src/database/migrations/1719388025258-add-role-to-user.ts:6</a></div>
+                                    class="link-to-prism">src/infrastructure/database/migrations/1767562475194-create-user-and-session-table.ts:6</a></div>
                         </td>
                     </tr>
 
@@ -379,25 +397,68 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { MigrationInterface, QueryRunner } from &#x27;typeorm&#x27;;
 
-export class AddRoleToUser1719388025258 implements MigrationInterface {
-  name &#x3D; &#x27;AddRoleToUser1719388025258&#x27;;
+export class CreateUserAndSessionTable1767562475194 implements MigrationInterface {
+  name &#x3D; &#x27;CreateUserAndSessionTable1767562475194&#x27;;
 
   public async up(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.query(&#x60;
+            CREATE TYPE &quot;public&quot;.&quot;user_status_enum&quot; AS ENUM(&#x27;ACTIVATE&#x27;, &#x27;DEACTIVATE&#x27;, &#x27;SUSPEND&#x27;)
+        &#x60;);
     await queryRunner.query(&#x60;
             CREATE TYPE &quot;public&quot;.&quot;user_role_enum&quot; AS ENUM(&#x27;ADMIN&#x27;, &#x27;USER&#x27;)
         &#x60;);
     await queryRunner.query(&#x60;
-            ALTER TABLE &quot;user&quot;
-            ADD &quot;role&quot; &quot;public&quot;.&quot;user_role_enum&quot; NOT NULL DEFAULT &#x27;USER&#x27;
+            CREATE TABLE &quot;user&quot; (
+                &quot;id&quot; uuid NOT NULL DEFAULT uuid_generate_v4(),
+                &quot;name&quot; character varying(50),
+                &quot;email&quot; character varying NOT NULL,
+                &quot;username&quot; character varying(30) NOT NULL,
+                &quot;password&quot; character varying NOT NULL,
+                &quot;status&quot; &quot;public&quot;.&quot;user_status_enum&quot; NOT NULL DEFAULT &#x27;DEACTIVATE&#x27;,
+                &quot;role&quot; &quot;public&quot;.&quot;user_role_enum&quot; NOT NULL DEFAULT &#x27;USER&#x27;,
+                &quot;createdAt&quot; TIMESTAMP NOT NULL DEFAULT now(),
+                &quot;updatedAt&quot; TIMESTAMP NOT NULL DEFAULT now(),
+                &quot;deleteAt&quot; TIMESTAMP,
+                CONSTRAINT &quot;UQ_e12875dfb3b1d92d7d7c5377e22&quot; UNIQUE (&quot;email&quot;),
+                CONSTRAINT &quot;UQ_78a916df40e02a9deb1c4b75edb&quot; UNIQUE (&quot;username&quot;),
+                CONSTRAINT &quot;users_username_unique&quot; UNIQUE (&quot;username&quot;),
+                CONSTRAINT &quot;users_email_unique&quot; UNIQUE (&quot;email&quot;),
+                CONSTRAINT &quot;PK_cace4a159ff9f2512dd42373760&quot; PRIMARY KEY (&quot;id&quot;)
+            )
+        &#x60;);
+    await queryRunner.query(&#x60;
+            CREATE TABLE &quot;session&quot; (
+                &quot;id&quot; uuid NOT NULL DEFAULT uuid_generate_v4(),
+                &quot;token&quot; character varying NOT NULL,
+                &quot;device&quot; json NOT NULL,
+                &quot;ip&quot; character varying NOT NULL,
+                &quot;expiryDate&quot; TIMESTAMP NOT NULL,
+                &quot;ownerId&quot; uuid NOT NULL,
+                CONSTRAINT &quot;UQ_232f8e85d7633bd6ddfad421696&quot; UNIQUE (&quot;token&quot;),
+                CONSTRAINT &quot;PK_f55da76ac1c3ac420f444d2ff11&quot; PRIMARY KEY (&quot;id&quot;)
+            )
+        &#x60;);
+    await queryRunner.query(&#x60;
+            ALTER TABLE &quot;session&quot;
+            ADD CONSTRAINT &quot;FK_e1dde0bd0402cc9b1967c40a1b3&quot; FOREIGN KEY (&quot;ownerId&quot;) REFERENCES &quot;user&quot;(&quot;id&quot;) ON DELETE NO ACTION ON UPDATE NO ACTION
         &#x60;);
   }
 
   public async down(queryRunner: QueryRunner): Promise&lt;void&gt; {
     await queryRunner.query(&#x60;
-            ALTER TABLE &quot;user&quot; DROP COLUMN &quot;role&quot;
+            ALTER TABLE &quot;session&quot; DROP CONSTRAINT &quot;FK_e1dde0bd0402cc9b1967c40a1b3&quot;
+        &#x60;);
+    await queryRunner.query(&#x60;
+            DROP TABLE &quot;session&quot;
+        &#x60;);
+    await queryRunner.query(&#x60;
+            DROP TABLE &quot;user&quot;
         &#x60;);
     await queryRunner.query(&#x60;
             DROP TYPE &quot;public&quot;.&quot;user_role_enum&quot;
+        &#x60;);
+    await queryRunner.query(&#x60;
+            DROP TYPE &quot;public&quot;.&quot;user_status_enum&quot;
         &#x60;);
   }
 }
@@ -439,7 +500,7 @@ export class AddRoleToUser1719388025258 implements MigrationInterface {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'AddRoleToUser1719388025258.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'CreateUserAndSessionTable1767562475194.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
@@ -467,7 +528,6 @@ export class AddRoleToUser1719388025258 implements MigrationInterface {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content controller">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -113,25 +131,10 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/sessions/sessions.controller.ts</code>
+            <code>src/features/sessions/sessions.controller.ts</code>
         </p>
 
-            <p class="comment">
-                <h3>Prefix</h3>
-            </p>
-            <p class="comment">
-                <code>sessions</code>
-            </p>
 
-
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>SessionsController is responsible for handling session-related HTTP requests.
-This includes routes related to session creation, validation, and deletion.</p>
-
-            </p>
 
 
 
@@ -151,13 +154,18 @@ This includes routes related to session creation, validation, and deletion.</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
-                                    <span class="modifier">Async</span>
-                                <a href="#findAll" >findAll</a>
+                                    <span class="modifier"></span>
+                                <a href="#evoke" >evoke</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
-                                    <span class="modifier">Async</span>
-                                <a href="#remove" >remove</a>
+                                    <span class="modifier"></span>
+                                <a href="#getAll" >getAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                <a href="#terminateOther" >terminateOther</a>
                             </li>
                         </ul>
                     </td>
@@ -180,19 +188,19 @@ This includes routes related to session creation, validation, and deletion.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findAll"></a>
+                    <a name="evoke"></a>
                     <span class="name">
                             <span class="modifier"></span>
-                            <span class="modifier">Async</span>
-                        <span ><b>findAll</b></span>
-                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                        <span ><b>evoke</b></span>
+                        <a href="#evoke"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findAll(customAuth: <a href="../interfaces/CustomAuth.html" target="_self">CustomAuth</a>)</code>
+                    <code>evoke(undefined: <a href="../interfaces/CustomAuth.html" target="_self">CustomAuth</a>)</code>
                 </td>
             </tr>
 
@@ -200,14 +208,90 @@ This includes routes related to session creation, validation, and deletion.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br /></code>
+                    <code>@Delete()<br />@HttpCode(HttpStatus.NO_CONTENT)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">src/sessions/sessions.controller.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="21"
+                                    class="link-to-prism">src/features/sessions/sessions.controller.ts:21</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                            <code><a href="../interfaces/CustomAuth.html" target="_self" >CustomAuth</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAll"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                        <span ><b>getAll</b></span>
+                        <a href="#getAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAll(customAuth: <a href="../interfaces/CustomAuth.html" target="_self">CustomAuth</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get()<br />@HttpCode(HttpStatus.OK)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="15"
+                                    class="link-to-prism">src/features/sessions/sessions.controller.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -243,7 +327,7 @@ This includes routes related to session creation, validation, and deletion.</p>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -257,19 +341,19 @@ This includes routes related to session creation, validation, and deletion.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="remove"></a>
+                    <a name="terminateOther"></a>
                     <span class="name">
                             <span class="modifier"></span>
-                            <span class="modifier">Async</span>
-                        <span ><b>remove</b></span>
-                        <a href="#remove"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                        <span ><b>terminateOther</b></span>
+                        <a href="#terminateOther"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>remove(undefined: <a href="../interfaces/CustomAuth.html" target="_self">CustomAuth</a>)</code>
+                    <code>terminateOther(undefined: <a href="../interfaces/CustomAuth.html" target="_self">CustomAuth</a>)</code>
                 </td>
             </tr>
 
@@ -277,14 +361,14 @@ This includes routes related to session creation, validation, and deletion.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Delete()<br /></code>
+                    <code>@Delete(&#x27;others&#x27;)<br />@HttpCode(HttpStatus.NO_CONTENT)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/sessions/sessions.controller.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/features/sessions/sessions.controller.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -319,7 +403,7 @@ This includes routes related to session creation, validation, and deletion.</p>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -333,29 +417,34 @@ This includes routes related to session creation, validation, and deletion.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Delete, Get, UseGuards } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Delete, Get, HttpCode, HttpStatus } from &#x27;@nestjs/common&#x27;;
+import { User } from &#x27;features/auth/decorators/user.decorator&#x27;;
+import { CustomAuth } from &#x27;infrastructure/http/interfaces/custom-request.interface&#x27;;
 import { SessionsService } from &#x27;./sessions.service&#x27;;
-import { JwtAuthGuard } from &#x27;auth/guards/jwt-auth.guard&#x27;;
-import { User } from &#x27;auth/decorators/user.decorator&#x27;;
-import { CustomAuth } from &#x27;common/interfaces/custom-request.interface&#x27;;
 
-/**
- * SessionsController is responsible for handling session-related HTTP requests.
- * This includes routes related to session creation, validation, and deletion.
- */
-@Controller(&#x27;sessions&#x27;)
-@UseGuards(JwtAuthGuard)
+@Controller({
+  path: &#x27;sessions&#x27;,
+  version: &#x27;1&#x27;
+})
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
   @Get()
-  async findAll(@User() customAuth: CustomAuth) {
-    return this.sessionsService.find(customAuth);
+  @HttpCode(HttpStatus.OK)
+  getAll(@User() customAuth: CustomAuth) {
+    return this.sessionsService.list(customAuth);
   }
 
   @Delete()
-  async remove(@User() { user, session }: CustomAuth) {
-    return this.sessionsService.remove(user, session.token);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  evoke(@User() { user, session }: CustomAuth) {
+    return this.sessionsService.revoke(user, session.token);
+  }
+
+  @Delete(&#x27;others&#x27;)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  terminateOther(@User() { user, session }: CustomAuth) {
+    return this.sessionsService.terminateOthers(user, session.token);
   }
 }
 </code></pre>
@@ -431,7 +520,6 @@ export class SessionsController {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

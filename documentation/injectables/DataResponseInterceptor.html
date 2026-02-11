@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content injectable">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -116,7 +134,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/common/interceptors/data-response/data-response.interceptor.ts</code>
+            <code>src/core/common/interceptors/data-response/data-response.interceptor.ts</code>
         </p>
 
 
@@ -194,7 +212,7 @@ multiple endpoints.</p>
                     <tr>
                         <td class="col-md-4">
                             <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">src/common/interceptors/data-response/data-response.interceptor.ts:33</a></div>
+                                    class="link-to-prism">src/core/common/interceptors/data-response/data-response.interceptor.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -307,21 +325,17 @@ export class DataResponseInterceptor implements NestInterceptor {
    * @returns Observable that wraps the modified response.
    */
   intercept(context: ExecutionContext, next: CallHandler): Observable&lt;any&gt; {
-    /* Extracting the HTTP request object from the execution context */
-    const request &#x3D; context.switchToHttp().getRequest();
-
-    /* Retrieving the API version from the request, defaulting to &#x27;1&#x27; if not provided */
-    const apiVersion &#x3D; request.version || &#x27;1&#x27;;
-
     /**
      * Passing the request to the next handler in the pipeline.
      * The map operator is used to transform the response data by adding an &#x60;apiVersion&#x60; field.
      */
     return next.handle().pipe(
-      map((data) &#x3D;&gt; ({
-        apiVersion,
-        data
-      }))
+      map((data) &#x3D;&gt; {
+        if (data)
+          return {
+            data
+          };
+      })
     );
   }
 }
@@ -396,7 +410,6 @@ export class DataResponseInterceptor implements NestInterceptor {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

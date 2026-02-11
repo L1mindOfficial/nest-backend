@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -80,7 +94,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -90,9 +104,17 @@
 
 
 
+
+
+
+
+
+
+
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >LocalStrategy</li>
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >HttpExceptionFilter</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -116,24 +138,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/auth/strategies/local.strategy.ts</code>
+            <code>src/core/common/filters/http-exception.filter.ts</code>
         </p>
 
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>The <code>LocalStrategy</code> class extends Passport&#39;s strategy for local authentication using email and password.
-It retrieves the username (email) and password from the request and uses the AuthService to validate them.</p>
 
-            </p>
 
             <p class="comment">
-                <h3>Extends</h3>
+                <h3>Implements</h3>
             </p>
             <p class="comment">
-                        <code>PassportStrategy(Strategy)</code>
+                        <code>ExceptionFilter</code>
             </p>
 
 
@@ -151,7 +166,7 @@ It retrieves the username (email) and password from the request and uses the Aut
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#validate" >validate</a>
+                                <a href="#catch" >catch</a>
                             </li>
                         </ul>
                     </td>
@@ -165,67 +180,7 @@ It retrieves the username (email) and password from the request and uses the Aut
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/auth/strategies/local.strategy.ts:11</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                            <div class="io-description"><p>The constructor initializes the local authentication strategy.</p>
-<p>The <code>usernameField</code> option is set to &#39;email&#39; to specify that the username
-will be provided in the form of an email address.</p>
-</div>
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                                    <td>Description</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>authService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                        <td>
-                                                                <ul>
-<li>The AuthService instance, used to validate user credentials.</li>
-</ul>
-<p>The <code>usernameField</code> option is set to &#39;email&#39; to specify that the username
-will be provided in the form of an email address.</p>
-
-                                                        </td>
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
             <section data-compodoc="block-methods">
     
@@ -236,34 +191,30 @@ will be provided in the form of an email address.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="validate"></a>
+                    <a name="catch"></a>
                     <span class="name">
-                        <span ><b>validate</b></span>
-                        <a href="#validate"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>catch</b></span>
+                        <a href="#catch"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>validate(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>catch(exception: HttpException, host: ArgumentsHost)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/auth/strategies/local.strategy.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="13"
+                                    class="link-to-prism">src/core/common/filters/http-exception.filter.ts:13</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Validates the user credentials by calling the AuthService&#39;s validateLocal method.</p>
-<p>This method is invoked after the user submits their email and password for authentication.</p>
-<p>or throws an error if not (e.g., if credentials are invalid).</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -274,14 +225,13 @@ will be provided in the form of an email address.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>email</td>
+                                                <td>exception</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        <code>HttpException</code>
                                             </td>
 
                                             <td>
@@ -289,17 +239,11 @@ will be provided in the form of an email address.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The email provided by the user for authentication.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
-                                                <td>password</td>
+                                                <td>host</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        <code>ArgumentsHost</code>
                                             </td>
 
                                             <td>
@@ -307,24 +251,16 @@ will be provided in the form of an email address.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The password provided by the user for authentication.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
                             <div class="io-description">
-                                <p>The authenticated user entity if validation is successful,
-or throws an error if not (e.g., if credentials are invalid).</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -332,56 +268,72 @@ or throws an error if not (e.g., if credentials are invalid).</p>
     </table>
 </section>
 
+
+
+
+
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
-import { PassportStrategy } from &#x27;@nestjs/passport&#x27;;
-import { AuthService } from &#x27;auth/auth.service&#x27;;
-import { Strategy } from &#x27;passport-local&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  HttpStatus
+} from &#x27;@nestjs/common&#x27;;
+import { Request, Response } from &#x27;express&#x27;;
+import { ErrorResponseDto } from &#x27;infrastructure/http/dto/error-response.dto&#x27;;
 
-/**
- * The &#x60;LocalStrategy&#x60; class extends Passport&#x27;s strategy for local authentication using email and password.
- * It retrieves the username (email) and password from the request and uses the AuthService to validate them.
- */
-@Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
-  /**
-   * The constructor initializes the local authentication strategy.
-   *
-   * @param authService - The AuthService instance, used to validate user credentials.
-   *
-   * The &#x60;usernameField&#x60; option is set to &#x27;email&#x27; to specify that the username
-   * will be provided in the form of an email address.
-   */
-  constructor(private readonly authService: AuthService) {
-    // Specifies the field used for username
-    super({ usernameField: &#x27;email&#x27; });
-  }
+@Catch(HttpException)
+export class HttpExceptionFilter implements ExceptionFilter {
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx &#x3D; host.switchToHttp();
+    const res &#x3D; ctx.getResponse&lt;Response&gt;();
+    const req &#x3D; ctx.getRequest&lt;Request&gt;();
 
-  /**
-   * Validates the user credentials by calling the AuthService&#x27;s validateLocal method.
-   *
-   * This method is invoked after the user submits their email and password for authentication.
-   *
-   * @param email - The email provided by the user for authentication.
-   * @param password - The password provided by the user for authentication.
-   * @returns The authenticated user entity if validation is successful,
-   * or throws an error if not (e.g., if credentials are invalid).
-   */
-  validate(email: string, password: string) {
-    return this.authService.validateLocal(email, password);
+    const status &#x3D; exception.getStatus();
+    const response &#x3D; exception.getResponse();
+    const isDev &#x3D; process.env.NODE_ENV !&#x3D;&#x3D; &#x27;production&#x27;;
+
+    // set error
+    const error &#x3D; HttpStatus[status]
+      .replace(&#x27;_&#x27;, &#x27; &#x27;)
+      .split(&#x27; &#x27;)
+      .map((word) &#x3D;&gt; word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(&#x27; &#x27;);
+
+    let details: string | undefined;
+
+    if (isDev &amp;&amp; exception instanceof Error) {
+      const stackLine &#x3D; exception.stack
+        ?.split(&#x27;\n&#x27;)
+        .find((line) &#x3D;&gt; line.includes(&#x27;.ts&#x27;) || line.includes(&#x27;.js&#x27;));
+
+      details &#x3D; stackLine?.trim();
+    }
+
+    const message &#x3D;
+      typeof response &#x3D;&#x3D;&#x3D; &#x27;string&#x27;
+        ? response
+        : ((response as any).message ?? &#x27;Error&#x27;);
+
+    const payload: ErrorResponseDto &#x3D; {
+      statusCode: status,
+      message,
+      error,
+      path: req.url,
+      timestamp: new Date().toISOString(),
+      ...(isDev &amp;&amp; details ? { details } : {})
+    };
+
+    res.status(status).json(payload);
   }
 }
 </code></pre>
     </div>
-
 </div>
-
-
-
-
 
 
 
@@ -416,8 +368,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'LocalStrategy.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'HttpExceptionFilter.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
@@ -445,7 +397,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

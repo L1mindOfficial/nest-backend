@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content module">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -192,20 +210,11 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/sessions/sessions.module.ts</code>
+            <code>src/features/sessions/sessions.module.ts</code>
         </p>
 
 
 
-        <p class="comment">
-            <h3>Description</h3>
-        </p>
-        <p class="comment">
-            <p>SessionsModule is responsible for managing session-related logic.
-It imports the TypeORM module for Session entities and the UsersModule.
-It provides the SessionsService to other modules and registers the SessionsController.</p>
-
-        </p>
 
 
         <div class="container-fluid module">
@@ -247,20 +256,14 @@ It provides the SessionsService to other modules and registers the SessionsContr
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { forwardRef, Module } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Module } from &#x27;@nestjs/common&#x27;;
 import { TypeOrmModule } from &#x27;@nestjs/typeorm&#x27;;
 import { Session } from &#x27;./entities/session.entity&#x27;;
 import { SessionsController } from &#x27;./sessions.controller&#x27;;
 import { SessionsService } from &#x27;./sessions.service&#x27;;
-import { UsersModule } from &#x27;users/users.module&#x27;;
 
-/**
- * SessionsModule is responsible for managing session-related logic.
- * It imports the TypeORM module for Session entities and the UsersModule.
- * It provides the SessionsService to other modules and registers the SessionsController.
- */
 @Module({
-  imports: [TypeOrmModule.forFeature([Session]), forwardRef(() &#x3D;&gt; UsersModule)],
+  imports: [TypeOrmModule.forFeature([Session])],
   providers: [SessionsService],
   controllers: [SessionsController],
   exports: [SessionsService]
@@ -340,7 +343,6 @@ export class SessionsModule {}
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

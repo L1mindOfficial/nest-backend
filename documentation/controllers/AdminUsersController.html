@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -80,7 +94,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content controller">
                    <div class="content-data">
 
 
@@ -91,12 +105,9 @@
 
 
 
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >AddSessionEntity1719672378417</li>
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >AdminUsersController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -120,38 +131,18 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/database/migrations/1719672378417-add-session-entity.ts</code>
+            <code>src/features/users/admin.users.controller.ts</code>
         </p>
 
 
 
 
-            <p class="comment">
-                <h3>Implements</h3>
-            </p>
-            <p class="comment">
-                        <code>MigrationInterface</code>
-            </p>
 
 
             <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Properties</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#name" >name</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -162,14 +153,17 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#down" >down</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                <a href="#get" >get</a>
                             </li>
                             <li>
-                                    <span class="modifier">Public</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
-                                <a href="#up" >up</a>
+                                <a href="#getAll" >getAll</a>
                             </li>
                         </ul>
                     </td>
@@ -177,45 +171,6 @@
 
 
 
-
-
-        </tbody>
-    </table>
-</section>
-
-
-            <section data-compodoc="block-properties">
-    
-    <h3 id="inputs">
-        Properties
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="name"></a>
-                    <span class="name">
-                        <span ><b>name</b></span>
-                        <a href="#name"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;AddSessionEntity1719672378417&#x27;</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/database/migrations/1719672378417-add-session-entity.ts:4</a></div>
-                        </td>
-                    </tr>
 
 
         </tbody>
@@ -231,27 +186,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="down"></a>
+                    <a name="get"></a>
                     <span class="name">
-                            <span class="modifier">Public</span>
-                            <span class="modifier">Async</span>
-                        <span ><b>down</b></span>
-                        <a href="#down"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                        <span ><b>get</b></span>
+                        <a href="#get"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>down(queryRunner: QueryRunner)</code>
+                    <code>get(undefined: <a href="../classes/IdDto.html" target="_self">IdDto</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;:id&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiAdminGetUser()<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="16"
-                                    class="link-to-prism">src/database/migrations/1719672378417-add-session-entity.ts:16</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">src/features/users/admin.users.controller.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -272,9 +235,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>queryRunner</td>
                                             <td>
-                                                        <code>QueryRunner</code>
+                                                            <code><a href="../classes/IdDto.html" target="_self" >IdDto</a></code>
                                             </td>
 
                                             <td>
@@ -287,7 +249,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -301,27 +263,36 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="up"></a>
+                    <a name="getAll"></a>
                     <span class="name">
-                            <span class="modifier">Public</span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
-                        <span ><b>up</b></span>
-                        <a href="#up"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getAll</b></span>
+                        <a href="#getAll"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>up(queryRunner: QueryRunner)</code>
+                    <code>getAll()</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get()<br />@HttpCode(HttpStatus.OK)<br />@ApiAdminGetAllUsers()<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="6"
-                                    class="link-to-prism">src/database/migrations/1719672378417-add-session-entity.ts:6</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/features/users/admin.users.controller.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -329,82 +300,69 @@
             <tr>
                 <td class="col-md-4">
 
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>queryRunner</td>
-                                            <td>
-                                                        <code>QueryRunner</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                            <b>Returns : </b>    <code>unknown</code>
 
                         </div>
-                            <div class="io-description">
-                                
-                            </div>
                 </td>
             </tr>
         </tbody>
     </table>
-</section>
-
-
-
-
-
-    </div>
+</section>    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { MigrationInterface, QueryRunner } from &#x27;typeorm&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  UseGuards
+} from &#x27;@nestjs/common&#x27;;
+import { Roles } from &#x27;features/auth/decorators/roles.decorator&#x27;;
+import { RolesGuard } from &#x27;features/auth/guards/roles.guard&#x27;;
+import { IdDto } from &#x27;infrastructure/http/dto/id.dto&#x27;;
+import { UserRole } from &#x27;./enums/user-role.enum&#x27;;
+import { UsersService } from &#x27;./users.service&#x27;;
+import { ApiAdminGetAllUsers, ApiAdminGetUser } from &#x27;./users.swagger&#x27;;
 
-export class AddSessionEntity1719672378417 implements MigrationInterface {
-  name &#x3D; &#x27;AddSessionEntity1719672378417&#x27;;
+@Controller({
+  path: &#x27;admin/users&#x27;,
+  version: &#x27;1&#x27;
+})
+@UseGuards(RolesGuard)
+@Roles(UserRole.ADMIN)
+export class AdminUsersController {
+  constructor(private readonly usersService: UsersService) {}
 
-  public async up(queryRunner: QueryRunner): Promise&lt;void&gt; {
-    await queryRunner.query(&#x60;
-            ALTER TABLE &quot;session&quot; DROP COLUMN &quot;device&quot;
-        &#x60;);
-    await queryRunner.query(&#x60;
-            ALTER TABLE &quot;session&quot;
-            ADD &quot;device&quot; json NOT NULL
-        &#x60;);
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  @ApiAdminGetAllUsers()
+  async getAll() {
+    return await this.usersService.list();
   }
 
-  public async down(queryRunner: QueryRunner): Promise&lt;void&gt; {
-    await queryRunner.query(&#x60;
-            ALTER TABLE &quot;session&quot; DROP COLUMN &quot;device&quot;
-        &#x60;);
-    await queryRunner.query(&#x60;
-            ALTER TABLE &quot;session&quot;
-            ADD &quot;device&quot; character varying NOT NULL
-        &#x60;);
+  @Get(&#x27;:id&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiAdminGetUser()
+  get(
+    @Param()
+    { id }: IdDto
+  ) {
+    return this.usersService.findById(id);
   }
 }
 </code></pre>
     </div>
 </div>
+
+
+
+
+
+
+
 
 
 
@@ -439,8 +397,8 @@ export class AddSessionEntity1719672378417 implements MigrationInterface {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'AddSessionEntity1719672378417.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminUsersController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
@@ -468,7 +426,6 @@ export class AddSessionEntity1719672378417 implements MigrationInterface {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

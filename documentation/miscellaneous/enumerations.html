@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -100,6 +114,10 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Miscellaneous</li>
   <li class="breadcrumb-item">Enumerations</li>
@@ -113,10 +131,10 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
-                            <a href="#UserRole" title="src/common/enums/user-role.enum.ts" ><b>UserRole</b>&nbsp;&nbsp;&nbsp;(src/.../user-role.enum.ts)</a>
+                            <a href="#UserRole" title="src/features/users/enums/user-role.enum.ts" ><b>UserRole</b>&nbsp;&nbsp;&nbsp;(src/.../user-role.enum.ts)</a>
                         </li>
                         <li>
-                            <a href="#UserStatus" title="src/common/enums/user-status.enum.ts" ><b>UserStatus</b>&nbsp;&nbsp;&nbsp;(src/.../user-status.enum.ts)</a>
+                            <a href="#UserStatus" title="src/features/users/enums/user-status.enum.ts" ><b>UserStatus</b>&nbsp;&nbsp;&nbsp;(src/.../user-status.enum.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -125,7 +143,7 @@
     </table>
 </section>
 
-    <h3>src/common/enums/user-role.enum.ts</h3>
+    <h3>src/features/users/enums/user-role.enum.ts</h3>
     <section data-compodoc="block-enums">
         <table class="table table-sm table-bordered">
             <tbody>
@@ -135,19 +153,6 @@
                         <span class="name "><b>UserRole</b><a href="#UserRole"><span class="icon ion-ios-link"></span></a></span>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-description"><p>The <code>UserRole</code> enum defines the roles that a user can have within the application.
-Enums provide a way to restrict the possible values of a user&#39;s role, ensuring consistency
-throughout the application.</p>
-<p>The available roles are:</p>
-<ul>
-<li><code>ADMIN</code>: A user with administrative privileges who can manage other users and perform high-level tasks.</li>
-<li><code>USER</code>: A regular user with standard permissions and limited access.</li>
-</ul>
-</div>
-                        </td>
-                    </tr>
                         <tr>
                             <td class="col-md-4">
                                 &nbsp;ADMIN
@@ -171,7 +176,7 @@ throughout the application.</p>
             </tbody>
         </table>
 </section>
-    <h3>src/common/enums/user-status.enum.ts</h3>
+    <h3>src/features/users/enums/user-status.enum.ts</h3>
     <section data-compodoc="block-enums">
         <table class="table table-sm table-bordered">
             <tbody>
@@ -181,19 +186,6 @@ throughout the application.</p>
                         <span class="name "><b>UserStatus</b><a href="#UserStatus"><span class="icon ion-ios-link"></span></a></span>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-description"><p>The <code>UserStatus</code> enum represents the various states a user&#39;s account can be in.
-These statuses help define the availability or restrictions placed on a user&#39;s account.</p>
-<p>The available statuses are:</p>
-<ul>
-<li><code>ACTIVATE</code>: The user account is active and has full access to the system.</li>
-<li><code>DEACTIVATE</code>: The user account is deactivated, meaning the user cannot log in or perform any actions.</li>
-<li><code>SUSPEND</code>: The user account is temporarily suspended, which may occur due to policy violations or other reasons.</li>
-</ul>
-</div>
-                        </td>
-                    </tr>
                         <tr>
                             <td class="col-md-4">
                                 &nbsp;ACTIVATE
@@ -284,7 +276,6 @@ These statuses help define the availability or restrictions placed on a user&#39
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content class">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -120,25 +138,10 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/common/embedded/registry-dates.embedded.ts</code>
+            <code>src/core/common/embedded/registry-dates.ts</code>
         </p>
 
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>The <code>RegistryDates</code> class is a reusable entity that defines the standard timestamp columns for an entity in TypeORM.
-It includes <code>createdAt</code>, <code>updatedAt</code>, and <code>deleteAt</code> fields, which track when the entity is created, updated, or deleted.</p>
-<p>This class can be extended by other entities to automatically include the timestamp functionality without repeating code.</p>
-<p>Columns:</p>
-<ul>
-<li><code>createdAt</code>: Automatically set when the entity is created.</li>
-<li><code>updatedAt</code>: Automatically updated whenever the entity is modified.</li>
-<li><code>deleteAt</code>: Set when the entity is soft-deleted, allowing for soft deletion functionality (i.e., the entity is not physically removed from the database but marked as deleted).</li>
-</ul>
-
-            </p>
 
 
 
@@ -156,18 +159,13 @@ It includes <code>createdAt</code>, <code>updatedAt</code>, and <code>deleteAt</
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                 <a href="#createdAt" >createdAt</a>
                             </li>
                             <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
+                                    <span class="modifier">Optional</span>
                                 <a href="#deleteAt" >deleteAt</a>
                             </li>
                             <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                 <a href="#updatedAt" >updatedAt</a>
                             </li>
                         </ul>
@@ -195,8 +193,6 @@ It includes <code>createdAt</code>, <code>updatedAt</code>, and <code>deleteAt</
                 <td class="col-md-4">
                     <a name="createdAt"></a>
                     <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
                         <span ><b>createdAt</b></span>
                         <a href="#createdAt"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -208,28 +204,12 @@ It includes <code>createdAt</code>, <code>updatedAt</code>, and <code>deleteAt</
 
                     </td>
                 </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @ApiProperty({description: &#x27;The date and time when the entity was created.&#x27;, example: &#x27;2023-09-25T12:34:56.789Z&#x27;})<br />@CreateDateColumn()<br />
-                        </code>
-                    </td>
-                </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/common/embedded/registry-dates.embedded.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="2" class="link-to-prism">src/core/common/embedded/registry-dates.ts:2</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The timestamp for when the entity was created.
-This column is automatically set by the database.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -239,8 +219,7 @@ This column is automatically set by the database.</p>
                 <td class="col-md-4">
                     <a name="deleteAt"></a>
                     <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
+                            <span class="modifier">Optional</span>
                         <span ><b>deleteAt</b></span>
                         <a href="#deleteAt"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -252,28 +231,12 @@ This column is automatically set by the database.</p>
 
                     </td>
                 </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @ApiProperty({description: &#x27;The date and time when the entity was soft-deleted. This is null if not deleted.&#x27;, example: &#x27;2023-09-26T09:00:00.000Z&#x27;, nullable: true})<br />@DeleteDateColumn()<br />
-                        </code>
-                    </td>
-                </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/common/embedded/registry-dates.embedded.ts:49</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/core/common/embedded/registry-dates.ts:6</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The timestamp for when the entity was soft-deleted (if applicable).
-A soft delete marks the entity as deleted without removing it from the database.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -283,8 +246,6 @@ A soft delete marks the entity as deleted without removing it from the database.
                 <td class="col-md-4">
                     <a name="updatedAt"></a>
                     <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
                         <span ><b>updatedAt</b></span>
                         <a href="#updatedAt"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -296,28 +257,12 @@ A soft delete marks the entity as deleted without removing it from the database.
 
                     </td>
                 </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @ApiProperty({description: &#x27;The date and time when the entity was last updated.&#x27;, example: &#x27;2023-09-25T14:00:00.000Z&#x27;})<br />@UpdateDateColumn()<br />
-                        </code>
-                    </td>
-                </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/common/embedded/registry-dates.embedded.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/core/common/embedded/registry-dates.ts:4</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The timestamp for when the entity was last updated.
-This column is automatically updated by the database whenever the entity is modified.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -333,55 +278,12 @@ This column is automatically updated by the database whenever the entity is modi
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from &#x27;typeorm&#x27;;
-
-/**
- * The &#x60;RegistryDates&#x60; class is a reusable entity that defines the standard timestamp columns for an entity in TypeORM.
- * It includes &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;, and &#x60;deleteAt&#x60; fields, which track when the entity is created, updated, or deleted.
- *
- * This class can be extended by other entities to automatically include the timestamp functionality without repeating code.
- *
- * Columns:
- * - &#x60;createdAt&#x60;: Automatically set when the entity is created.
- * - &#x60;updatedAt&#x60;: Automatically updated whenever the entity is modified.
- * - &#x60;deleteAt&#x60;: Set when the entity is soft-deleted, allowing for soft deletion functionality (i.e., the entity is not physically removed from the database but marked as deleted).
- */
-export class RegistryDates {
-  /**
-   * The timestamp for when the entity was created.
-   * This column is automatically set by the database.
-   */
-  @ApiProperty({
-    description: &#x27;The date and time when the entity was created.&#x27;,
-    example: &#x27;2023-09-25T12:34:56.789Z&#x27;
-  })
-  @CreateDateColumn()
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class RegistryDates {
   createdAt: Date;
 
-  /**
-   * The timestamp for when the entity was last updated.
-   * This column is automatically updated by the database whenever the entity is modified.
-   */
-  @ApiProperty({
-    description: &#x27;The date and time when the entity was last updated.&#x27;,
-    example: &#x27;2023-09-25T14:00:00.000Z&#x27;
-  })
-  @UpdateDateColumn()
   updatedAt: Date;
 
-  /**
-   * The timestamp for when the entity was soft-deleted (if applicable).
-   * A soft delete marks the entity as deleted without removing it from the database.
-   */
-  @ApiProperty({
-    description:
-      &#x27;The date and time when the entity was soft-deleted. This is null if not deleted.&#x27;,
-    example: &#x27;2023-09-26T09:00:00.000Z&#x27;,
-    nullable: true
-  })
-  @DeleteDateColumn()
-  deleteAt: Date;
+  deleteAt?: Date;
 }
 </code></pre>
     </div>
@@ -449,7 +351,6 @@ export class RegistryDates {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

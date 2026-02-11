@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>mintegs-backend documentation</title>
+        <title>nest-backend documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +62,24 @@
                }
                toggleDarkMode(darkModeState);
           </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
                <div class="d-flex">
-                    <a href="../" class="navbar-brand">mintegs-backend documentation</a>
+                    <a href="../" class="navbar-brand">nest-backend documentation</a>
                     <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
                </div>
         </div>
@@ -82,6 +96,10 @@
                <!-- START CONTENT -->
                <div class="content injectable">
                    <div class="content-data">
+
+
+
+
 
 
 
@@ -116,18 +134,10 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/auth/auth.service.ts</code>
+            <code>src/features/auth/auth.service.ts</code>
         </p>
 
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>The <code>AuthService</code> class provides services related to user authentication and session management.
-It handles user registration, login, JWT token generation/validation, password changes, and validation of user credentials.</p>
-
-            </p>
 
 
 
@@ -146,27 +156,19 @@ It handles user registration, login, JWT token generation/validation, password c
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#changePassword" >changePassword</a>
+                                <a href="#changeUserPassword" >changeUserPassword</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#getProfile" >getProfile</a>
+                                <a href="#loginUser" >loginUser</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#login" >login</a>
+                                <a href="#registerUser" >registerUser</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#register" >register</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#validateJwt" >validateJwt</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#validateLocal" >validateLocal</a>
+                                <a href="#validateUserJwt" >validateUserJwt</a>
                             </li>
                         </ul>
                     </td>
@@ -186,20 +188,17 @@ It handles user registration, login, JWT token generation/validation, password c
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(hashingProvider: <a href="../injectables/HashingProvider.html" target="_self">HashingProvider</a>, sessionsService: <a href="../injectables/SessionsService.html" target="_self">SessionsService</a>, usersService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, jwtService: JwtService)</code>
+<code>constructor(hashingProvider: <a href="../injectables/HashingProvider.html" target="_self">HashingProvider</a>, jwtService: JwtService, sessionsService: <a href="../interfaces/ISessionsService.html" target="_self">ISessionsService</a>, usersService: <a href="../interfaces/IUsersService.html" target="_self">IUsersService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/auth/auth.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/features/auth/auth.service.ts:21</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Constructs the <code>AuthService</code> by injecting necessary dependencies such as hashing provider, sessions service,
-users service, and JWT service for managing authentication and session-related logic.</p>
-</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -208,7 +207,6 @@ users service, and JWT service for managing authentication and session-related l
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
-                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -223,48 +221,6 @@ users service, and JWT service for managing authentication and session-related l
                                                             No
                                                     </td>
                                                     
-                                                        <td>
-                                                                <ul>
-<li>A service for hashing and comparing passwords.</li>
-</ul>
-
-                                                        </td>
-                                                </tr>
-                                                <tr>
-                                                        <td>sessionsService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/SessionsService.html" target="_self" >SessionsService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                        <td>
-                                                                <ul>
-<li>A service for handling session-related operations.</li>
-</ul>
-
-                                                        </td>
-                                                </tr>
-                                                <tr>
-                                                        <td>usersService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                        <td>
-                                                                <ul>
-<li>The service responsible for user management.</li>
-</ul>
-
-                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>jwtService</td>
@@ -277,12 +233,30 @@ users service, and JWT service for managing authentication and session-related l
                                                             No
                                                     </td>
                                                     
+                                                </tr>
+                                                <tr>
+                                                        <td>sessionsService</td>
+                                                  
                                                         <td>
-                                                                <ul>
-<li>The service responsible for signing and verifying JWT tokens.</li>
-</ul>
-
+                                                                        <code><a href="../interfaces/ISessionsService.html" target="_self" >ISessionsService</a></code>
                                                         </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>usersService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/IUsersService.html" target="_self" >IUsersService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -302,34 +276,32 @@ users service, and JWT service for managing authentication and session-related l
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="changePassword"></a>
+                    <a name="changeUserPassword"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
-                        <span ><b>changePassword</b></span>
-                        <a href="#changePassword"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>changeUserPassword</b></span>
+                        <a href="#changeUserPassword"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>changePassword(undefined: <a href="../interfaces/CustomAuth.html" target="_self">CustomAuth</a>, undefined: <a href="../classes/ChangePasswordDto.html" target="_self">ChangePasswordDto</a>)</code>
+                    <code>changeUserPassword(undefined: <a href="../interfaces/CustomAuth.html" target="_self">CustomAuth</a>, undefined: <a href="../classes/ChangePasswordDto.html" target="_self">ChangePasswordDto</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="100"
-                                    class="link-to-prism">src/auth/auth.service.ts:100</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/features/auth/auth.service.ts:66</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Changes the user&#39;s password after verifying the current password.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -369,7 +341,7 @@ users service, and JWT service for managing authentication and session-related l
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -383,34 +355,32 @@ users service, and JWT service for managing authentication and session-related l
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getProfile"></a>
+                    <a name="loginUser"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
-                        <span ><b>getProfile</b></span>
-                        <a href="#getProfile"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>loginUser</b></span>
+                        <a href="#loginUser"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getProfile(user: <a href="../entitys/User.html" target="_self">User</a>)</code>
+                    <code>loginUser(undefined: <a href="../classes/LoginUserDto.html" target="_self">LoginUserDto</a>, ip: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, device: <a href="../interfaces/IDevice.html" target="_self">IDevice</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="89"
-                                    class="link-to-prism">src/auth/auth.service.ts:89</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/features/auth/auth.service.ts:40</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retrieves the profile of the authenticated user, omitting sensitive information.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -421,14 +391,12 @@ users service, and JWT service for managing authentication and session-related l
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>user</td>
                                             <td>
-                                                            <code><a href="../entitys/User.html" target="_self" >User</a></code>
+                                                            <code><a href="../classes/LoginUserDto.html" target="_self" >LoginUserDto</a></code>
                                             </td>
 
                                             <td>
@@ -436,91 +404,6 @@ users service, and JWT service for managing authentication and session-related l
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The authenticated user entity.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
-
-                        </div>
-                            <div class="io-description">
-                                <p>The user&#39;s profile with sensitive fields like password and role removed.</p>
-
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="login"></a>
-                    <span class="name">
-                            <span class="modifier">Async</span>
-                        <span ><b>login</b></span>
-                        <a href="#login"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>login(user: <a href="../entitys/User.html" target="_self">User</a>, ip: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, device: <a href="../interfaces/Device.html" target="_self">Device</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="68"
-                                    class="link-to-prism">src/auth/auth.service.ts:68</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Authenticates the user and initiates a session by generating a JWT token.</p>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>user</td>
-                                            <td>
-                                                            <code><a href="../entitys/User.html" target="_self" >User</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>The authenticated user entity.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>ip</td>
@@ -533,17 +416,11 @@ users service, and JWT service for managing authentication and session-related l
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The IP address of the user logging in.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>device</td>
                                             <td>
-                                                            <code><a href="../interfaces/Device.html" target="_self" >Device</a></code>
+                                                            <code><a href="../interfaces/IDevice.html" target="_self" >IDevice</a></code>
                                             </td>
 
                                             <td>
@@ -551,23 +428,16 @@ users service, and JWT service for managing authentication and session-related l
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>Information about the device being used to log in.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
 
                         </div>
                             <div class="io-description">
-                                <p>An object containing the authenticated user&#39;s details along with the generated JWT token.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -577,34 +447,32 @@ users service, and JWT service for managing authentication and session-related l
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="register"></a>
+                    <a name="registerUser"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
-                        <span ><b>register</b></span>
-                        <a href="#register"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>registerUser</b></span>
+                        <a href="#registerUser"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>register(registerUserDto: <a href="../classes/RegisterUserDto.html" target="_self">RegisterUserDto</a>)</code>
+                    <code>registerUser(registerUserDto: <a href="../classes/RegisterUserDto.html" target="_self">RegisterUserDto</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">src/auth/auth.service.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">src/features/auth/auth.service.ts:31</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Registers a new user with the provided registration details.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -615,7 +483,6 @@ users service, and JWT service for managing authentication and session-related l
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -630,23 +497,16 @@ users service, and JWT service for managing authentication and session-related l
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>Data Transfer Object containing user registration information (email, password, etc.).</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                         </div>
                             <div class="io-description">
-                                <p>The newly created user entity with sensitive fields removed.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -656,34 +516,32 @@ users service, and JWT service for managing authentication and session-related l
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="validateJwt"></a>
+                    <a name="validateUserJwt"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
-                        <span ><b>validateJwt</b></span>
-                        <a href="#validateJwt"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>validateUserJwt</b></span>
+                        <a href="#validateUserJwt"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>validateJwt(undefined: <a href="../interfaces/JwtPayload.html" target="_self">JwtPayload</a>, jwtToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>validateUserJwt(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="160"
-                                    class="link-to-prism">src/auth/auth.service.ts:160</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/features/auth/auth.service.ts:91</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Validates a JWT token and retrieves the corresponding user and session.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -694,99 +552,6 @@ users service, and JWT service for managing authentication and session-related l
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                            <code><a href="../interfaces/JwtPayload.html" target="_self" >JwtPayload</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>jwtToken</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>The JWT token to validate.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/CustomAuth.html" target="_self" >Promise&lt;CustomAuth&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                <p>An object containing the authenticated user and their active session.</p>
-
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="validateLocal"></a>
-                    <span class="name">
-                            <span class="modifier">Async</span>
-                        <span ><b>validateLocal</b></span>
-                        <a href="#validateLocal"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>validateLocal(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="132"
-                                    class="link-to-prism">src/auth/auth.service.ts:132</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Validates the user&#39;s credentials for local authentication using email/username and password.</p>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -801,15 +566,9 @@ users service, and JWT service for managing authentication and session-related l
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The email or username provided by the user for login.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
-                                                <td>password</td>
+                                                <td>token</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -819,23 +578,16 @@ users service, and JWT service for managing authentication and session-related l
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The password provided by the user.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>        <code><a href="../interfaces/CustomAuth.html" target="_self" >Promise&lt;CustomAuth&gt;</a></code>
 
                         </div>
                             <div class="io-description">
-                                <p>The authenticated user entity.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -849,176 +601,104 @@ users service, and JWT service for managing authentication and session-related l
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
   BadRequestException,
-  forwardRef,
   Inject,
   Injectable,
-  NotFoundException,
   UnauthorizedException
 } from &#x27;@nestjs/common&#x27;;
 import { JwtService } from &#x27;@nestjs/jwt&#x27;;
-import { CustomAuth } from &#x27;common/interfaces/custom-request.interface&#x27;;
-import { Device } from &#x27;common/interfaces/device.interface&#x27;;
-import { SessionsService } from &#x27;sessions/sessions.service&#x27;;
-import { User } from &#x27;users/entities/user.entity&#x27;;
+import { IDevice } from &#x27;features/sessions/interfaces/device.interface&#x27;;
+import { ISessionsService } from &#x27;features/sessions/interfaces/sessions.interface&#x27;;
+import { IUsersService } from &#x27;features/users/interfaces/users.interface&#x27;;
+import { SESSIONS_SERVICE, USERS_SERVICE } from &#x27;infrastructure/di/tokens&#x27;;
+import { CustomAuth } from &#x27;infrastructure/http/interfaces/custom-request.interface&#x27;;
+import { ChangePasswordDto } from &#x27;../users/dto/change-password.dto&#x27;;
+import { LoginUserDto } from &#x27;./dto/login-user.dto&#x27;;
 import { RegisterUserDto } from &#x27;./dto/register-user.dto&#x27;;
-import { HashingProvider } from &#x27;./providers/hashing.provider&#x27;;
-import { UsersService } from &#x27;users/users.service&#x27;;
-import { ChangePasswordDto } from &#x27;./dto/change-password.dto&#x27;;
+import { IAuthService } from &#x27;./interfaces/auth.interface&#x27;;
 import { JwtPayload } from &#x27;./interfaces/jwt-payload.interface&#x27;;
+import { HashingProvider } from &#x27;./providers/hashing.provider&#x27;;
 
-/**
- * The &#x60;AuthService&#x60; class provides services related to user authentication and session management.
- * It handles user registration, login, JWT token generation/validation, password changes, and validation of user credentials.
- */
 @Injectable()
-export class AuthService {
-  /**
-   * Constructs the &#x60;AuthService&#x60; by injecting necessary dependencies such as hashing provider, sessions service,
-   * users service, and JWT service for managing authentication and session-related logic.
-   *
-   * @param hashingProvider - A service for hashing and comparing passwords.
-   * @param sessionsService - A service for handling session-related operations.
-   * @param usersService - The service responsible for user management.
-   * @param jwtService - The service responsible for signing and verifying JWT tokens.
-   */
+export class AuthService implements IAuthService {
   constructor(
     private readonly hashingProvider: HashingProvider,
-    private readonly sessionsService: SessionsService,
-    @Inject(forwardRef(() &#x3D;&gt; UsersService))
-    private readonly usersService: UsersService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    @Inject(SESSIONS_SERVICE)
+    private readonly sessionsService: ISessionsService,
+    @Inject(USERS_SERVICE)
+    private readonly usersService: IUsersService
   ) {}
 
-  /**
-   * Registers a new user with the provided registration details.
-   *
-   * @param registerUserDto - Data Transfer Object containing user registration information (email, password, etc.).
-   * @returns The newly created user entity with sensitive fields removed.
-   * @throws Error if the user creation process fails.
-   */
-  async register(registerUserDto: RegisterUserDto) {
-    try {
-      return await this.usersService.create({
-        ...registerUserDto
-      });
-    } catch (error) {
-      throw error;
-    }
+  async registerUser(registerUserDto: RegisterUserDto): Promise&lt;void&gt; {
+    const password &#x3D; await this.hashingProvider.hash(registerUserDto.password);
+
+    return this.usersService.register({
+      ...registerUserDto,
+      password
+    });
   }
 
-  /**
-   * Authenticates the user and initiates a session by generating a JWT token.
-   *
-   * @param user - The authenticated user entity.
-   * @param ip - The IP address of the user logging in.
-   * @param device - Information about the device being used to log in.
-   * @returns An object containing the authenticated user&#x27;s details along with the generated JWT token.
-   */
-  async login(user: User, ip: string, device: Device) {
-    const payload: JwtPayload &#x3D; { email: user.email };
+  async loginUser(
+    { email, password }: LoginUserDto,
+    ip: string,
+    device: IDevice
+  ): Promise&lt;string&gt; {
+    // Find the user by email or username
+    const user &#x3D; await this.usersService.findByIdentifierForAuth(email);
+
+    if (!user) throw new UnauthorizedException(&#x27;invalid credentials&#x27;);
+
+    const isMatch &#x3D; await this.hashingProvider.compare(password, user.password);
+
+    if (!isMatch) throw new UnauthorizedException(&#x27;invalid credentials&#x27;);
+
+    const payload: JwtPayload &#x3D; { email };
 
     // Generate a JWT token
     const token: string &#x3D; this.jwtService.sign(payload);
 
     // Create a session for the user
-    await this.sessionsService.create(user.id, token, ip, device);
+    await this.sessionsService.issue(user.id, token, ip, device);
 
     // Return the token
-    return {
-      token
-    };
+    return token;
   }
 
-  /**
-   * Retrieves the profile of the authenticated user, omitting sensitive information.
-   *
-   * @param user - The authenticated user entity.
-   * @returns The user&#x27;s profile with sensitive fields like password and role removed.
-   */
-  async getProfile(user: User) {
-    return user;
-  }
-
-  /**
-   * Changes the user&#x27;s password after verifying the current password.
-   *
-   * @param auth - The authentication context containing the user and session data.
-   * @param changePasswordDto - Data Transfer Object containing the current and new passwords.
-   * @throws BadRequestException if the current password is invalid or the new password is the same as the old one.
-   */
-  async changePassword(
+  async changeUserPassword(
     { user, session }: CustomAuth,
     { currentPassword, newPassword }: ChangePasswordDto
-  ) {
+  ): Promise&lt;void&gt; {
     // Verify that the current password matches
-    const isMatch: boolean &#x3D; await this.hashingProvider.compare(
+    const isMatch &#x3D; await this.hashingProvider.compare(
       currentPassword,
       user.password
     );
 
-    if (!isMatch) throw new BadRequestException(&#x27;Invalid current password&#x27;);
+    if (!isMatch) throw new BadRequestException(&#x27;invalid current password&#x27;);
 
     // If the passwords are different, update the user&#x27;s password
     if (currentPassword !&#x3D;&#x3D; newPassword) {
-      await this.usersService.update(user.id, {
-        password: newPassword
-      });
+      // Hashing password
+      const password &#x3D; await this.hashingProvider.hash(newPassword);
+
+      // Set new password
+      await this.usersService.setPassword(user.id, password);
 
       // Remove the session after password change
-      await this.sessionsService.remove(user, session.token);
+      await this.sessionsService.terminateOthers(user, session.token);
     }
   }
 
-  /**
-   * Validates the user&#x27;s credentials for local authentication using email/username and password.
-   *
-   * @param email - The email or username provided by the user for login.
-   * @param password - The password provided by the user.
-   * @returns The authenticated user entity.
-   * @throws NotFoundException if no user is found with the provided credentials.
-   * @throws UnauthorizedException if the password does not match.
-   */
-  async validateLocal(email: string, password: string) {
-    // Find the user by email or username
-    const user &#x3D; await this.usersService.findOne(
-      [{ email }, { username: email }],
-      [&#x27;id&#x27;, &#x27;role&#x27;, &#x27;status&#x27;, &#x27;password&#x27;, &#x27;email&#x27;]
-    );
-
-    if (!user) throw new NotFoundException(&#x27;User not found&#x27;);
-
-    // Validate the user&#x27;s password
-    const isMatch: boolean &#x3D; await this.hashingProvider.compare(
-      password,
-      user.password
-    );
-
-    if (!isMatch) throw new UnauthorizedException(&#x27;Invalid password&#x27;);
-
-    return user;
-  }
-
-  /**
-   * Validates a JWT token and retrieves the corresponding user and session.
-   *
-   * @param payload - The decoded JWT payload containing the user&#x27;s email.
-   * @param jwtToken - The JWT token to validate.
-   * @returns An object containing the authenticated user and their active session.
-   * @throws UnauthorizedException if the token is invalid or the session is not found.
-   */
-  async validateJwt(
-    { email }: JwtPayload,
-    jwtToken: string
-  ): Promise&lt;CustomAuth&gt; {
+  async validateUserJwt(email: string, token: string): Promise&lt;CustomAuth&gt; {
     // Find the user associated with the JWT email
-    const user &#x3D; await this.usersService.findOne({ email });
+    const user &#x3D; await this.usersService.findByIdentifierForAuth(email);
 
-    if (!user) throw new UnauthorizedException();
+    if (!user) throw new UnauthorizedException(&#x27;invalid token&#x27;);
 
     // Validate the session using the user&#x27;s ID and token
-    const session &#x3D; await this.sessionsService.validate(user.id, jwtToken);
+    const session &#x3D; await this.sessionsService.getActive(user.id, token);
 
-    if (!session) throw new UnauthorizedException();
+    if (!session) throw new UnauthorizedException(&#x27;session expired&#x27;);
 
     // Return the authenticated user and session
     return { user, session };
@@ -1095,7 +775,6 @@ export class AuthService {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 
