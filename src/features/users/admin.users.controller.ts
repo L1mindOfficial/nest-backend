@@ -25,8 +25,8 @@ export class AdminUsersController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiAdminGetAllUsers()
-  async getAll() {
-    return await this.usersService.list();
+  getAll() {
+    return this.usersService.list();
   }
 
   @Get(':id')
