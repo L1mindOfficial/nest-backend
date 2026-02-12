@@ -19,7 +19,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = exception.getResponse();
     const isDev = process.env.NODE_ENV !== 'production';
 
-    // set error
     const error = HttpStatus[status]
       .replace('_', ' ')
       .split(' ')
