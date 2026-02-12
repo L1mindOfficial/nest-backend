@@ -1,8 +1,9 @@
-import { applyDecorators } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { RegistryDatesOrm } from '@infrastructure/database/embedded/registry-dates.embedded';
 import { ErrorResponseDto } from '@infrastructure/http/dto/error-response.dto';
+import { applyDecorators } from '@nestjs/common';
+import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { Session } from './../sessions/entities/session.entity';
+import { UserProfileDto } from './dto/user-profile.dto';
 import { User } from './entities/user.entity';
 import { UserRole } from './enums/user-role.enum';
 import { UserStatus } from './enums/user-status.enum';
@@ -47,7 +48,7 @@ export const ApiGetProfile = () =>
     ApiResponse({
       status: 200,
       description: 'User profile retrieved successfully',
-      type: User
+      type: UserProfileDto
     }),
     ApiResponse({
       status: 404,
@@ -89,7 +90,11 @@ export const ApiChangeProfile = () =>
 /** Delete User Account Swagger */
 export const ApiDeleteAccount = () =>
   applyDecorators(
-    ApiOperation({ summary: 'Delete user account (soft delete)' }),
+    ApiOperation({
+      summary: 'Request account deletion',
+      description:
+        'Marks the user account for deletion. The account will be permanently removed after the grace period.'
+    }),
     ApiResponse({
       status: 204,
       description: 'User account deleted successfully (no content)'

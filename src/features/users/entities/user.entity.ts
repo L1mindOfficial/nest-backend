@@ -1,7 +1,6 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
 import { Session } from '@features/sessions/entities/session.entity';
 import { RegistryDatesOrm } from '@infrastructure/database/embedded/registry-dates.embedded';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   Column,
   Entity,
@@ -19,7 +18,6 @@ import { SwaggerUserProperties as UserProps } from '../users.swagger';
 export class User {
   @ApiProperty(UserProps.id)
   @PrimaryGeneratedColumn('uuid')
-  @Exclude()
   id: string;
 
   @ApiPropertyOptional(UserProps.name)
@@ -36,22 +34,18 @@ export class User {
 
   @ApiProperty(UserProps.password)
   @Column({ select: false })
-  @Exclude()
   password: string;
 
   @ApiPropertyOptional(UserProps.status)
   @Column({ type: 'enum', enum: UserStatus, default: UserStatus.DEACTIVATE })
-  @Exclude()
   status: UserStatus;
 
   @ApiPropertyOptional(UserProps.role)
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
-  @Exclude()
   role: UserRole;
 
   @ApiProperty(UserProps.registryDates)
   @Column(() => RegistryDatesOrm, { prefix: false })
-  @Exclude()
   registryDates: RegistryDatesOrm;
 
   @ApiProperty(UserProps.sessions)

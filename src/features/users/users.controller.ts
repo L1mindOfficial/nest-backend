@@ -1,18 +1,17 @@
+import { User } from '@features/auth/decorators/user.decorator';
+import { User as UserEntity } from '@features/users/entities/user.entity';
 import {
   Body,
-  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
   HttpCode,
   HttpStatus,
-  Put,
-  UseInterceptors
+  Put
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { User } from '@features/auth/decorators/user.decorator';
-import { User as UserEntity } from '@features/users/entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserProfileDto } from './dto/user-profile.dto';
 import { UsersService } from './users.service';
 import {
   ApiChangeProfile,
@@ -31,9 +30,14 @@ export class UsersController {
   @Get('me')
   @HttpCode(HttpStatus.OK)
   @ApiGetProfile()
-  @UseInterceptors(ClassSerializerInterceptor)
   getProfile(@User('user') user: UserEntity) {
-    return user;
+    return new UserProfileDto(
+      user.name,
+      user.username,
+      user.email,
+      user.role,
+      user.registryDates.createdAt
+    );
   }
 
   @Put()
