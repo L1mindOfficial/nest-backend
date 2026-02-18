@@ -4,10 +4,10 @@ import {
   UnprocessableEntityException
 } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
-import { IUsersService } from './interfaces/users.interface';
+import { CreateUserDto } from '@features/users/dto/create-user.dto';
+import { UpdateUserDto } from '@features/users/dto/update-user.dto';
+import { User } from '@features/users/entities/user.entity';
+import { IUsersService } from '@features/users/interfaces/users.interface';
 
 @Injectable()
 export class UsersService implements IUsersService {
