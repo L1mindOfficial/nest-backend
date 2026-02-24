@@ -27,9 +27,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   validate(req: Request, { sub }: JwtPayload) {
-    const token =
-      req.headers?.authorization?.replace('bearer ', '') ||
-      req.cookies['access-token'];
+    const authHeader = req.headers.authorization;
+
+    const token = authHeader?.startsWith('Bearer ')
+      ? authHeader.slice(7)
+      : req.cookies['access-token'];
 
     return this.authService.validateUserJwt(sub, token);
   }
