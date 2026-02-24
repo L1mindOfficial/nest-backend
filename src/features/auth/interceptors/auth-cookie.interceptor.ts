@@ -15,7 +15,7 @@ export class AuthCookieInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       tap((token: string) => {
-        res.cookie('jwt', token, {
+        res.cookie('access-token', token, {
           httpOnly: true,
           secure: true,
           sameSite: 'strict',
