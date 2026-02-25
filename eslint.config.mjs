@@ -35,7 +35,7 @@ export default [
       sourceType: 'module',
 
       parserOptions: {
-        project: ['./tsconfig.eslint.json', './tsconfig.tests.json']
+        project: ['./tsconfig.eslint.json']
       }
     },
 
@@ -45,5 +45,5 @@ export default [
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'off'
     }
-  }
+  },
 ];
